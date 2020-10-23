@@ -1,0 +1,69 @@
+{
+    "entity.diablo_entity.ambient": {
+      "category": "entity",
+      "subtitle": "entity.diablo_entity.ambient",
+      "sounds": [
+        {
+            "name": "diablomodif:entity/entity.diablo_entity.ambient",
+            "stream": true
+        }
+
+      ]
+    },
+  "entity.diablo_entity.damage": {
+    "category": "entity",
+    "subtitle": "entity.diablo_entity.damage",
+    "sounds": [
+      {
+        "name": "diablomodif:entity/entity.diablo_entity.damage",
+        "stream": true
+      }
+
+    ]
+  },
+  "entity.warden_entity.step": {
+    "category": "entity",
+    "subtitle": "entity.warden_entity.step",
+    "sounds": [
+      {
+        "name": "diablomodif:entity/entity.warden_entity.step",
+        "stream": true
+      }
+
+    ]
+  },
+  "entity.warden_entity.damage": {
+    "category": "entity",
+    "subtitle": "entity.warden_entity.damage",
+    "sounds": [
+      {
+        "name": "diablomodif:entity/entity.warden_entity.damage",
+        "stream": true
+      }
+
+    ]
+  },
+  "entity.warden_entity.ambient": {
+    "category": "entity",
+    "subtitle": "entity.warden_entity.ambient",
+    "sounds": [
+      {
+        "name": "diablomodif:entity/entity.warden_entity.ambient0",
+        "stream": true
+      },
+      {
+        "name": "diablomodif:entity/entity.warden_entity.ambient1",
+        "stream": true
+      },
+      {
+        "name": "diablomodif:entity/entity.warden_entity.ambient2",
+        "stream": true
+      },
+      {
+        "name": "diablomodif:entity/entity.warden_entity.ambient3",
+        "stream": true
+      }
+
+    ]
+  }
+}

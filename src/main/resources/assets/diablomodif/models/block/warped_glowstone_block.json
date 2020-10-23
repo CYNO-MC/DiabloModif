@@ -1,0 +1,6 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "diablomodif:blocks/warped_glowstone_block"
+  }
+}

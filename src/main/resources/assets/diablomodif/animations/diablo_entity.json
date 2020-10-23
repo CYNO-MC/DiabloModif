@@ -1,0 +1,68 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.diablomodif.diabloentity.attack": {
+			"loop": true
+		},
+		"animation.diablomodif.diabloentity.idle": {
+			"animation_length": 4.36,
+			"bones": {
+				"body": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"2.16": {
+							"vector": [1.4, 0, 0],
+							"easing": "easeInOutQuad"
+						},
+						"4.36": {
+							"vector": [0, 0, 0],
+							"easing": "easeOutQuad"
+						}
+					}
+				},
+				"right_arm": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"2.12": {
+							"vector": [0, 0, 2.7]
+						},
+						"4.32": {
+							"vector": [0, 0, 0]
+						}
+					}
+				},
+				"right_arm2": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"2.16": {
+							"vector": [0, 0, -2.7],
+							"easing": "easeInOutQuad"
+						},
+						"4.32": {
+							"vector": [0, 0, 0]
+						}
+					}
+				},
+				"head": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"2.12": {
+							"vector": [2.5, 0, 0]
+						},
+						"4.32": {
+							"vector": [0, 0, 0]
+						}
+					}
+				}
+			}
+		}
+	}
+}
