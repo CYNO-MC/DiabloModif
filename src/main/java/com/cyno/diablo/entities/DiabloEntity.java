@@ -1,10 +1,12 @@
 package com.cyno.diablo.entities;
 
-import com.cyno.diablo.goals.StandardMeleeAttackGoal;
+import com.cyno.diablo.Diablo;
+import com.cyno.diablo.goals.FlamingTargetMeleeAttackGoal;
 import com.cyno.diablo.init.SoundInit;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.goal.LookAtGoal;
@@ -27,10 +29,17 @@ import software.bernie.geckolib.entity.IAnimatedEntity;
 import software.bernie.geckolib.event.AnimationTestEvent;
 import software.bernie.geckolib.manager.EntityAnimationManager;
 
+import java.util.function.Predicate;
+
 public class DiabloEntity extends MonsterEntity implements IAnimatedEntity {
     private EntityAnimationManager manager = new EntityAnimationManager();
     private AnimationController controller = new EntityAnimationController(this, "moveController", 20,
             this::animationPredicate);
+
+    // A predicate to pass into NearestAttackableTargetGoal to check if the entity is on fire
+    private static final Predicate<LivingEntity> IS_ON_FIRE = (entity) -> {
+        return entity.getFireTimer() > 0;
+    };
 
 
     public float getHealthData (){
@@ -54,25 +63,36 @@ public class DiabloEntity extends MonsterEntity implements IAnimatedEntity {
     }
 
     private static final DataParameter<Float> HEALTH_DATA = EntityDataManager.createKey(DiabloEntity.class, DataSerializers.FLOAT);
-    
 
+    @Override
+    protected void registerGoals(){
+        super.registerGoals();
+
+        // If there are any flaming players nearby, set them to attackTarget
+        this.goalSelector.addGoal(0, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, 1, true, false, IS_ON_FIRE));
+
+        // Walk towards and attack the target. Stop if they are no longer on fire
+        this.goalSelector.addGoal(1, new FlamingTargetMeleeAttackGoal(this, 1.0d, true, false));
+
+        // this.goalSelector.addGoal(3, new LookAtGoal(this, PlayerEntity.class, 20.0F));
+        // this.goalSelector.addGoal(2, new WaterAvoidingRandomWalkingGoal(this, 1.0D));
+        }
+
+    @Override
+    protected void registerData() {
+        super.registerData();
+        this.dataManager.register(HEALTH_DATA, 100.0F);
+    }
 
     @Override
     public boolean attackEntityFrom(DamageSource source, float amount) {
+        // Diablo is immune to fire damage
+        if (source.isFireDamage()) return false;
 
         if(this.INITIAL_SPEED - amount > 0){this.INITIAL_SPEED -= amount;} else {this.INITIAL_SPEED = 0; };
         this.onGroundSpeedFactor = INITIAL_SPEED;
 
         return super.attackEntityFrom(source, amount);
-    }
-
-    @Override
-    protected void registerGoals(){
-        super.registerGoals();
-        this.goalSelector.addGoal(0, new NearestAttackableTargetGoal(this, PlayerEntity.class, true));
-        this.goalSelector.addGoal(3, new LookAtGoal(this, PlayerEntity.class, 20.0F));
-        this.goalSelector.addGoal(2, new WaterAvoidingRandomWalkingGoal(this, 1.0D));
-        this.goalSelector.addGoal(1, new StandardMeleeAttackGoal(this, 1.0d, true, false));
     }
 
     @Override
@@ -84,10 +104,12 @@ public class DiabloEntity extends MonsterEntity implements IAnimatedEntity {
         }
     }
 
+
+    // when diablo attacks something
     @Override
-    protected void registerData() {
-        super.registerData();
-        this.dataManager.register(HEALTH_DATA, 100.0F);
+    public boolean attackEntityAsMob(Entity entityIn) {
+        Diablo.LOGGER.debug("Diablo Attacked!");
+        return super.attackEntityAsMob(entityIn);
     }
 
     @Override
