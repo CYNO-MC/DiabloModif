@@ -1,5 +1,6 @@
 package com.cyno.diablo.goals;
 
+import com.cyno.diablo.Diablo;
 import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.MeleeAttackGoal;
@@ -30,20 +31,10 @@ public class StandardMeleeAttackGoal extends MeleeAttackGoal // we need to creat
     }
 
     @Override
-    public void startExecuting() {
-        super.startExecuting();
-    }
-
-    @Override
-    public void resetTask() {
-        super.resetTask();
-    }
-
-
-    @Override
     public void checkAndPerformAttack(LivingEntity enemy, double distToEnemySqr)
     {
         double d0 = this.getAttackReachSqr(enemy);
+
         if (distToEnemySqr <= d0) {
             this.attacker.attackEntityAsMob(enemy);
         }
