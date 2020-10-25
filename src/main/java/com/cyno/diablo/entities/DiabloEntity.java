@@ -1,15 +1,12 @@
 package com.cyno.diablo.entities;
 
-import com.cyno.diablo.Diablo;
 import com.cyno.diablo.goals.FlamingTargetMeleeAttackGoal;
 import com.cyno.diablo.init.SoundInit;
 import net.minecraft.block.BlockState;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
-import net.minecraft.entity.ai.goal.LookAtGoal;
 import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
 import net.minecraft.entity.ai.goal.WaterAvoidingRandomWalkingGoal;
 import net.minecraft.entity.monster.MonsterEntity;
@@ -55,7 +52,7 @@ public class DiabloEntity extends MonsterEntity implements IAnimatedEntity {
     public static AttributeModifierMap.MutableAttribute setCustomAttributes() {
         return DiabloEntity.registerAttributes()
                 .createMutableAttribute(Attributes.MAX_HEALTH, 100.0)
-                .createMutableAttribute(Attributes.MOVEMENT_SPEED, 1.0f)
+                .createMutableAttribute(Attributes.MOVEMENT_SPEED, .25f)
                 .createMutableAttribute(Attributes.ATTACK_KNOCKBACK, 10.0)
                 .createMutableAttribute(Attributes.ATTACK_DAMAGE, 15.0)
                 .createMutableAttribute(Attributes.FOLLOW_RANGE, 50.0);
