@@ -28,8 +28,8 @@ public class DiabloItems {
 
     public static final RegistryObject<Item>REINFORCED_NETHER_BRICK_BLOCK_ITEM = ITEMS.register("reinforced_nether_brick_block",
             () -> new BlockItemBase(DiabloBlocks.REINFORCED_NETHER_BRICK_BLOCK.get()));
-    public static final RegistryObject<Item>NETHER_WALL_BLOCK_ITEM = ITEMS.register("nether_wall_block",
-            () -> new BlockItemBase(DiabloBlocks.NETHER_WALL_BLOCK.get()));
+    public static final RegistryObject<Item>NETHER_WALL_BLOCK_ITEM = ITEMS.register("nether_brick_plank_block",
+            () -> new BlockItemBase(DiabloBlocks.NETHER_BRICK_PLANK_BLOCK.get()));
     public static final RegistryObject<Item>WARPED_GLOWSTONE_BLOCK_ITEM = ITEMS.register("warped_glowstone_block",
             () -> new BlockItemBase(DiabloBlocks.WARPED_GLOWSTONE_BLOCK.get()));
     public static final RegistryObject<Item>ANCIENT_PILLAR_ITEM = ITEMS.register("ancient_pillar",
