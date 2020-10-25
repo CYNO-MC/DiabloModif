@@ -19,7 +19,7 @@ public class DiabloRenderer extends MobRenderer<DiabloEntity, DiabloModel> {
     @Override
     public ResourceLocation getEntityTexture(DiabloEntity entity) {
 
-        if(entity.getHealthData() < 20){
+        if(entity.getHealthData() < 99){
             return TEXTURE_5;
         }
         else{
