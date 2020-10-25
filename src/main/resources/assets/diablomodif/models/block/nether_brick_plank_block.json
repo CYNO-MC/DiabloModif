@@ -1,0 +1,6 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "diablomodif:blocks/nether_brick_plank_block"
+  }
+}

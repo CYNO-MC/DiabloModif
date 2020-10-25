@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "diablomodif:nether_wall_block"
+          "name": "diablomodif:nether_brick_plank_block"
         }
       ]
     }

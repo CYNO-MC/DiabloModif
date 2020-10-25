@@ -5,9 +5,9 @@ import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraftforge.common.ToolType;
 
-public class NetherWallBlock extends Block {
+public class NetherBrickPlankBlock extends Block {
 
-    public NetherWallBlock() {
+    public NetherBrickPlankBlock() {
         super(Block.Properties.create(Material.IRON)
                 .hardnessAndResistance(2.0f, 1.0f)
                 .sound(SoundType.STONE)
