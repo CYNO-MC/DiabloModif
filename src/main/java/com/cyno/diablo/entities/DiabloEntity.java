@@ -72,7 +72,7 @@ public class DiabloEntity extends MonsterEntity implements IAnimatedEntity {
         this.goalSelector.addGoal(1, new FlamingTargetMeleeAttackGoal(this, 0.25d, true));
 
         // When it has no targets, just wonder around randomly and don't walk in any puddles 
-        this.goalSelector.addGoal(2, new WaterAvoidingRandomWalkingGoal(this, 0.25D));
+        this.goalSelector.addGoal(2, new WaterAvoidingRandomWalkingGoal(this, 0.25d));
         }
 
     @Override
