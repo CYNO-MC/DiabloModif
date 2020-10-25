@@ -35,9 +35,6 @@ public class StandardMeleeAttackGoal extends MeleeAttackGoal // we need to creat
     {
         double d0 = this.getAttackReachSqr(enemy);
 
-        Diablo.LOGGER.debug(String.valueOf(distToEnemySqr));
-        Diablo.LOGGER.debug(String.valueOf(d0));
-
         if (distToEnemySqr <= d0) {
             this.attacker.attackEntityAsMob(enemy);
         }

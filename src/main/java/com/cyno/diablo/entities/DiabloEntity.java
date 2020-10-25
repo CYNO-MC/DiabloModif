@@ -45,7 +45,7 @@ public class DiabloEntity extends MonsterEntity implements IAnimatedEntity {
     public float getHealthData (){
         return this.dataManager.get(HEALTH_DATA);
     }
-    private float INITIAL_SPEED = 0.0f;
+    // private float INITIAL_SPEED = 0.0f;
 
     public DiabloEntity(EntityType<? extends MonsterEntity> type, World worldIn) {
         super(type, worldIn);
@@ -55,9 +55,9 @@ public class DiabloEntity extends MonsterEntity implements IAnimatedEntity {
     public static AttributeModifierMap.MutableAttribute setCustomAttributes() {
         return DiabloEntity.registerAttributes()
                 .createMutableAttribute(Attributes.MAX_HEALTH, 100.0)
-                .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.25f)
+                .createMutableAttribute(Attributes.MOVEMENT_SPEED, 1.0f)
                 .createMutableAttribute(Attributes.ATTACK_KNOCKBACK, 10.0)
-                .createMutableAttribute(Attributes.ATTACK_DAMAGE, 30.0)
+                .createMutableAttribute(Attributes.ATTACK_DAMAGE, 15.0)
                 .createMutableAttribute(Attributes.FOLLOW_RANGE, 50.0);
 
     }
@@ -72,10 +72,10 @@ public class DiabloEntity extends MonsterEntity implements IAnimatedEntity {
         this.goalSelector.addGoal(0, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, 1, true, false, IS_ON_FIRE));
 
         // Walk towards and attack the target. Stop if they are no longer on fire
-        this.goalSelector.addGoal(1, new FlamingTargetMeleeAttackGoal(this, 1.0d, true, false));
+        this.goalSelector.addGoal(1, new FlamingTargetMeleeAttackGoal(this, 1.0d, true));
 
-        // this.goalSelector.addGoal(3, new LookAtGoal(this, PlayerEntity.class, 20.0F));
-        // this.goalSelector.addGoal(2, new WaterAvoidingRandomWalkingGoal(this, 1.0D));
+        // When it has no targets, just wonder around randomly and don't walk in any puddles 
+        this.goalSelector.addGoal(2, new WaterAvoidingRandomWalkingGoal(this, 1.0D));
         }
 
     @Override
@@ -87,29 +87,12 @@ public class DiabloEntity extends MonsterEntity implements IAnimatedEntity {
     @Override
     public boolean attackEntityFrom(DamageSource source, float amount) {
         // Diablo is immune to fire damage
-        if (source.isFireDamage()) return false;
-
-        if(this.INITIAL_SPEED - amount > 0){this.INITIAL_SPEED -= amount;} else {this.INITIAL_SPEED = 0; };
-        this.onGroundSpeedFactor = INITIAL_SPEED;
+        if (source.isFireDamage()){
+            this.extinguish();  // if on fire put it out
+            return false;
+        }
 
         return super.attackEntityFrom(source, amount);
-    }
-
-    @Override
-    protected void collideWithEntity(Entity entityIn) {
-        super.collideWithEntity(entityIn);
-        if(entityIn == this.getAttackTarget()){
-            if(entityIn.isAlive())
-                this.attackEntityAsMob(entityIn);
-        }
-    }
-
-
-    // when diablo attacks something
-    @Override
-    public boolean attackEntityAsMob(Entity entityIn) {
-        Diablo.LOGGER.debug("Diablo Attacked!");
-        return super.attackEntityAsMob(entityIn);
     }
 
     @Override
