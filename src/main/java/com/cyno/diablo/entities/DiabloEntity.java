@@ -8,7 +8,6 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
-import net.minecraft.entity.ai.goal.WaterAvoidingRandomWalkingGoal;
 import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.datasync.DataParameter;
@@ -52,7 +51,7 @@ public class DiabloEntity extends MonsterEntity implements IAnimatedEntity {
     public static AttributeModifierMap.MutableAttribute setCustomAttributes() {
         return DiabloEntity.registerAttributes()
                 .createMutableAttribute(Attributes.MAX_HEALTH, 100.0)
-                .createMutableAttribute(Attributes.MOVEMENT_SPEED, 1.0f)
+                .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.80f)
                 .createMutableAttribute(Attributes.ATTACK_KNOCKBACK, 10.0)
                 .createMutableAttribute(Attributes.ATTACK_DAMAGE, 15.0)
                 .createMutableAttribute(Attributes.FOLLOW_RANGE, 50.0);
@@ -71,8 +70,6 @@ public class DiabloEntity extends MonsterEntity implements IAnimatedEntity {
         // Walk towards and attack the target. Stop if they are no longer on fire
         this.goalSelector.addGoal(1, new FlamingTargetMeleeAttackGoal(this, 1.0d, true));
 
-        // When it has no targets, just wonder around randomly and don't walk in any puddles 
-        this.goalSelector.addGoal(2, new WaterAvoidingRandomWalkingGoal(this, 1.0D));
         }
 
     @Override

@@ -10,7 +10,7 @@ import net.minecraft.util.ResourceLocation;
 public class DiabloRenderer extends MobRenderer<DiabloEntity, DiabloModel> {
 
     protected static final ResourceLocation TEXTURE = new ResourceLocation(Diablo.MOD_ID, "textures/entity/custom_model.png");
-    protected static final ResourceLocation TEXTURE_5 = new ResourceLocation(Diablo.MOD_ID, "textures/entity/custom_model1.png");
+    protected static final ResourceLocation TEXTURE_1 = new ResourceLocation(Diablo.MOD_ID, "textures/entity/custom_model1.png");
 
     public DiabloRenderer(EntityRendererManager renderManagerIn) {
         super(renderManagerIn, new DiabloModel(), 1.0f);
@@ -20,7 +20,7 @@ public class DiabloRenderer extends MobRenderer<DiabloEntity, DiabloModel> {
     public ResourceLocation getEntityTexture(DiabloEntity entity) {
 
         if(entity.getHealthData() < 99){
-            return TEXTURE_5;
+            return TEXTURE_1;
         }
         else{
             return TEXTURE;
