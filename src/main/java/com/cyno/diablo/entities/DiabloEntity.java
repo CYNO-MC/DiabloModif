@@ -51,7 +51,7 @@ public class DiabloEntity extends MonsterEntity implements IAnimatedEntity {
     public static AttributeModifierMap.MutableAttribute setCustomAttributes() {
         return DiabloEntity.registerAttributes()
                 .createMutableAttribute(Attributes.MAX_HEALTH, 100.0)
-                .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.25f)
+                .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.80f)
                 .createMutableAttribute(Attributes.ATTACK_KNOCKBACK, 10.0)
                 .createMutableAttribute(Attributes.ATTACK_DAMAGE, 15.0)
                 .createMutableAttribute(Attributes.FOLLOW_RANGE, 50.0);
@@ -69,7 +69,7 @@ public class DiabloEntity extends MonsterEntity implements IAnimatedEntity {
 
         // Walk towards and attack the target. Stop if they are no longer on fire
         this.goalSelector.addGoal(1, new FlamingTargetMeleeAttackGoal(this, 1.0d, true));
-        
+
         }
 
     @Override
