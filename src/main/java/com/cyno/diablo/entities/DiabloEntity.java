@@ -68,7 +68,7 @@ public class DiabloEntity extends MonsterEntity implements IAnimatedEntity {
         this.goalSelector.addGoal(0, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, 1, true, false, IS_ON_FIRE));
 
         // Walk towards and attack the target. Stop if they are no longer on fire
-        this.goalSelector.addGoal(1, new FlamingTargetMeleeAttackGoal(this, 1.0d, true));
+        this.goalSelector.addGoal(1, new FlamingTargetMeleeAttackGoal(this, .20d, true));
 
         }
 
