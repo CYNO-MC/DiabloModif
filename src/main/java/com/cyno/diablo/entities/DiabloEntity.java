@@ -8,7 +8,6 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
-import net.minecraft.entity.ai.goal.RandomWalkingGoal;
 import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.datasync.DataParameter;
@@ -70,8 +69,7 @@ public class DiabloEntity extends MonsterEntity implements IAnimatedEntity {
 
         // Walk towards and attack the target. Stop if they are no longer on fire
         this.goalSelector.addGoal(1, new FlamingTargetMeleeAttackGoal(this, 1.50d, true));
-
-        this.goalSelector.addGoal( 2, new RandomWalkingGoal(this, 1.0, 1, true));
+        
 
         }
 
