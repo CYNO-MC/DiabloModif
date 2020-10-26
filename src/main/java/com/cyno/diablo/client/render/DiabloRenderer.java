@@ -9,8 +9,8 @@ import net.minecraft.util.ResourceLocation;
 
 public class DiabloRenderer extends MobRenderer<DiabloEntity, DiabloModel> {
 
-    protected static final ResourceLocation DIABLO_TEXTURE = new ResourceLocation(Diablo.MOD_ID, "textures/entity/custom_model.png");
-    protected static final ResourceLocation DIABLO_GLOW = new ResourceLocation(Diablo.MOD_ID, "textures/entity/custom_model1.png");
+    protected static final ResourceLocation DIABLO_TEXTURE = new ResourceLocation(Diablo.MOD_ID, "textures/entity/diablo_texture.png");
+    protected static final ResourceLocation DIABLO_GLOW = new ResourceLocation(Diablo.MOD_ID, "textures/entity/diablo_glow.png");
 
     public DiabloRenderer(EntityRendererManager renderManagerIn) {
         super(renderManagerIn, new DiabloModel(), 1.0f);
