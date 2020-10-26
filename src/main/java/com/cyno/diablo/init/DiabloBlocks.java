@@ -47,6 +47,6 @@ public class DiabloBlocks {
 
     public static final RegistryObject<Block> HARDENED_OBSIDIAN = BLOCKS.register("hardened_obsidian_block", () -> new Block(Block.Properties.create(Material.IRON)
             .hardnessAndResistance(150.0f, 1200f)
-            .sound(SoundType.NETHER_GOLD)
+            .sound(SoundType.STONE)
             .harvestLevel(4)
             .harvestTool(ToolType.PICKAXE)));}
