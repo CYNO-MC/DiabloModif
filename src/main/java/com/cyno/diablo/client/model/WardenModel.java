@@ -1,5 +1,6 @@
 package com.cyno.diablo.client.model;
 
+import com.cyno.diablo.entities.WardenEntity;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import net.minecraft.client.renderer.entity.model.EntityModel;
@@ -7,7 +8,7 @@ import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.util.math.MathHelper;
 
-public class WardenModel<T extends MonsterEntity> extends EntityModel<T> {
+public class WardenModel<T extends WardenEntity> extends EntityModel<T> {
     private final ModelRenderer body;
     private final ModelRenderer right_arm;
     private final ModelRenderer right_arm2;
@@ -50,10 +51,10 @@ public class WardenModel<T extends MonsterEntity> extends EntityModel<T> {
     public void setRotationAngles(T entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         this.head.rotateAngleX = headPitch * ((float)Math.PI / 180F);
         this.head.rotateAngleY = netHeadYaw * ((float)Math.PI / 180F);
-        this.right_leg.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
-        this.left_leg.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float)Math.PI) * 1.4F * limbSwingAmount;
-        this.right_arm.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float)Math.PI) * 1.4F * limbSwingAmount;
-        this.right_arm2.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
+        this.right_leg.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * entityIn.getAnimSpeed() * limbSwingAmount;
+        this.left_leg.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float)Math.PI) * entityIn.getAnimSpeed() * limbSwingAmount;
+        this.right_arm.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float)Math.PI) * entityIn.getAnimSpeed() * limbSwingAmount;
+        this.right_arm2.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * entityIn.getAnimSpeed() * limbSwingAmount;
     }
 
     @Override
