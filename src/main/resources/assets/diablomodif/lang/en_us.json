@@ -1,14 +1,15 @@
 {
-  "item.diablomodif.glass_vile": "Glass Vile",
-  "item.diablomodif.the_horns_of_diablo": "The Horns of Diablo",
   "block.diablomodif.reinforced_nether_brick_block": "Reinforced Nether Brick",
   "block.diablomodif.nether_brick_plank_block": "Nether Brick Planks",
-  "item.diablomodif.the_conflagrate": "The Conflagrate",
   "block.diablomodif.warped_glowstone_block": "Soul Glowstone",
   "block.diablomodif.hardened_obsidian_block": "Hardened Obsidian",
-  "entity.diablomodif.diablo": "Diablo",
+  "block.diablomodif.hardened_netherrack_block": "Hardened Netherrack",
   "block.diablomodif.ancient_pillar": "Ancient Pillar",
+  "item.diablomodif.the_conflagrate": "The Conflagrate",
+  "item.diablomodif.glass_vile": "Glass Vile",
+  "item.diablomodif.the_horns_of_diablo": "The Horns of Diablo",
   "entity.diablomodif.distorted": "d i s t o r t e d",
   "entity.diablomodif.warden": "The Warden",
+  "entity.diablomodif.diablo": "Diablo",
   "itemGroup.diabloTab": "Diablo"
 }

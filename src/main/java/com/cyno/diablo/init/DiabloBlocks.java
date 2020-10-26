@@ -49,4 +49,58 @@ public class DiabloBlocks {
             .hardnessAndResistance(150.0f, 1200f)
             .sound(SoundType.STONE)
             .harvestLevel(4)
-            .harvestTool(ToolType.PICKAXE)));}
+            .harvestTool(ToolType.PICKAXE)));
+
+    public static final RegistryObject<Block> HARDENED_NETHERRACK = BLOCKS.register("hardened_netherrack_block", () -> new Block(Block.Properties.create(Material.ROCK)
+            .hardnessAndResistance(1.2f, 1.2f)
+            .sound(SoundType.STONE)
+            .harvestLevel(0)
+            .harvestTool(ToolType.PICKAXE)));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+}
