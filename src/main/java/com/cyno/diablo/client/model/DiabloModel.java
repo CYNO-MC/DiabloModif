@@ -11,7 +11,7 @@ import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.util.math.MathHelper;
 
-public class DiabloModel extends EntityModel<DiabloEntity> {
+public class DiabloModel<T extends DiabloEntity> extends EntityModel<T> {
 	private final ModelRenderer diabloWaist;
 	private final ModelRenderer diabloBelly;
 	private final ModelRenderer diabloChest;

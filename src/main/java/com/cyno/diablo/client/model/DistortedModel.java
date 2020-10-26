@@ -1,13 +1,14 @@
 package com.cyno.diablo.client.model;
 
+import com.cyno.diablo.entities.DistortedEntity;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
-import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.util.math.MathHelper;
 
-public class DistortedModel<T extends MonsterEntity> extends EntityModel<T> {private final ModelRenderer Head;
+public class DistortedModel<T extends DistortedEntity> extends EntityModel<T> {
+    private final ModelRenderer Head;
     private final ModelRenderer Body;
     private final ModelRenderer RightLeg;
     private final ModelRenderer LeftLeg;
