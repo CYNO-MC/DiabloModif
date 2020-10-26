@@ -39,7 +39,7 @@ public class DiabloBlocks {
             .setLightLevel(value -> 15)));
 
     public static final RegistryObject<Block> ANCIENT_PILLAR = BLOCKS.register("ancient_pillar", () -> new RotatedPillarBlock(AbstractBlock.Properties.create(Material.IRON)
-            .hardnessAndResistance(0.8f, 0.2F)
+            .hardnessAndResistance(30f, 1200.0f)
             .sound(SoundType.ANCIENT_DEBRIS)
             .harvestLevel(3)
             .harvestTool(ToolType.PICKAXE)
@@ -57,7 +57,11 @@ public class DiabloBlocks {
             .harvestLevel(0)
             .harvestTool(ToolType.PICKAXE)));
 
-
+    public static final RegistryObject<Block> ANCIENT_BRICK_BLOCK = BLOCKS.register("ancient_brick_block", () -> new Block(Block.Properties.create(Material.ROCK)
+            .hardnessAndResistance(30f, 1200.0f)
+            .sound(SoundType.ANCIENT_DEBRIS)
+            .harvestLevel(3)
+            .harvestTool(ToolType.PICKAXE)));
 
 
 
