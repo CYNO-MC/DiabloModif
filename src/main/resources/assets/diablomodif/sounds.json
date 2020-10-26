@@ -32,6 +32,17 @@
 
     ]
   },
+  "entity.diablo_entity.step": {
+    "category": "entity",
+    "subtitle": "entity.warden_entity.step",
+    "sounds": [
+      {
+        "name": "diablomodif:entity/entity.diablo_entity.step",
+        "stream": true
+      }
+
+    ]
+  },
   "entity.warden_entity.damage": {
     "category": "entity",
     "subtitle": "entity.warden_entity.damage",

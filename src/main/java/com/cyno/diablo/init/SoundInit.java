@@ -13,6 +13,9 @@ public class SoundInit {
     public static final RegistryObject<SoundEvent> AMBIENT = SOUNDS.register("entity.diablo_entity.ambient", () ->
             new SoundEvent(new ResourceLocation(Diablo.MOD_ID, "entity.diablo_entity.ambient")));
 
+    public static final RegistryObject<SoundEvent> DSTEP = SOUNDS.register("entity.diablo_entity.step", () ->
+            new SoundEvent(new ResourceLocation(Diablo.MOD_ID, "entity.diablo_entity.step")));
+
     public static final RegistryObject<SoundEvent> DAMAGE = SOUNDS.register("entity.diablo_entity.damage", () ->
             new SoundEvent(new ResourceLocation(Diablo.MOD_ID, "entity.diablo_entity.damage")));
 

@@ -15,7 +15,6 @@ import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
-import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import software.bernie.geckolib.animation.builder.AnimationBuilder;
@@ -113,7 +112,7 @@ public class DiabloEntity extends MonsterEntity implements IAnimatedEntity {
 
     @Override
     protected void playStepSound(BlockPos pos, BlockState blockIn) {
-        this.playSound(SoundEvents.ENTITY_IRON_GOLEM_STEP, 1.0f, 0.40f);
+        this.playSound(SoundInit.DSTEP.get(), 1.00f, 1.00f);
 
     }
     @Override
