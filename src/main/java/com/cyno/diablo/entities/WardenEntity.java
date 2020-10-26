@@ -1,27 +1,54 @@
 package com.cyno.diablo.entities;
 
+import com.cyno.diablo.goals.AlertedBySoundGoal;
 import com.cyno.diablo.goals.StandardMeleeAttackGoal;
+import com.cyno.diablo.init.DiabloEntityTypes;
 import com.cyno.diablo.init.SoundInit;
+import com.cyno.diablo.util.Debug;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
-import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
-import net.minecraft.entity.merchant.villager.VillagerEntity;
+import net.minecraft.entity.ai.goal.WaterAvoidingRandomWalkingGoal;
 import net.minecraft.entity.monster.MonsterEntity;
-import net.minecraft.entity.passive.IronGolemEntity;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 
 public class WardenEntity extends MonsterEntity {
 
+    private static final DataParameter<Float> ANIM_SPEED = EntityDataManager.createKey(WardenEntity.class, DataSerializers.FLOAT);
+
+    public static WardenEntity instance;
+    public Vector3d soundPosition = null;
+    public AlertedBySoundGoal alertedBySoundGoal;
+    public StandardMeleeAttackGoal meleeAttackGoal;
+    public float currentParticlesDelay = 0;
+    public float maxParticlesDelay = 20;
+    public boolean canHear = false;
+    public Vector3d lastHeardPos;
+    float wardenSpeed = 1.8f;
+    float initWardenSpeed = 1.8f;
+    float maxWardenSpeed = 2.8f;
     public WardenEntity(EntityType<? extends MonsterEntity> type, World worldIn) {
         super(type, worldIn);
+        if(!worldIn.isRemote()){
+            if(instance == null)
+                instance = this;
+
+            if(this != instance)
+            {
+                remove();
+            }
+            setAnimSpeed(initWardenSpeed);
+        }
     }
 
     public static AttributeModifierMap.MutableAttribute setCustomAttributes() {
@@ -30,29 +57,85 @@ public class WardenEntity extends MonsterEntity {
                 .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.15f)
                 .createMutableAttribute(Attributes.ATTACK_KNOCKBACK, 1.0)
                 .createMutableAttribute(Attributes.ATTACK_DAMAGE, 7.0)
-                .createMutableAttribute(Attributes.FOLLOW_RANGE, 15.0);
+                .createMutableAttribute(Attributes.FOLLOW_RANGE, 45.0);
     }
 
     @Override
     protected void registerGoals() {
         super.registerGoals();
-        this.goalSelector.addGoal(0, new NearestAttackableTargetGoal(this, PlayerEntity.class, true));
-        this.goalSelector.addGoal(2, new StandardMeleeAttackGoal(this, 1.0d, true, false));
-        this.goalSelector.addGoal(1, new NearestAttackableTargetGoal(this, VillagerEntity.class, true));
-        this.goalSelector.addGoal(3, new NearestAttackableTargetGoal(this, IronGolemEntity.class, true));
+        wardenSpeed = 1.8f;
+        meleeAttackGoal = new StandardMeleeAttackGoal(this, wardenSpeed, true, true);
+        alertedBySoundGoal = new AlertedBySoundGoal(this, 1.4f, true);
+        this.goalSelector.addGoal(0,  meleeAttackGoal);
+        this.goalSelector.addGoal(1, new WaterAvoidingRandomWalkingGoal(this, 1.2f));
+        this.goalSelector.addGoal(0, alertedBySoundGoal);
     }
+
     @Override
-    protected void collideWithEntity(Entity entityIn) {
-        super.collideWithEntity(entityIn);
-        if(entityIn == this.getAttackTarget()){
-            if(entityIn.isAlive())
-                this.attackEntityAsMob(entityIn);
+    protected void registerData() {
+        super.registerData();
+        this.dataManager.register(ANIM_SPEED, wardenSpeed);
+    }
+
+    public Float getAnimSpeed(){
+        return this.dataManager.get(ANIM_SPEED);
+    }
+
+    public void setAnimSpeed(float speed){
+        wardenSpeed = speed;
+        this.dataManager.set(ANIM_SPEED, wardenSpeed);
+    }
+
+    public void accelerateMovement(float speed){
+        if(this.meleeAttackGoal != null){
+            this.meleeAttackGoal.setSpeed(speed);
+            this.setAnimSpeed(speed);
+        }
+    }
+
+    private void AddSoundParticlesCoroutineAt(Vector3d p){
+        if(WardenEntity.instance != null)
+        if(WardenEntity.instance.currentParticlesDelay < WardenEntity.instance.maxParticlesDelay){
+            ++WardenEntity.instance.currentParticlesDelay;
+        }
+        else
+        {
+            AmbiantWardenSoundParticleEntity particleEntity = new AmbiantWardenSoundParticleEntity(DiabloEntityTypes.WARDEN_SOUND_PARTICLES.get(), WardenEntity.instance.world);
+            particleEntity.setWarden(WardenEntity.instance);
+            particleEntity.setSoundPosition(p);
+            particleEntity.setPosition(p.getX(), p.getY(), p.getZ());
+            WardenEntity.instance.world.addEntity(particleEntity);
+            WardenEntity.instance.currentParticlesDelay = 0;
+            canHear = false;
+            WardenEntity.instance.lastHeardPos = null;
         }
     }
 
     @Override
     public void livingTick() {
         super.livingTick();
+        if(canHear)
+            this.AddSoundParticlesCoroutineAt(lastHeardPos);
+    }
+
+    @Override
+    public void onDeath(DamageSource cause) {
+        super.onDeath(cause);
+        instance = null;
+    }
+
+    @Override
+    public boolean attackEntityFrom(DamageSource source, float amount) {
+        if(this.getHealth() < (3 * this.getMaxHealth())/4)
+        {
+            if(wardenSpeed < maxWardenSpeed)
+            this.accelerateMovement(Math.max(wardenSpeed + amount * 0.1f, initWardenSpeed));
+        }
+        else
+        {
+            this.accelerateMovement(initWardenSpeed);
+        }
+        return super.attackEntityFrom(source, amount);
     }
 
     @Override
@@ -72,5 +155,10 @@ public class WardenEntity extends MonsterEntity {
     @Override
     protected SoundEvent getDeathSound() {
         return SoundEvents.ENTITY_ENDER_DRAGON_DEATH;
+    }
+
+    @Override
+    public void playAmbientSound() {
+        super.playAmbientSound();
     }
 }
