@@ -10,7 +10,10 @@ public class FlamingTargetMeleeAttackGoal extends MeleeAttackGoal {
     public FlamingTargetMeleeAttackGoal(CreatureEntity entityIn, double speedIn, boolean useLongMemory) {
         super(entityIn, speedIn, useLongMemory);
     }
-
+    @Override
+    protected double getAttackReachSqr(LivingEntity attackTarget) {
+        return (double)(this.attacker.getWidth() * 2.0F  + attackTarget.getWidth());
+    }
     @Override
     public boolean shouldContinueExecuting() {
         boolean targetable = super.shouldContinueExecuting();  // this includes a null check for the target
