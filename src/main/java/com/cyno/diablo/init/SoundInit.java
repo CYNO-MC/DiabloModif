@@ -24,5 +24,5 @@ public class SoundInit {
 
     public static final RegistryObject<SoundEvent> WAMBIENT = SOUNDS.register("entity.warden_entity.ambient", () ->
             new SoundEvent(new ResourceLocation(Diablo.MOD_ID, "entity.warden_entity.ambient")));
-
+    
 }
