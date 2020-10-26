@@ -28,7 +28,7 @@ public class DiabloBlocks {
     public static final RegistryObject<Block> NETHER_BRICK_PLANK_BLOCK = BLOCKS.register("nether_brick_plank_block", () -> new Block(Block.Properties.create(Material.IRON)
             .hardnessAndResistance(2.0f, 3.0f)
             .sound(SoundType.STONE)
-            .harvestLevel(2)
+            .harvestLevel(0)
             .harvestTool(ToolType.PICKAXE)));
 
     public static final RegistryObject<Block> WARPED_GLOWSTONE_BLOCK = BLOCKS.register("warped_glowstone_block", () -> new Block(Block.Properties.create(Material.GLASS)
@@ -43,4 +43,10 @@ public class DiabloBlocks {
             .sound(SoundType.ANCIENT_DEBRIS)
             .harvestLevel(3)
             .harvestTool(ToolType.PICKAXE)
-            .setRequiresTool()));}
+            .setRequiresTool()));
+
+    public static final RegistryObject<Block> HARDENED_OBSIDIAN = BLOCKS.register("hardened_obsidian_block", () -> new Block(Block.Properties.create(Material.IRON)
+            .hardnessAndResistance(150.0f, 1200f)
+            .sound(SoundType.NETHER_GOLD)
+            .harvestLevel(4)
+            .harvestTool(ToolType.PICKAXE)));}
