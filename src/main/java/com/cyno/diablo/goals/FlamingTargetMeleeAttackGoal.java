@@ -12,7 +12,7 @@ public class FlamingTargetMeleeAttackGoal extends MeleeAttackGoal {
     }
     @Override
     protected double getAttackReachSqr(LivingEntity attackTarget) {
-        return (double)(this.attacker.getWidth() * 2.0F  + attackTarget.getWidth());
+        return (double)(this.attacker.getWidth() * 3.0F  + attackTarget.getWidth());
     }
     @Override
     public boolean shouldContinueExecuting() {
