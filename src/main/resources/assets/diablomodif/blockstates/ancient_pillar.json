@@ -1,5 +1,7 @@
 {
   "variants": {
-    "": { "model": "diablomodif:block/ancient_pillar" }
+    "axis=y":    { "model": "diablomodif:block/ancient_pillar" },
+    "axis=z":     { "model": "diablomodif:block/ancient_pillar", "x": 90 },
+    "axis=x":     { "model": "diablomodif:block/ancient_pillar", "x": 90, "y": 90 }
   }
 }
