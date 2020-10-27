@@ -7,7 +7,7 @@ import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.util.ResourceLocation;
 
-public class DiabloRenderer extends MobRenderer<DiabloEntity, DiabloModel> {
+public class DiabloRenderer extends MobRenderer<DiabloEntity, DiabloModel<DiabloEntity>> {
 
     protected static final ResourceLocation DIABLO_TEXTURE = new ResourceLocation(Diablo.MOD_ID, "textures/entity/diablo_texture.png");
     protected static final ResourceLocation DIABLO_GLOW = new ResourceLocation(Diablo.MOD_ID, "textures/entity/diablo_glow.png");
