@@ -18,7 +18,7 @@ public class DiabloEntityTypes {
 
     //Entity Types
     public static final RegistryObject<EntityType<DiabloEntity>> DIABLO = ENTITY_TYPES.register("diablo",
-            () -> EntityType.Builder.create(DiabloEntity::new, EntityClassification.MONSTER).size(1.4f, 3.0f)
+            () -> EntityType.Builder.create(DiabloEntity::new, EntityClassification.MONSTER).size(1.4f, 5.5f)
             .build(new ResourceLocation(Diablo.MOD_ID, "diablo").toString()));
 
 
