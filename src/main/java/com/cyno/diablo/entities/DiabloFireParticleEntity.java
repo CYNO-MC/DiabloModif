@@ -52,8 +52,8 @@ public class DiabloFireParticleEntity extends AmbientEntity {
     }
 
     // create a new one, set its shooter and send it in a horizontal direction (specified with degrees
-    // around a circle centered on the shooter). yOffset is how much up from the bottom of the shooter
-    // degrees can be from 0 - 360 (outside range just loops around)
+    // around a circle centered on the shooter, 0 is positive x). yOffset is how much up from the bottom
+    // of the shooter degrees can be from 0 - 360 (outside range just loops around)
     // could fairly easily refactor to not need a shooter
     public static void createNew(World world, LivingEntity shooter, double degrees, double yOffset) {
         DiabloFireParticleEntity particle = new DiabloFireParticleEntity(DiabloEntityTypes.DIABLO_FIRE_PARTICLE.get(), world);
