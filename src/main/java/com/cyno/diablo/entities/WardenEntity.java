@@ -21,8 +21,14 @@ import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
+import software.bernie.geckolib.animation.builder.AnimationBuilder;
+import software.bernie.geckolib.animation.controller.AnimationController;
+import software.bernie.geckolib.animation.controller.EntityAnimationController;
+import software.bernie.geckolib.entity.IAnimatedEntity;
+import software.bernie.geckolib.event.AnimationTestEvent;
+import software.bernie.geckolib.manager.EntityAnimationManager;
 
-public class WardenEntity extends MonsterEntity {
+public class WardenEntity extends MonsterEntity implements IAnimatedEntity {
 
     private static final DataParameter<Float> ANIM_SPEED = EntityDataManager.createKey(WardenEntity.class, DataSerializers.FLOAT);
 
@@ -37,8 +43,13 @@ public class WardenEntity extends MonsterEntity {
     float wardenSpeed = 1.8f;
     float initWardenSpeed = 1.8f;
     float maxWardenSpeed = 2.8f;
+    private EntityAnimationManager animationManager = new EntityAnimationManager();
+    private AnimationController animator = new EntityAnimationController(this, "moveController", 20, this::animationPredicate);
+
+
     public WardenEntity(EntityType<? extends MonsterEntity> type, World worldIn) {
         super(type, worldIn);
+        registerAnimators();
         if(!worldIn.isRemote()){
             if(instance == null)
                 instance = this;
@@ -47,7 +58,7 @@ public class WardenEntity extends MonsterEntity {
             {
                 remove();
             }
-            setAnimSpeed(initWardenSpeed);
+            this.accelerateMovement(initWardenSpeed);
         }
     }
 
@@ -77,19 +88,13 @@ public class WardenEntity extends MonsterEntity {
         this.dataManager.register(ANIM_SPEED, wardenSpeed);
     }
 
-    public Float getAnimSpeed(){
-        return this.dataManager.get(ANIM_SPEED);
-    }
-
-    public void setAnimSpeed(float speed){
-        wardenSpeed = speed;
-        this.dataManager.set(ANIM_SPEED, wardenSpeed);
-    }
 
     public void accelerateMovement(float speed){
         if(this.meleeAttackGoal != null){
             this.meleeAttackGoal.setSpeed(speed);
-            this.setAnimSpeed(speed);
+            this.animationManager.setAnimationSpeed(speed);
+            Debug.Danger(this.animationManager.getCurrentAnimationSpeed());
+
         }
     }
 
@@ -160,5 +165,25 @@ public class WardenEntity extends MonsterEntity {
     @Override
     public void playAmbientSound() {
         super.playAmbientSound();
+    }
+
+    @Override
+    public EntityAnimationManager getAnimationManager() {
+        return animationManager;
+    }
+
+    private <E extends WardenEntity> boolean animationPredicate(AnimationTestEvent<E> event){
+        if(event.isWalking()){
+            animator.setAnimation(new AnimationBuilder().addAnimation("animation.warden.walking", true));
+            return true;
+        }
+        else
+            return false;
+        //IF IS ATTACKING SET ATTACK ANIM, WON'T AFFECT THE WALK ANIM AS MUCH AS THE ROTATED GROUPS ARE NOT THE SAME
+        //attackAnimator.setAnimationBlablabla
+    }
+
+    private void registerAnimators(){
+        animationManager.addAnimationController(animator);
     }
 }

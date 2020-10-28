@@ -79,7 +79,6 @@ public class StandardMeleeAttackGoal extends MeleeAttackGoal // we need to creat
             this.entity.lookAt(EntityAnchorArgument.Type.EYES, livingentity.getEyePosition(1));
 
             this.entity.getNavigator().tryMoveToXYZ(livingentity.getPosX(),livingentity.getPosY(),livingentity.getPosZ(), speedTowardsTarget);
-            Debug.Danger(speedTowardsTarget);
             if(this.damageOnContact)
             {
                 this.checkAndPerformAttack(livingentity, 2.4f);
