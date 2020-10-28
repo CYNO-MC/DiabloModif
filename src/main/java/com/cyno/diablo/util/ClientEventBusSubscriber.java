@@ -1,10 +1,8 @@
 package com.cyno.diablo.util;
 
 import com.cyno.diablo.Diablo;
-import com.cyno.diablo.client.render.AmbiantWardenSoundParticleRenderer;
-import com.cyno.diablo.client.render.DiabloRenderer;
-import com.cyno.diablo.client.render.DistortedRenderer;
-import com.cyno.diablo.client.render.WardenRenderer;
+import com.cyno.diablo.client.render.*;
+import com.cyno.diablo.entities.DiabloFireParticleEntity;
 import com.cyno.diablo.init.DiabloEntityTypes;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.PlayerEntity;
@@ -29,6 +27,7 @@ public class ClientEventBusSubscriber {
         RenderingRegistry.registerEntityRenderingHandler(DiabloEntityTypes.DISTORTED.get(), DistortedRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(DiabloEntityTypes.WARDEN.get(), WardenRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(DiabloEntityTypes.WARDEN_SOUND_PARTICLES.get(), AmbiantWardenSoundParticleRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(DiabloEntityTypes.DIABLO_FIRE_PARTICLE.get(), DiabloFireParticleRenderer::new);
     }
 
 }
