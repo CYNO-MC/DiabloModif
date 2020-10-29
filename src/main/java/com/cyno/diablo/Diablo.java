@@ -5,6 +5,7 @@ import com.cyno.diablo.init.DiabloBlocks;
 import com.cyno.diablo.init.DiabloEntityTypes;
 import com.cyno.diablo.init.DiabloItems;
 import com.cyno.diablo.init.SoundInit;
+import com.cyno.diablo.util.BrewingHandler;
 import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
@@ -44,6 +45,8 @@ public class Diablo {
             GlobalEntityTypeAttributes.put(DiabloEntityTypes.DIABLO.get(), DiabloEntity.setCustomAttributes().create());
             GlobalEntityTypeAttributes.put(DiabloEntityTypes.DISTORTED.get(), DistortedEntity.setCustomAttributes().create());
             GlobalEntityTypeAttributes.put(DiabloEntityTypes.WARDEN.get(), WardenEntity.setCustomAttributes().create());
+
+            BrewingHandler.addPotionRecipes();
         });
     }
 
