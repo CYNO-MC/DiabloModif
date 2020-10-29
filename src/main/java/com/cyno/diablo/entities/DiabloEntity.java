@@ -70,7 +70,7 @@ public class DiabloEntity extends MonsterEntity implements IAnimatedEntity {
         this.goalSelector.addGoal(1, new FlamingTargetMeleeAttackGoal(this, 1.0d, true));
 
         // When there are no flaming players nearby, shoot rings of fire particles
-        this.goalSelector.addGoal(2, new FireCircleAttackGoal(this, 12, 1.5D));
+        this.goalSelector.addGoal(2, new FireCircleAttackGoal(this, 48, 1.5D));
     }
 
     @Override

@@ -2,6 +2,8 @@ package com.cyno.diablo.entities;
 
 import com.cyno.diablo.Diablo;
 import com.cyno.diablo.init.DiabloEntityTypes;
+import net.minecraft.advancements.CriteriaTriggers;
+import net.minecraft.block.AbstractFireBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.crash.CrashReport;
 import net.minecraft.crash.CrashReportCategory;
@@ -12,6 +14,11 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.passive.AmbientEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.*;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
@@ -19,7 +26,7 @@ import net.minecraft.world.World;
 import java.util.UUID;
 
 public class DiabloFireParticleEntity extends AmbientEntity {
-    private static final double SPEED = 1.5D;
+    private static final double SPEED = 2.5D;
     private UUID shooterUUID;
     private int age;
 
@@ -30,6 +37,7 @@ public class DiabloFireParticleEntity extends AmbientEntity {
         this.setInvulnerable(true);
         this.age = 0;
         this.noClip = true;  // so that it doesn't stop before it hits the wall
+        this.setFire(5);
     }
 
     // crashes if you don't do these even though they don't effect anything
@@ -48,6 +56,10 @@ public class DiabloFireParticleEntity extends AmbientEntity {
 
             // I have to call this manually becuase I set noClip to true
             this.doBlockCollisions();
+
+            // if I do this only when it hits a block, its does it while inside a block
+            // and sometimes thinks it hit the opposite side.
+            ingniteBlock();
         }
     }
 
@@ -75,10 +87,7 @@ public class DiabloFireParticleEntity extends AmbientEntity {
     // when it hits an entity other than the shooter light them on fire and remove itself
     @Override
     protected void collideWithEntity(Entity entityIn) {
-        super.collideWithEntity(entityIn);
-
         if (shooterUUID == null || entityIn instanceof DiabloFireParticleEntity) return;
-
         boolean isShooter = entityIn.getUniqueID() == shooterUUID;
 
         if (!world.isRemote() && entityIn instanceof LivingEntity && !isShooter){
@@ -87,11 +96,24 @@ public class DiabloFireParticleEntity extends AmbientEntity {
         }
     }
 
-    // without noClip=true this seems to never fire becuase it stops moving before its in the block
+    // without noClip=true this seems to never fire because it stops moving before its in the block
     @Override
     protected void onInsideBlock(BlockState state) {
         if (state.isSolid()){
             this.remove();
+        }
+    }
+
+    // lights the block in front on fire.
+    private void ingniteBlock() {
+        BlockRayTraceResult ray = this.world.rayTraceBlocks(new RayTraceContext(this.getPositionVec(), this.getPositionVec().add(this.getLookVec()), RayTraceContext.BlockMode.COLLIDER, RayTraceContext.FluidMode.NONE, this));
+        if (ray.getType() != RayTraceResult.Type.BLOCK) return;
+
+        // from flint and steel code
+        BlockPos blockpos1 = ray.getPos().offset(ray.getFace());  // pos to put fire in
+        if (AbstractFireBlock.canLightBlock(world, blockpos1, ray.getFace().getOpposite())) {
+            BlockState blockstate1 = AbstractFireBlock.getFireForPlacement(world, blockpos1);
+            world.setBlockState(blockpos1, blockstate1, 11);
         }
     }
 }

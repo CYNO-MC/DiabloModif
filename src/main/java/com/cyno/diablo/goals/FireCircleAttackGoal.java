@@ -13,7 +13,7 @@ public class FireCircleAttackGoal extends Goal {
     private final int particleNumber;
 
     private int cooldown;
-    private final int INTERVAL = 60;  // number of ticks between attacks
+    private final int INTERVAL = 60;  // number of ticks between attacks, 20 ticks = 1 second
 
     public FireCircleAttackGoal(DiabloEntity shooterIn, int particleNumberIn, double yOffsetIn){
         this.shooter = shooterIn;
@@ -39,7 +39,7 @@ public class FireCircleAttackGoal extends Goal {
 
     // release a circle of <numberOfParticles> fire particles evenly spaced around the shooter
     private void createFireParticlesCircle(int numberOfParticles){
-        int step = 360 / numberOfParticles;  // degrees on the circle between each particle
+        double step = 360.0D / numberOfParticles;  // degrees on the circle between each particle
 
         // could increment by step but lack of precision might lead to and extra particle
         for (int i=0;i<numberOfParticles;i++){
