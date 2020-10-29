@@ -35,7 +35,7 @@ public class ArsonPotionEntity extends PotionEntity {
             super.tick();
         } else if (!world.isRemote() && this.isAlive()){
             timer++;
-            
+
             // add a new ring of fire every <INTERVAL> ticks
             boolean addRingNow = (timer % INTERVAL) == 0;
             if (addRingNow) {
