@@ -1,9 +1,6 @@
 package com.cyno.diablo;
 
-import com.cyno.diablo.entities.AmbiantWardenSoundParticleEntity;
-import com.cyno.diablo.entities.DiabloEntity;
-import com.cyno.diablo.entities.DistortedEntity;
-import com.cyno.diablo.entities.WardenEntity;
+import com.cyno.diablo.entities.*;
 import com.cyno.diablo.init.DiabloBlocks;
 import com.cyno.diablo.init.DiabloEntityTypes;
 import com.cyno.diablo.init.DiabloItems;
@@ -43,6 +40,7 @@ public class Diablo {
     private void setup(final FMLCommonSetupEvent event) {
         DeferredWorkQueue.runLater(() -> {
             GlobalEntityTypeAttributes.put(DiabloEntityTypes.WARDEN_SOUND_PARTICLES.get(), AmbiantWardenSoundParticleEntity.setCustomAttributes().create());
+            GlobalEntityTypeAttributes.put(DiabloEntityTypes.DIABLO_FIRE_PARTICLE.get(), DiabloFireParticleEntity.setCustomAttributes().create());
             GlobalEntityTypeAttributes.put(DiabloEntityTypes.DIABLO.get(), DiabloEntity.setCustomAttributes().create());
             GlobalEntityTypeAttributes.put(DiabloEntityTypes.DISTORTED.get(), DistortedEntity.setCustomAttributes().create());
             GlobalEntityTypeAttributes.put(DiabloEntityTypes.WARDEN.get(), WardenEntity.setCustomAttributes().create());

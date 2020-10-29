@@ -1,5 +1,6 @@
 package com.cyno.diablo.entities;
 
+import com.cyno.diablo.goals.FireCircleAttackGoal;
 import com.cyno.diablo.goals.FlamingTargetMeleeAttackGoal;
 import com.cyno.diablo.init.SoundInit;
 import net.minecraft.block.BlockState;
@@ -40,7 +41,6 @@ public class DiabloEntity extends MonsterEntity implements IAnimatedEntity {
     public float getHealthData (){
         return this.dataManager.get(HEALTH_DATA);
     }
-    // private float INITIAL_SPEED = 0.0f;
 
     public DiabloEntity(EntityType<? extends MonsterEntity> type, World worldIn) {
         super(type, worldIn);
@@ -69,8 +69,9 @@ public class DiabloEntity extends MonsterEntity implements IAnimatedEntity {
         // Walk towards and attack the target. Stop if they are no longer on fire
         this.goalSelector.addGoal(1, new FlamingTargetMeleeAttackGoal(this, 1.0d, true));
 
-
-        }
+        // When there are no flaming players nearby, shoot rings of fire particles
+        this.goalSelector.addGoal(2, new FireCircleAttackGoal(this, 48, 1.5D));
+    }
 
     @Override
     protected void registerData() {
