@@ -81,6 +81,10 @@ public class DiabloEntity extends MonsterEntity implements IAnimatedEntity {
 
     @Override
     public boolean attackEntityFrom(DamageSource source, float amount) {
+        // Have to do this so it doesnt take damage when it shoots out its fire particles
+        // could make them spawn further out but then if you're close enough you don't get hit
+        if (source == DamageSource.CRAMMING) return false;
+
         // Diablo is immune to fire damage
         if (source.isFireDamage()){
             this.extinguish();  // if on fire put it out
@@ -98,7 +102,6 @@ public class DiabloEntity extends MonsterEntity implements IAnimatedEntity {
                 this.dataManager.set(HEALTH_DATA, this.getHealth());
         }
     }
-
 
     @Override
     protected int getExperiencePoints(PlayerEntity player) {
