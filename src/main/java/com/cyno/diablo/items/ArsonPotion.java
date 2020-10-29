@@ -1,0 +1,38 @@
+package com.cyno.diablo.items;
+
+import com.cyno.diablo.Diablo;
+import com.cyno.diablo.entities.ArsonPotionEntity;
+import net.minecraft.advancements.CriteriaTriggers;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.entity.projectile.PotionEntity;
+import net.minecraft.item.*;
+import net.minecraft.potion.EffectInstance;
+import net.minecraft.potion.PotionUtils;
+import net.minecraft.stats.Stats;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Hand;
+import net.minecraft.world.World;
+
+public class ArsonPotion extends ThrowablePotionItem {
+    public ArsonPotion() {
+        super(new Item.Properties().group(Diablo.TAB));
+    }
+
+    public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
+        ItemStack itemstack = playerIn.getHeldItem(handIn);
+        if (!worldIn.isRemote) {
+            PotionEntity potionentity = new ArsonPotionEntity(worldIn, playerIn);
+            potionentity.func_234612_a_(playerIn, playerIn.rotationPitch, playerIn.rotationYaw, -20.0F, 0.5F, 1.0F);
+            worldIn.addEntity(potionentity);
+        }
+
+        playerIn.addStat(Stats.ITEM_USED.get(this));
+        if (!playerIn.abilities.isCreativeMode) {
+            itemstack.shrink(1);
+        }
+
+        return ActionResult.func_233538_a_(itemstack, worldIn.isRemote());
+    }
+}

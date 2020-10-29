@@ -46,7 +46,7 @@ public class Diablo {
             GlobalEntityTypeAttributes.put(DiabloEntityTypes.DISTORTED.get(), DistortedEntity.setCustomAttributes().create());
             GlobalEntityTypeAttributes.put(DiabloEntityTypes.WARDEN.get(), WardenEntity.setCustomAttributes().create());
 
-            BrewingHandler.addPotionRecipes();
+            BrewingHandler.addPotionRecipes();  // add recipe for arson potion
         });
     }
 

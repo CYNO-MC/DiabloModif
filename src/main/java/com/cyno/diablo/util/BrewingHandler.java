@@ -1,5 +1,6 @@
 package com.cyno.diablo.util;
 
+import com.cyno.diablo.init.DiabloItems;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -11,7 +12,7 @@ import net.minecraftforge.common.brewing.IBrewingRecipe;
 
 public class BrewingHandler {
     public static void addPotionRecipes(){
-        BrewingRecipeRegistry.addRecipe(new BetterBrewingRecipe(Potions.AWKWARD, Items.TNT, new ItemStack(Items.STICK)));
+        BrewingRecipeRegistry.addRecipe(new BetterBrewingRecipe(Potions.AWKWARD, DiabloItems.ORB_OF_WRATH.get(), new ItemStack(DiabloItems.ARSON_POTION.get())));
     }
 
     private static class BetterBrewingRecipe implements IBrewingRecipe {
