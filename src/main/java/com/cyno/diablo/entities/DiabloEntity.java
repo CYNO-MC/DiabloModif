@@ -85,13 +85,13 @@ public class DiabloEntity extends MonsterEntity implements IAnimatedEntity {
         // could make them spawn further out but then if you're close enough you don't get hit
         if (source == DamageSource.CRAMMING) return false;
 
-        // Diablo is immune to fire damage
-        if (source.isFireDamage()){
-            this.extinguish();  // if on fire put it out
-            return false;
-        }
-
         return super.attackEntityFrom(source, amount);
+    }
+
+    // could do this in the entity type like other mobs but might as well keep everything together in one class
+    @Override
+    public boolean isImmuneToFire() {
+        return true;
     }
 
     @Override
