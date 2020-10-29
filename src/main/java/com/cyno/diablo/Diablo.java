@@ -16,10 +16,12 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import software.bernie.geckolib.GeckoLib;
 
 
 @Mod("diablomodif")
 public class Diablo {
+
 
     public static final Logger LOGGER = LogManager.getLogger();
     public static final String MOD_ID = "diablomodif";
@@ -27,12 +29,11 @@ public class Diablo {
     public Diablo() {
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::doClientStuff);
-
+        GeckoLib.initialize();
         SoundInit.SOUNDS.register(FMLJavaModLoadingContext.get().getModEventBus());
         DiabloBlocks.BLOCKS.register(FMLJavaModLoadingContext.get().getModEventBus());
         DiabloItems.ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
         DiabloEntityTypes.ENTITY_TYPES.register(FMLJavaModLoadingContext.get().getModEventBus());
-
         MinecraftForge.EVENT_BUS.register(this);
 
     }
