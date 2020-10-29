@@ -11,14 +11,25 @@ import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
 import net.minecraftforge.common.brewing.IBrewingRecipe;
 
 public class BrewingHandler {
+    // registers new brewing recipes. call from FMLCommonSetupEvent
     public static void addPotionRecipes(){
-        BrewingRecipeRegistry.addRecipe(new BetterBrewingRecipe(Potions.AWKWARD, DiabloItems.ORB_OF_WRATH.get(), new ItemStack(DiabloItems.ARSON_POTION.get())));
+        BrewingRecipeRegistry.addRecipe(new BetterBrewingRecipe(Potions.AWKWARD, DiabloItems.ORB_OF_WRATH.get(), DiabloItems.ARSON_POTION.get()));
     }
 
+    // my tutorial on this: https://youtu.be/uQEfNkY5fJc
+    // brewing stand checks the BrewingRecipeRegistry which is basically a list of IBrewingRecipe
     private static class BetterBrewingRecipe implements IBrewingRecipe {
-        private final Potion bottleInput;
-        private final Item itemInput;
-        private final ItemStack output;
+        private final Potion bottleInput;  // potion on the bottle input
+        private final Item itemInput;      // item input (like nether wart)
+        private final ItemStack output;    // the stack to output when done brewing
+
+        public BetterBrewingRecipe(Potion bottleInputIn, Item itemInputIn, Potion outputIn){
+            this(bottleInputIn, itemInputIn, PotionUtils.addPotionToItemStack(new ItemStack(Items.POTION), outputIn));
+        }
+
+        public BetterBrewingRecipe(Potion bottleInputIn, Item itemInputIn, Item outputIn){
+            this(bottleInputIn, itemInputIn, new ItemStack(outputIn));
+        }
 
         public BetterBrewingRecipe(Potion bottleInputIn, Item itemInputIn, ItemStack outputIn){
             this.bottleInput = bottleInputIn;

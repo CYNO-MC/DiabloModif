@@ -1,6 +1,5 @@
 package com.cyno.diablo.entities;
 
-import com.google.common.collect.Sets;
 import net.minecraft.block.AbstractFireBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.EntityType;
@@ -14,7 +13,6 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 
 import java.util.Optional;
-import java.util.Set;
 
 public class ArsonPotionEntity extends PotionEntity {
     public ArsonPotionEntity(EntityType<? extends PotionEntity> typeIn, World worldIn) {
@@ -25,9 +23,12 @@ public class ArsonPotionEntity extends PotionEntity {
         super(worldIn, livingEntityIn);
     }
 
+    // when it hits a block or entity
     @Override
     protected void onImpact(RayTraceResult result) {
-        doFireExplosion();
+        if (!world.isRemote()){
+            doFireExplosion();
+        }
     }
 
     // called for each position doFireExplosion decides to effect
@@ -38,8 +39,9 @@ public class ArsonPotionEntity extends PotionEntity {
     }
 
     // decide what positions we care about. logic from explosions
+    // I really don't understand what this does, pls help
     private void doFireExplosion(){
-        float radius = 5;
+        final float RADIUS = 5;  // base this on amplifier?
 
         int i = 16;
         for(int j = 0; j < 16; ++j) {
@@ -53,7 +55,7 @@ public class ArsonPotionEntity extends PotionEntity {
                         d0 = d0 / d3;
                         d1 = d1 / d3;
                         d2 = d2 / d3;
-                        float f = radius * (0.7F + this.world.rand.nextFloat() * 0.6F);
+                        float f = RADIUS * (0.7F + this.world.rand.nextFloat() * 0.6F);
                         double d4 = this.getPosX();
                         double d6 = this.getPosY();
                         double d8 = this.getPosZ();

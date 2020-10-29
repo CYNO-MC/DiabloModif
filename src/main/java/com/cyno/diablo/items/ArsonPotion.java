@@ -15,12 +15,16 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 
-public class ArsonPotion extends ThrowablePotionItem {
+public class ArsonPotion extends Item {
     public ArsonPotion() {
-        super(new Item.Properties().group(Diablo.TAB));
+        super(new Item.Properties().group(Diablo.TAB).maxStackSize(1));
     }
 
+    // basically the same as a normal ThrowablePotionItem but
+    // instead of making a PotionEntity, make a ArsonPotionEntity entity
     public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
+        playerIn.getCooldownTracker().setCooldown(this, 20);  // don't let them spam it too fast
+
         ItemStack itemstack = playerIn.getHeldItem(handIn);
         if (!worldIn.isRemote) {
             PotionEntity potionentity = new ArsonPotionEntity(worldIn, playerIn);
