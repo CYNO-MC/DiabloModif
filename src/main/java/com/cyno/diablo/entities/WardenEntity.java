@@ -31,6 +31,7 @@ import software.bernie.geckolib.manager.EntityAnimationManager;
 public class WardenEntity extends MonsterEntity implements IAnimatedEntity {
 
     private static final DataParameter<Float> ANIM_SPEED = EntityDataManager.createKey(WardenEntity.class, DataSerializers.FLOAT);
+    private static final DataParameter<Boolean> IS_ATTACKING = EntityDataManager.createKey(WardenEntity.class, DataSerializers.BOOLEAN);
 
     public static WardenEntity instance;
     public Vector3d soundPosition = null;
@@ -86,6 +87,7 @@ public class WardenEntity extends MonsterEntity implements IAnimatedEntity {
     protected void registerData() {
         super.registerData();
         this.dataManager.register(ANIM_SPEED, wardenSpeed);
+        this.dataManager.register(IS_ATTACKING, false);
     }
 
 
@@ -93,9 +95,13 @@ public class WardenEntity extends MonsterEntity implements IAnimatedEntity {
         if(this.meleeAttackGoal != null){
             this.meleeAttackGoal.setSpeed(speed);
             this.animationManager.setAnimationSpeed(speed);
-            Debug.Danger(this.animationManager.getCurrentAnimationSpeed());
+            this.dataManager.set(ANIM_SPEED, speed);
 
         }
+    }
+
+    public Float getAnimationSpeed(){
+        return this.dataManager.get(ANIM_SPEED);
     }
 
     private void AddSoundParticlesCoroutineAt(Vector3d p){
@@ -119,8 +125,17 @@ public class WardenEntity extends MonsterEntity implements IAnimatedEntity {
     @Override
     public void livingTick() {
         super.livingTick();
-        if(canHear)
-            this.AddSoundParticlesCoroutineAt(lastHeardPos);
+        if(!this.world.isRemote()){
+            if(canHear)
+                this.AddSoundParticlesCoroutineAt(lastHeardPos);
+
+            this.dataManager.set(IS_ATTACKING, this.getAttackTarget() != null);
+        }
+
+    }
+
+    public Boolean getIsAttacking(){
+        return this.dataManager.get(IS_ATTACKING);
     }
 
     @Override
@@ -173,12 +188,16 @@ public class WardenEntity extends MonsterEntity implements IAnimatedEntity {
     }
 
     private <E extends WardenEntity> boolean animationPredicate(AnimationTestEvent<E> event){
-        if(event.isWalking()){
+
+        if(this.getMotion().length() > 0.06){
+            animationManager.setAnimationSpeed((this.getIsAttacking() ? this.getAnimationSpeed() : 1));
             animator.setAnimation(new AnimationBuilder().addAnimation("animation.warden.walking", true));
             return true;
         }
         else
+        {
             return false;
+        }
         //IF IS ATTACKING SET ATTACK ANIM, WON'T AFFECT THE WALK ANIM AS MUCH AS THE ROTATED GROUPS ARE NOT THE SAME
         //attackAnimator.setAnimationBlablabla
     }
