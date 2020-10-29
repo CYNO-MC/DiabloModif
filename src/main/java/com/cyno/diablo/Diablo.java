@@ -44,6 +44,8 @@ public class Diablo {
             GlobalEntityTypeAttributes.put(DiabloEntityTypes.DIABLO.get(), DiabloEntity.setCustomAttributes().create());
             GlobalEntityTypeAttributes.put(DiabloEntityTypes.DISTORTED.get(), DistortedEntity.setCustomAttributes().create());
             GlobalEntityTypeAttributes.put(DiabloEntityTypes.WARDEN.get(), WardenEntity.setCustomAttributes().create());
+            GlobalEntityTypeAttributes.put(DiabloEntityTypes.BURNLING.get(), BurnlingEntity.setCustomAttributes().create());
+            GlobalEntityTypeAttributes.put(DiabloEntityTypes.LAVA_BUBBLE.get(), LavaBubbleProjectileEntity.setCustomAttributes().create());
         });
     }
 

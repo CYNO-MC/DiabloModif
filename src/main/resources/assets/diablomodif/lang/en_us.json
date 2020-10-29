@@ -8,9 +8,12 @@
   "block.diablomodif.ancient_brick_block": "Ancient Brick",
   "item.diablomodif.the_conflagrate": "The Conflagrate",
   "item.diablomodif.glass_vile": "Glass Vile",
+  "item.diablomodif.burnling_spawn_egg": "Burnling Spawn Egg",
   "item.diablomodif.the_horns_of_diablo": "The Horns of Diablo",
   "entity.diablomodif.distorted": "d i s t o r t e d",
   "entity.diablomodif.warden": "The Warden",
+  "entity.diablomodif.burnling": "Burnling",
+  "entity.diablomodif.lava_bubble": "Burnling",
   "entity.diablomodif.diablo": "Diablo",
   "itemGroup.diabloTab": "Diablo"
 }

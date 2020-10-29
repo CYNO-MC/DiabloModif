@@ -3,6 +3,7 @@ package com.cyno.diablo.init;
 import com.cyno.diablo.Diablo;
 import com.cyno.diablo.blocks.BlockItemBase;
 import com.cyno.diablo.items.ItemBase;
+import com.cyno.diablo.items.ModSpawnEggItem;
 import com.cyno.diablo.util.enums.DiabloItemTier;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
@@ -23,6 +24,7 @@ public class DiabloItems {
     // Items
     public static final RegistryObject<Item> GLASS_VILE = ITEMS.register("glass_vile", ItemBase::new);
     public static final RegistryObject<Item> THE_HORNS_OF_DIABLO = ITEMS.register("the_horns_of_diablo", ItemBase::new);
+    public static final RegistryObject<Item> BURNLING_SPAWN_EGG = ITEMS.register("burnling_spawn_egg", () -> new ModSpawnEggItem(DiabloEntityTypes.BURNLING, 0xf57d0c, 0xf2b00a, new Item.Properties().group(Diablo.TAB)));
 
     //Tools
     public static final RegistryObject<SwordItem> THE_CONFLAGRATE = ITEMS.register("the_conflagrate",
