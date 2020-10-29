@@ -8,6 +8,7 @@ import com.cyno.diablo.init.DiabloEntityTypes;
 import com.cyno.diablo.util.AnimationUtils;
 import com.cyno.diablo.util.Debug;
 import net.minecraft.block.BlockState;
+import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
@@ -43,6 +44,8 @@ public class BurnlingEntity extends MonsterEntity implements IAnimatedEntity {
 
     private static final DataParameter<Boolean> IS_ATTACKING = EntityDataManager.createKey(BurnlingEntity.class, DataSerializers.BOOLEAN);
 
+    private float currentAttackStep = 0f; //adds a little delay at the beginning of the "timer" otherwise the animation of the burnling and instantiation of the lava bubbble don't match (replace with the geckolib 3.0.0)
+    private float maxAttackInterval = 60f;
     private EntityAnimationManager animationManager = new EntityAnimationManager();
     public AnimationController animator = new EntityAnimationController(this, "moveController", 1, this::animationPredicate);
 
@@ -74,9 +77,10 @@ public class BurnlingEntity extends MonsterEntity implements IAnimatedEntity {
     public void SpawnLavaBubbles(float speed){
         Debug.Danger("...............");
         LavaBubbleProjectileEntity lavaBubbleProjectileEntity = new LavaBubbleProjectileEntity(DiabloEntityTypes.LAVA_BUBBLE.get(), this.world);
-        lavaBubbleProjectileEntity.setPosition(this.getPosX(), this.getPosY() + 1, this.getPosZ());
+        lavaBubbleProjectileEntity.setPosition(this.getPosX(), this.getPosY() + 0.5f, this.getPosZ());
         lavaBubbleProjectileEntity.addVelocity((this.rand.nextInt(6) - 3) * speed,(this.rand.nextInt(6)) * speed,(this.rand.nextInt(6) - 3) * speed);
         this.world.addEntity(lavaBubbleProjectileEntity);
+     //   Debug.Log();
     }
     private <E extends BurnlingEntity> boolean animationPredicate(AnimationTestEvent<E> event){
 
@@ -98,15 +102,14 @@ public class BurnlingEntity extends MonsterEntity implements IAnimatedEntity {
     }
 
     private <E extends Entity> boolean instructionPredicate(CustomInstructionKeyframeEvent<E> event){
-        Diablo.LOGGER.debug(event.instructions);
-     if(!this.world.isRemote() && event.instructions!= null && event.instructions.size() > 0 && event.instructions.get(0) == "spawnParticles"){
-         ((BurnlingEntity) event.getEntity()).SpawnLavaBubbles(0.2f); //THIS IS WHERE IT FUCKS UP CANT CALL FUNCTION FROM event.getEntity() or from my class directly (i.e this.spawnLavaBubbles)
+         if(event.instructions.get(0).equals("spawnParticles")){
+          //   ((BurnlingEntity) event.getEntity()).SpawnLavaBubbles(0.2f); //THIS IS WHERE IT FUCKS UP CANT CALL FUNCTION FROM event.getEntity() or from my class directly (i.e this.spawnLavaBubbles)
 
-         return true;
-     }
-     else{
-         return false;
-     }
+             return true;
+        }
+         else{
+             return false;
+         }
     }
 
     @Override
@@ -190,6 +193,22 @@ public class BurnlingEntity extends MonsterEntity implements IAnimatedEntity {
     public void livingTick() {
         super.livingTick();
         if(!this.world.isRemote()){
+            if(this.getAttacking())
+            {
+                if(this.currentAttackStep < this.maxAttackInterval)
+                {
+                    ++this.currentAttackStep;
+                }
+                else{
+                    this.currentAttackStep = 0;
+                    this.SpawnLavaBubbles(0.2f);
+                }
+
+            }
+            else
+                if(currentAttackStep > 0)
+                    this.currentAttackStep = 0;
+
             this.setAttacking(this.getAttackTarget() != null);
             if(this.isInWater())
                 this.attackEntityFrom(DamageSource.DROWN, 4);

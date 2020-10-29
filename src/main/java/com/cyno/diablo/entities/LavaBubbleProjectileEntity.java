@@ -30,7 +30,6 @@ public class LavaBubbleProjectileEntity extends MobEntity {
 
     private final static DataParameter<Rotations> ROTATION_DATA = EntityDataManager.createKey(LavaBubbleProjectileEntity.class, DataSerializers.ROTATIONS);
 
-    boolean canDespawn = false;
     public LavaBubbleProjectileEntity(EntityType<? extends MobEntity> type, World worldIn) {
         super(type, worldIn);
     }
@@ -79,16 +78,19 @@ public class LavaBubbleProjectileEntity extends MobEntity {
 
     private void doSplashLava(int radius){
         int X = this.getPosition().getX();
-        int Y = this.getPosition().getY();
+        int Y = this.getPosition().getY() - 1;
         int Z = this.getPosition().getZ();
 
         BlockPos pos;
 
-        for(int y = Y - radius; y <= Y + radius; y++){
-            for(int z = Z - radius; z <= Z + radius; z++){
-                for(int x = X - radius; x <= X + radius; x++){
+        if(this.world.getBlockState(this.getPosition()).getBlock().matchesBlock(Blocks.LAVA))
+            return;
+
+        for(int y = Y - radius; y < Y + radius; y++){
+            for(int z = Z - radius; z < Z + radius; z++){
+                for(int x = X - radius; x < X + radius; x++){
                     pos = new BlockPos(x, y, z);
-                    if(!this.world.getBlockState(pos).getBlock().matchesBlock(Blocks.AIR) && !this.world.getBlockState(pos).getBlock().matchesBlock(Blocks.CAVE_AIR) && !this.world.getBlockState(pos).getBlock().matchesBlock(Blocks.VOID_AIR)){
+                    if(!this.world.getBlockState(pos).getBlock().matchesBlock(Blocks.AIR) && !this.world.getBlockState(pos).getBlock().matchesBlock(Blocks.CAVE_AIR) && !this.world.getBlockState(pos).getBlock().matchesBlock(Blocks.VOID_AIR) && !this.world.getBlockState(pos).getBlock().matchesBlock(Blocks.LAVA)){
                         Debug.Log(this.world.getBlockState(pos).getMaterial() != null);
                         if(this.world.getBlockState(pos).getMaterial().blocksMovement()){
                             this.world.setBlockState(pos, Blocks.LAVA.getDefaultState());
@@ -101,13 +103,12 @@ public class LavaBubbleProjectileEntity extends MobEntity {
             }
         }
 
-        canDespawn = true;
     }
 
     @Override
     protected void collideWithEntity(Entity entityIn) {
         super.collideWithEntity(entityIn);
-        if(!(entityIn instanceof BurnlingEntity) && !(entityIn instanceof LavaBubbleProjectileEntity) && entityIn.isImmuneToFire())
+        if(!(entityIn instanceof BurnlingEntity) && !(entityIn instanceof LavaBubbleProjectileEntity) && !entityIn.isImmuneToFire())
         {
             entityIn.attackEntityFrom(DamageSource.LAVA, 4);
             entityIn.setFire(3);
@@ -137,7 +138,7 @@ public class LavaBubbleProjectileEntity extends MobEntity {
 
         this.world.addParticle(ParticleTypes.LAVA, this.getPosX(), this.getPosY(), this.getPosZ(), (this.rand.nextDouble() - 0.5D) * 0.01D, (this.rand.nextDouble() - 0.5D) * 0.01D, (this.rand.nextDouble() - 0.5D) * 0.01D);
 
-        if(!this.world.isRemote() &&  !canDespawn){
+        if(!this.world.isRemote()){
             this.dataManager.set(ROTATION_DATA, new Rotations((float) (this.prevPosX - this.getPosX()) + getRollDirection().getX(), 0, (float) (this.prevPosZ - this.getPosZ()) + getRollDirection().getZ()));
             if(this.collidedHorizontally || this.collidedVertically){
                 this.playSound(SoundEvents.BLOCK_LAVA_AMBIENT, 0.4f, 1.0f);
