@@ -3,6 +3,7 @@ package com.cyno.diablo.init;
 import com.cyno.diablo.Diablo;
 import com.cyno.diablo.blocks.BlockItemBase;
 import com.cyno.diablo.items.ArsonPotion;
+import com.cyno.diablo.items.DemonBlood;
 import com.cyno.diablo.items.ItemBase;
 import com.cyno.diablo.items.VialItem;
 import com.cyno.diablo.util.enums.DiabloItemTier;
@@ -26,7 +27,7 @@ public class DiabloItems {
     public static final RegistryObject<Item> GLASS_VILE = ITEMS.register("glass_vile", VialItem::new);
     public static final RegistryObject<Item> THE_HORNS_OF_DIABLO = ITEMS.register("the_horns_of_diablo", ItemBase::new);
     public static final RegistryObject<Item> ORB_OF_WRATH = ITEMS.register("orb_of_wrath", ItemBase::new);
-    public static final RegistryObject<Item> DEMON_BLOOD = ITEMS.register("demon_blood", ItemBase::new);
+    public static final RegistryObject<Item> DEMON_BLOOD = ITEMS.register("demon_blood", DemonBlood::new);
 
     public static final RegistryObject<Item> ARSON_POTION = ITEMS.register("arson_potion", ArsonPotion::new);
 
