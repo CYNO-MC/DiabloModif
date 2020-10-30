@@ -4,9 +4,7 @@ import com.cyno.diablo.goals.AlertedBySoundGoal;
 import com.cyno.diablo.goals.StandardMeleeAttackGoal;
 import com.cyno.diablo.init.DiabloEntityTypes;
 import com.cyno.diablo.init.SoundInit;
-import com.cyno.diablo.util.Debug;
 import net.minecraft.block.BlockState;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
@@ -21,14 +19,24 @@ import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
-import software.bernie.geckolib.animation.builder.AnimationBuilder;
-import software.bernie.geckolib.animation.controller.AnimationController;
-import software.bernie.geckolib.animation.controller.EntityAnimationController;
-import software.bernie.geckolib.entity.IAnimatedEntity;
-import software.bernie.geckolib.event.AnimationTestEvent;
-import software.bernie.geckolib.manager.EntityAnimationManager;
+import software.bernie.geckolib.core.IAnimatable;
+import software.bernie.geckolib.core.builder.AnimationBuilder;
+import software.bernie.geckolib.core.controller.AnimationController;
+import software.bernie.geckolib.core.event.predicate.AnimationEvent;
+import software.bernie.geckolib.core.manager.AnimationData;
+import software.bernie.geckolib.core.manager.AnimationFactory;
 
-public class WardenEntity extends MonsterEntity implements IAnimatedEntity {
+
+public class WardenEntity extends MonsterEntity implements IAnimatable {
+    @Override
+    public void registerControllers(AnimationData animationData) {
+
+    }
+
+    @Override
+    public AnimationFactory getFactory() {
+        return null;
+    }
 
     private static final DataParameter<Float> ANIM_SPEED = EntityDataManager.createKey(WardenEntity.class, DataSerializers.FLOAT);
     private static final DataParameter<Boolean> IS_ATTACKING = EntityDataManager.createKey(WardenEntity.class, DataSerializers.BOOLEAN);
@@ -44,8 +52,8 @@ public class WardenEntity extends MonsterEntity implements IAnimatedEntity {
     float wardenSpeed = 1.8f;
     float initWardenSpeed = 1.8f;
     float maxWardenSpeed = 2.8f;
-    private EntityAnimationManager animationManager = new EntityAnimationManager();
-    private AnimationController animator = new EntityAnimationController(this, "moveController", 20, this::animationPredicate);
+    private AnimationFactory animationManager = new AnimationFactory(this);
+    private AnimationController animator = new AnimationController(this, "moveController", 20, this::animationPredicate);
 
 
     public WardenEntity(EntityType<? extends MonsterEntity> type, World worldIn) {
@@ -187,7 +195,7 @@ public class WardenEntity extends MonsterEntity implements IAnimatedEntity {
         return animationManager;
     }
 
-    private <E extends WardenEntity> boolean animationPredicate(AnimationTestEvent<E> event){
+    private <E extends WardenEntity> boolean animationPredicate(AnimationEvent<E> event){
 
         if(this.getMotion().length() > 0.06){
             animationManager.setAnimationSpeed((this.getIsAttacking() ? this.getAnimationSpeed() : 1));
@@ -205,4 +213,5 @@ public class WardenEntity extends MonsterEntity implements IAnimatedEntity {
     private void registerAnimators(){
         animationManager.addAnimationController(animator);
     }
+
 }

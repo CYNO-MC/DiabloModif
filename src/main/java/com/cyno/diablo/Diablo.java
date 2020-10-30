@@ -43,7 +43,6 @@ public class Diablo {
             GlobalEntityTypeAttributes.put(DiabloEntityTypes.WARDEN_SOUND_PARTICLES.get(), AmbiantWardenSoundParticleEntity.setCustomAttributes().create());
             GlobalEntityTypeAttributes.put(DiabloEntityTypes.DIABLO_FIRE_PARTICLE.get(), DiabloFireParticleEntity.setCustomAttributes().create());
             GlobalEntityTypeAttributes.put(DiabloEntityTypes.DIABLO.get(), DiabloEntity.setCustomAttributes().create());
-            GlobalEntityTypeAttributes.put(DiabloEntityTypes.DISTORTED.get(), DistortedEntity.setCustomAttributes().create());
             GlobalEntityTypeAttributes.put(DiabloEntityTypes.WARDEN.get(), WardenEntity.setCustomAttributes().create());
         });
     }
