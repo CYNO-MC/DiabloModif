@@ -1,9 +1,9 @@
 {
-	"format_version": "1.16.3",
+	"format_version": "1.12.0",
 	"minecraft:geometry": [
 		{
 			"description": {
-				"identifier": "geometry.warden",
+				"identifier": "geometry.custom_model",
 				"texture_width": 128,
 				"texture_height": 64,
 				"visible_bounds_width": 4,
@@ -12,14 +12,20 @@
 			},
 			"bones": [
 				{
+					"name": "bone",
+					"pivot": [0, 19, 0]
+				},
+				{
 					"name": "body",
-					"pivot": [0, 0, 0],
+					"parent": "bone",
+					"pivot": [0, 19, 0],
 					"cubes": [
 						{"origin": [-9, 13, -5], "size": [18, 21, 11], "uv": [0, 26]}
 					]
 				},
 				{
 					"name": "right_arm",
+					"parent": "bone",
 					"pivot": [-11, 29, 0],
 					"cubes": [
 						{"origin": [-17, 6, -4], "size": [8, 28, 8], "uv": [52, 0]}
@@ -27,6 +33,7 @@
 				},
 				{
 					"name": "right_arm2",
+					"parent": "bone",
 					"pivot": [11, 29, 0],
 					"cubes": [
 						{"origin": [9, 6, -4], "size": [8, 28, 8], "uv": [84, 0]}
@@ -34,6 +41,7 @@
 				},
 				{
 					"name": "right_leg",
+					"parent": "bone",
 					"pivot": [-6, 13, 0],
 					"cubes": [
 						{"origin": [-9, 0, -3], "size": [6, 13, 6], "uv": [58, 36]}
@@ -41,6 +49,7 @@
 				},
 				{
 					"name": "left_leg",
+					"parent": "bone",
 					"pivot": [6, 13, 0],
 					"cubes": [
 						{"origin": [3, 0, -3], "size": [6, 13, 6], "uv": [82, 36]}
@@ -48,11 +57,26 @@
 				},
 				{
 					"name": "head",
-					"pivot": [0, 33, 0],
+					"parent": "bone",
+					"pivot": [-1, 33, 0],
 					"cubes": [
-						{"origin": [-8, 34, -6], "size": [16, 16, 10], "uv": [0, 0]},
-						{"origin": [8, 43, -1], "size": [10, 10, 0], "uv": [106, 46]},
-						{"origin": [-18, 43, -1], "size": [10, 10, 0], "uv": [106, 36]}
+						{"origin": [-9, 34, -6], "size": [16, 16, 10], "uv": [0, 0]}
+					]
+				},
+				{
+					"name": "earRight",
+					"parent": "head",
+					"pivot": [-9, 45, 0],
+					"cubes": [
+						{"origin": [-19, 43, -1], "size": [10, 10, 0], "uv": [106, 36]}
+					]
+				},
+				{
+					"name": "earLeft",
+					"parent": "head",
+					"pivot": [7, 45, 0],
+					"cubes": [
+						{"origin": [7, 43, -1], "size": [10, 10, 0], "uv": [106, 46]}
 					]
 				}
 			]
