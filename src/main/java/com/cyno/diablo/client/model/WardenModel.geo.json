@@ -1,9 +1,9 @@
 {
-	"format_version": "1.12.0",
+	"format_version": "1.16.3",
 	"minecraft:geometry": [
 		{
 			"description": {
-				"identifier": "geometry.custom_model",
+				"identifier": "geometry.warden",
 				"texture_width": 128,
 				"texture_height": 64,
 				"visible_bounds_width": 4,

@@ -190,8 +190,7 @@ public class WardenEntity extends MonsterEntity implements IAnimatable {
         super.playAmbientSound();
     }
 
-    @Override
-    public EntityAnimationManager getAnimationManager() {
+    public AnimationFactory getAnimationFactory() {
         return animationManager;
     }
 
