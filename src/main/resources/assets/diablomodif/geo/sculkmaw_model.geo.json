@@ -1,0 +1,175 @@
+{
+	"format_version": "1.12.0",
+	"minecraft:geometry": [
+		{
+			"description": {
+				"identifier": "geometry.unknown",
+				"texture_width": 128,
+				"texture_height": 128,
+				"visible_bounds_width": 5,
+				"visible_bounds_height": 7.5,
+				"visible_bounds_offset": [0, 3.25, 0]
+			},
+			"bones": [
+				{
+					"name": "mawBody",
+					"pivot": [0, 13, -2.5],
+					"cubes": [
+						{"origin": [-16, 13, -5], "size": [32, 20, 12], "uv": [0, 73]}
+					]
+				},
+				{
+					"name": "mawLowerHead",
+					"parent": "mawBody",
+					"pivot": [0, 33, -5.5],
+					"rotation": [0, 0, 0],
+					"cubes": [
+						{"origin": [-16, 33, -5.5], "size": [32, 23, 12], "uv": [0, 38]}
+					]
+				},
+				{
+					"name": "mawUpperHead",
+					"parent": "mawLowerHead",
+					"pivot": [0, 56, -5.5],
+					"rotation": [-5, 0, 0],
+					"cubes": [
+						{"origin": [-15, 56, -5.5], "size": [30, 27, 11], "uv": [0, 0]}
+					]
+				},
+				{
+					"name": "mawTendril0",
+					"parent": "mawUpperHead",
+					"pivot": [15, 82, 0.5],
+					"rotation": [-6.72, 0, 11.2],
+					"cubes": [
+						{"origin": [15, 80, 0.5], "size": [10, 10, 1], "uv": [82, 106]}
+					]
+				},
+				{
+					"name": "mawTendril1",
+					"parent": "mawUpperHead",
+					"pivot": [-15, 79, 0.5],
+					"rotation": [4.48, 15.68, -8.96],
+					"cubes": [
+						{"origin": [-25, 77, 0.5], "size": [10, 10, 1], "uv": [82, 117]}
+					]
+				},
+				{
+					"name": "mawTendril2",
+					"parent": "mawUpperHead",
+					"pivot": [9, 83, -1.5],
+					"rotation": [13.44, 0, 4.48],
+					"cubes": [
+						{"origin": [8, 83, -1.5], "size": [5, 10, 1], "uv": [108, 0]}
+					]
+				},
+				{
+					"name": "mawTendril3",
+					"parent": "mawUpperHead",
+					"pivot": [-8, 83, 1.5],
+					"rotation": [2.24, 2.24, -4.48],
+					"cubes": [
+						{"origin": [-16, 83, 1.5], "size": [9, 10, 1], "uv": [103, 106]}
+					]
+				},
+				{
+					"name": "mawTendril4",
+					"parent": "mawUpperHead",
+					"pivot": [1, 83, -2.5],
+					"rotation": [6.72, 0, -8.96],
+					"cubes": [
+						{"origin": [-3, 83, -2.5], "size": [6, 12, 1], "uv": [108, 22]}
+					]
+				},
+				{
+					"name": "mawTendril5",
+					"parent": "mawUpperHead",
+					"pivot": [5, 83, 0.5],
+					"rotation": [-6.72, 0, 11.2],
+					"cubes": [
+						{"origin": [3, 83, 0.5], "size": [3, 10, 1], "uv": [108, 11]}
+					]
+				},
+				{
+					"name": "mawTendril6",
+					"parent": "mawUpperHead",
+					"pivot": [-4, 81, 0.5],
+					"rotation": [-22.4, -17.92, -2.24],
+					"cubes": [
+						{"origin": [-6, 81, 0.5], "size": [3, 10, 1], "uv": [108, 11]}
+					]
+				},
+				{
+					"name": "armJoint",
+					"parent": "mawLowerHead",
+					"pivot": [0, 39, 0.5],
+					"cubes": [
+						{"origin": [0, 39, 0.5], "size": [0, 0, 0], "uv": [0, 0]}
+					]
+				},
+				{
+					"name": "mawRightShoulder",
+					"parent": "armJoint",
+					"pivot": [16, 39, 0.5],
+					"cubes": [
+						{"origin": [16, 33, -3], "size": [6, 8, 7], "uv": [82, 0]}
+					]
+				},
+				{
+					"name": "mawRightArm",
+					"parent": "mawRightShoulder",
+					"pivot": [18.5, 33, 0.5],
+					"cubes": [
+						{"origin": [16, 11, -3], "size": [5, 22, 7], "uv": [88, 30]}
+					]
+				},
+				{
+					"name": "mawRightFist",
+					"parent": "mawRightArm",
+					"pivot": [18.5, 11, 0.5],
+					"cubes": [
+						{"origin": [16, 0, -3], "size": [6, 11, 7], "uv": [88, 88]}
+					]
+				},
+				{
+					"name": "mawLeftShoulder",
+					"parent": "armJoint",
+					"pivot": [-16, 39, 0.5],
+					"cubes": [
+						{"origin": [-22, 33, -3], "size": [6, 8, 7], "uv": [82, 15]}
+					]
+				},
+				{
+					"name": "mawLeftArm",
+					"parent": "mawLeftShoulder",
+					"pivot": [-18.5, 33, 0.5],
+					"cubes": [
+						{"origin": [-21, 11, -3], "size": [5, 22, 7], "uv": [88, 59]}
+					]
+				},
+				{
+					"name": "mawLeftFist",
+					"parent": "mawLeftArm",
+					"pivot": [-18.5, 11, 0.5],
+					"cubes": [
+						{"origin": [-22, 0, -3], "size": [6, 11, 7], "uv": [56, 106]}
+					]
+				},
+				{
+					"name": "mawRightLeg",
+					"pivot": [10, 13, 0],
+					"cubes": [
+						{"origin": [8, 0, -4], "size": [6, 13, 8], "uv": [0, 106]}
+					]
+				},
+				{
+					"name": "mawLeftLeg",
+					"pivot": [-10, 13, 0],
+					"cubes": [
+						{"origin": [-14, 0, -4], "size": [6, 13, 8], "uv": [28, 106]}
+					]
+				}
+			]
+		}
+	]
+}
