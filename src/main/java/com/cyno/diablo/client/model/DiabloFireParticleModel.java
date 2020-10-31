@@ -1,16 +1,17 @@
 package com.cyno.diablo.client.model;
 
 import com.cyno.diablo.entities.AmbiantWardenSoundParticleEntity;
+import com.cyno.diablo.entities.DiabloFireParticleEntity;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
 
-public class AmbiantWardenSoundParticleModel extends EntityModel<AmbiantWardenSoundParticleEntity>{
+public class DiabloFireParticleModel extends EntityModel<DiabloFireParticleEntity>{
     private final ModelRenderer bb_main;
     private final ModelRenderer bone;
 
-    public AmbiantWardenSoundParticleModel()
+    public DiabloFireParticleModel()
     {
         textureWidth = 32;
         textureHeight = 32;
@@ -26,7 +27,7 @@ public class AmbiantWardenSoundParticleModel extends EntityModel<AmbiantWardenSo
     }
 
     @Override
-    public void setRotationAngles(AmbiantWardenSoundParticleEntity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+    public void setRotationAngles(DiabloFireParticleEntity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 
     }
 

@@ -4,9 +4,7 @@ import com.cyno.diablo.goals.AlertedBySoundGoal;
 import com.cyno.diablo.goals.StandardMeleeAttackGoal;
 import com.cyno.diablo.init.DiabloEntityTypes;
 import com.cyno.diablo.init.SoundInit;
-import com.cyno.diablo.util.Debug;
 import net.minecraft.block.BlockState;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
@@ -21,10 +19,30 @@ import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
+import software.bernie.geckolib.core.IAnimatable;
+import software.bernie.geckolib.core.PlayState;
+import software.bernie.geckolib.core.builder.AnimationBuilder;
+import software.bernie.geckolib.core.controller.AnimationController;
+import software.bernie.geckolib.core.event.predicate.AnimationEvent;
+import software.bernie.geckolib.core.manager.AnimationData;
+import software.bernie.geckolib.core.manager.AnimationFactory;
 
-public class WardenEntity extends MonsterEntity {
+
+public class WardenEntity extends MonsterEntity implements IAnimatable {
+    private AnimationFactory factory = new AnimationFactory(this);
+
+    @Override
+    public void registerControllers(AnimationData data) {
+        data.addAnimationController(new AnimationController(this, "moveController", 20, this::animationPredicate));
+    }
+
+    @Override
+    public AnimationFactory getFactory() {
+        return factory;
+    }
 
     private static final DataParameter<Float> ANIM_SPEED = EntityDataManager.createKey(WardenEntity.class, DataSerializers.FLOAT);
+    private static final DataParameter<Boolean> IS_ATTACKING = EntityDataManager.createKey(WardenEntity.class, DataSerializers.BOOLEAN);
 
     public static WardenEntity instance;
     public Vector3d soundPosition = null;
@@ -37,8 +55,11 @@ public class WardenEntity extends MonsterEntity {
     float wardenSpeed = 1.8f;
     float initWardenSpeed = 1.8f;
     float maxWardenSpeed = 2.8f;
+    private AnimationFactory animationManager = new AnimationFactory(this);
+
     public WardenEntity(EntityType<? extends MonsterEntity> type, World worldIn) {
         super(type, worldIn);
+        // registerAnimators();
         if(!worldIn.isRemote()){
             if(instance == null)
                 instance = this;
@@ -47,7 +68,7 @@ public class WardenEntity extends MonsterEntity {
             {
                 remove();
             }
-            setAnimSpeed(initWardenSpeed);
+            this.accelerateMovement(initWardenSpeed);
         }
     }
 
@@ -75,22 +96,21 @@ public class WardenEntity extends MonsterEntity {
     protected void registerData() {
         super.registerData();
         this.dataManager.register(ANIM_SPEED, wardenSpeed);
+        this.dataManager.register(IS_ATTACKING, false);
     }
 
-    public Float getAnimSpeed(){
-        return this.dataManager.get(ANIM_SPEED);
-    }
-
-    public void setAnimSpeed(float speed){
-        wardenSpeed = speed;
-        this.dataManager.set(ANIM_SPEED, wardenSpeed);
-    }
 
     public void accelerateMovement(float speed){
         if(this.meleeAttackGoal != null){
             this.meleeAttackGoal.setSpeed(speed);
-            this.setAnimSpeed(speed);
+            // this.animationManager.setAnimationSpeed(speed);
+            this.dataManager.set(ANIM_SPEED, speed);
+
         }
+    }
+
+    public Float getAnimationSpeed(){
+        return this.dataManager.get(ANIM_SPEED);
     }
 
     private void AddSoundParticlesCoroutineAt(Vector3d p){
@@ -114,8 +134,17 @@ public class WardenEntity extends MonsterEntity {
     @Override
     public void livingTick() {
         super.livingTick();
-        if(canHear)
-            this.AddSoundParticlesCoroutineAt(lastHeardPos);
+        if(!this.world.isRemote()){
+            if(canHear)
+                this.AddSoundParticlesCoroutineAt(lastHeardPos);
+
+            this.dataManager.set(IS_ATTACKING, this.getAttackTarget() != null);
+        }
+
+    }
+
+    public Boolean getIsAttacking(){
+        return this.dataManager.get(IS_ATTACKING);
     }
 
     @Override
@@ -161,4 +190,28 @@ public class WardenEntity extends MonsterEntity {
     public void playAmbientSound() {
         super.playAmbientSound();
     }
+
+    public AnimationFactory getAnimationFactory() {
+        return animationManager;
+    }
+
+    private <E extends WardenEntity> PlayState animationPredicate(AnimationEvent<E> event){
+        if (this.getIsAttacking()){
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.warden.attacking", false));
+
+            // doesn't return as this is independant of walking
+        }
+
+        if(this.getMotion().length() > 0.06){
+            // TODO: change animation speed
+            // animationManager.setAnimationSpeed((this.getIsAttacking() ? this.getAnimationSpeed() : 1));
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.warden.walking", true));
+        } else if (!this.getIsAttacking()){
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.warden.idle", true));
+        }
+
+        // no condition doesnt have an animation so always returns continue
+        return PlayState.CONTINUE;
+    }
+
 }

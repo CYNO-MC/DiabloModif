@@ -23,6 +23,7 @@ public class AmbiantWardenSoundParticleEntity extends AmbientEntity {
     public AmbiantWardenSoundParticleEntity(EntityType<? extends AmbientEntity> type, World p_i48570_2_) {
         super(type, p_i48570_2_);
         this.setNoGravity(true);
+        this.noClip = true;
     }
 
     public static AttributeModifierMap.MutableAttribute setCustomAttributes() {

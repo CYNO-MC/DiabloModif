@@ -1,0 +1,242 @@
+{
+	"format_version": "1.12.0",
+	"minecraft:geometry": [
+		{
+			"description": {
+				"identifier": "geometry.custom_model",
+				"texture_width": 256,
+				"texture_height": 128,
+				"visible_bounds_width": 5,
+				"visible_bounds_height": 7.5,
+				"visible_bounds_offset": [0, 3.25, 0]
+			},
+			"bones": [
+				{
+					"name": "diabloWaist",
+					"pivot": [0, 35, 0],
+					"rotation": [-11, 0, 0],
+					"cubes": [
+						{"origin": [-11.5, 26, -7], "size": [23, 14, 13], "uv": [0, 92]}
+					]
+				},
+				{
+					"name": "diabloBelly",
+					"parent": "diabloWaist",
+					"pivot": [0, 38.5, 0.5],
+					"rotation": [9, 0, 0],
+					"cubes": [
+						{"origin": [-10.5, 38.5, -6.5], "size": [21, 13, 12], "uv": [0, 67]}
+					]
+				},
+				{
+					"name": "diabloChest",
+					"parent": "diabloBelly",
+					"pivot": [0, 51, 1.5],
+					"rotation": [14, 0, 0],
+					"cubes": [
+						{"origin": [-17.5, 51, -7.5], "size": [35, 21, 14], "uv": [0, 32]}
+					]
+				},
+				{
+					"name": "diabloNeckJoint",
+					"parent": "diabloChest",
+					"pivot": [0, 75.9, -1.5],
+					"rotation": [-14, 0, 0],
+					"cubes": [
+						{"origin": [0, 75.9, -1.5], "size": [0, 0, 0], "uv": [0, 0]}
+					]
+				},
+				{
+					"name": "diabloHead",
+					"parent": "diabloNeckJoint",
+					"pivot": [0, 75.9, -1.5],
+					"cubes": [
+						{"origin": [-9.5, 74.9, -9.5], "size": [19, 9, 10], "uv": [0, 0]}
+					]
+				},
+				{
+					"name": "diabloJaw",
+					"parent": "diabloHead",
+					"pivot": [0, 77.4, -2.5],
+					"cubes": [
+						{"origin": [-5.5, 72.4, -8.5], "size": [11, 5, 8], "uv": [0, 19]}
+					]
+				},
+				{
+					"name": "diabloRightHorn",
+					"parent": "diabloHead",
+					"pivot": [10, 81.9, -4.5],
+					"rotation": [0, 0, 80],
+					"cubes": [
+						{"origin": [9, 80.9, -5.5], "size": [2, 9, 2], "uv": [42, 19]}
+					]
+				},
+				{
+					"name": "diabloRightHornTop",
+					"parent": "diabloRightHorn",
+					"pivot": [10, 89.4, -4.5],
+					"rotation": [0, 0, -60],
+					"cubes": [
+						{"origin": [9.5, 89.4, -5], "size": [1, 9, 1], "uv": [38, 19]}
+					]
+				},
+				{
+					"name": "diabloLeftHorn",
+					"parent": "diabloHead",
+					"pivot": [-10, 81.9, -4.5],
+					"rotation": [0, 0, -80],
+					"cubes": [
+						{"origin": [-11, 80.9, -5.5], "size": [2, 9, 2], "uv": [42, 19]}
+					]
+				},
+				{
+					"name": "diabloLeftHornTop",
+					"parent": "diabloLeftHorn",
+					"pivot": [-10, 89.4, -4.5],
+					"rotation": [0, 0, 60],
+					"cubes": [
+						{"origin": [-10.5, 89.4, -5], "size": [1, 9, 1], "uv": [38, 19]}
+					]
+				},
+				{
+					"name": "diabloEye",
+					"parent": "diabloChest",
+					"pivot": [0, 66.5, 5.5],
+					"rotation": [-85, 0, 0],
+					"cubes": [
+						{"origin": [-3.5, 63, 2], "size": [7, 7, 7], "uv": [58, 0]}
+					]
+				},
+				{
+					"name": "diabloArmsJoint",
+					"parent": "diabloChest",
+					"pivot": [0, 68, -0.5],
+					"rotation": [-12, 0, 0],
+					"cubes": [
+						{"origin": [0, 68, -0.5], "size": [0, 0, 0], "uv": [0, 0]}
+					]
+				},
+				{
+					"name": "diabloRightArm",
+					"parent": "diabloArmsJoint",
+					"pivot": [17.5, 68, -0.5],
+					"cubes": [
+						{"origin": [17.5, 49, -4], "size": [6, 22, 7], "uv": [86, 0]}
+					]
+				},
+				{
+					"name": "diabloRightFist",
+					"parent": "diabloRightArm",
+					"pivot": [20.5, 50, -0.5],
+					"cubes": [
+						{"origin": [17, 23, -4.5], "size": [7, 27, 8], "uv": [112, 0]}
+					]
+				},
+				{
+					"name": "filament1",
+					"parent": "diabloRightArm",
+					"pivot": [23.5, 67, -0.3],
+					"rotation": [5, -5.1, -8.96],
+					"cubes": [
+						{"origin": [22.5, 56, -0.8], "size": [1, 11, 1], "uv": [50, 19]}
+					]
+				},
+				{
+					"name": "filament2",
+					"parent": "diabloRightArm",
+					"pivot": [22.8, 62, -0.5],
+					"rotation": [-5, 5, -12],
+					"cubes": [
+						{"origin": [21.8, 51, -1], "size": [1, 11, 1], "uv": [54, 19]}
+					]
+				},
+				{
+					"name": "filament3",
+					"parent": "diabloRightArm",
+					"pivot": [22.8, 71, -0.9],
+					"rotation": [-0.52, 0.52, -14.24],
+					"cubes": [
+						{"origin": [21.8, 60, -1.4], "size": [1, 11, 1], "uv": [54, 19]}
+					]
+				},
+				{
+					"name": "diabloLeftArm",
+					"parent": "diabloArmsJoint",
+					"pivot": [-17.5, 68, -0.5],
+					"cubes": [
+						{"origin": [-23.5, 49, -4], "size": [6, 22, 7], "uv": [142, 0]}
+					]
+				},
+				{
+					"name": "diabloLeftFist",
+					"parent": "diabloLeftArm",
+					"pivot": [-20.5, 50, -0.5],
+					"cubes": [
+						{"origin": [-24, 23, -4.5], "size": [7, 27, 8], "uv": [168, 0]}
+					]
+				},
+				{
+					"name": "filament5",
+					"parent": "diabloLeftArm",
+					"pivot": [-23.5, 66, -0.1],
+					"rotation": [7.24, -5.1, 8.96],
+					"cubes": [
+						{"origin": [-23.5, 55, -0.6], "size": [1, 11, 1], "uv": [50, 19]}
+					]
+				},
+				{
+					"name": "filament6",
+					"parent": "diabloLeftArm",
+					"pivot": [-22.8, 62, -0.5],
+					"rotation": [-8.44, -13.96, 12],
+					"cubes": [
+						{"origin": [-22.8, 51, -1], "size": [1, 11, 1], "uv": [54, 19]}
+					]
+				},
+				{
+					"name": "filament4",
+					"parent": "diabloLeftArm",
+					"pivot": [-23.3, 69, -0.5],
+					"rotation": [0.52, -13.96, 12],
+					"cubes": [
+						{"origin": [-23.3, 58, -1], "size": [1, 11, 1], "uv": [54, 20]}
+					]
+				},
+				{
+					"name": "diabloNeck",
+					"parent": "diabloChest",
+					"pivot": [0, 73, 4.5],
+					"rotation": [50, 0, 0],
+					"cubes": [
+						{"origin": [-3, 72, 1.5], "size": [6, 8, 3], "uv": [58, 14]}
+					]
+				},
+				{
+					"name": "diabloLegsJoint",
+					"parent": "diabloWaist",
+					"pivot": [0, 34.5, -0.5],
+					"rotation": [11, 0, 0],
+					"cubes": [
+						{"origin": [0, 34.5, -0.5], "size": [0, 0, 0], "uv": [0, 0]}
+					]
+				},
+				{
+					"name": "diabloRightLeg",
+					"parent": "diabloLegsJoint",
+					"pivot": [9.5, 34.5, -0.5],
+					"cubes": [
+						{"origin": [9.5, -0.5, -4], "size": [7, 36, 7], "uv": [98, 35]}
+					]
+				},
+				{
+					"name": "diabloLeftLeg",
+					"parent": "diabloLegsJoint",
+					"pivot": [-9.5, 34.5, -0.5],
+					"cubes": [
+						{"origin": [-16.5, -0.5, -4], "size": [7, 36, 7], "uv": [126, 35]}
+					]
+				}
+			]
+		}
+	]
+}

@@ -1,7 +1,10 @@
 package com.cyno.diablo.entities;
 
+import com.cyno.diablo.goals.FireCircleAttackGoal;
 import com.cyno.diablo.goals.FlamingTargetMeleeAttackGoal;
+import com.cyno.diablo.init.DiabloItems;
 import com.cyno.diablo.init.SoundInit;
+import com.cyno.diablo.items.VialItem;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -10,41 +13,42 @@ import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
 import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.Hand;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import software.bernie.geckolib.animation.builder.AnimationBuilder;
-import software.bernie.geckolib.animation.controller.AnimationController;
-import software.bernie.geckolib.animation.controller.EntityAnimationController;
-import software.bernie.geckolib.entity.IAnimatedEntity;
-import software.bernie.geckolib.event.AnimationTestEvent;
-import software.bernie.geckolib.manager.EntityAnimationManager;
+import software.bernie.geckolib.core.IAnimatable;
+import software.bernie.geckolib.core.PlayState;
+import software.bernie.geckolib.core.builder.AnimationBuilder;
+import software.bernie.geckolib.core.controller.AnimationController;
+import software.bernie.geckolib.core.event.predicate.AnimationEvent;
+import software.bernie.geckolib.core.manager.AnimationData;
+import software.bernie.geckolib.core.manager.AnimationFactory;
 
 import java.util.function.Predicate;
 
-public class DiabloEntity extends MonsterEntity implements IAnimatedEntity {
-    private EntityAnimationManager manager = new EntityAnimationManager();
-    private AnimationController controller = new EntityAnimationController(this, "moveController", 20,
-            this::animationPredicate);
+public class DiabloEntity extends MonsterEntity implements IAnimatable {
+    private AnimationFactory factory = new AnimationFactory(this);
 
     // A predicate to pass into NearestAttackableTargetGoal to check if the entity is on fire
     private static final Predicate<LivingEntity> IS_ON_FIRE = (entity) -> {
         return entity.getFireTimer() > 0;
     };
-
+    private int bloodRemovalTimer;
 
     public float getHealthData (){
         return this.dataManager.get(HEALTH_DATA);
     }
-    // private float INITIAL_SPEED = 0.0f;
 
     public DiabloEntity(EntityType<? extends MonsterEntity> type, World worldIn) {
         super(type, worldIn);
-        registerAnimationControllers();
+        bloodRemovalTimer = 0;
     }
 
     public static AttributeModifierMap.MutableAttribute setCustomAttributes() {
@@ -69,8 +73,9 @@ public class DiabloEntity extends MonsterEntity implements IAnimatedEntity {
         // Walk towards and attack the target. Stop if they are no longer on fire
         this.goalSelector.addGoal(1, new FlamingTargetMeleeAttackGoal(this, 1.0d, true));
 
-
-        }
+        // When there are no flaming players nearby, shoot rings of fire particles
+        this.goalSelector.addGoal(2, new FireCircleAttackGoal(this, 48, 1.5D));
+    }
 
     @Override
     protected void registerData() {
@@ -80,13 +85,17 @@ public class DiabloEntity extends MonsterEntity implements IAnimatedEntity {
 
     @Override
     public boolean attackEntityFrom(DamageSource source, float amount) {
-        // Diablo is immune to fire damage
-        if (source.isFireDamage()){
-            this.extinguish();  // if on fire put it out
-            return false;
-        }
+        // Have to do this so it doesnt take damage when it shoots out its fire particles
+        // could make them spawn further out but then if you're close enough you don't get hit
+        if (source == DamageSource.CRAMMING) return false;
 
         return super.attackEntityFrom(source, amount);
+    }
+
+    // could do this in the entity type like other mobs but might as well keep everything together in one class
+    @Override
+    public boolean isImmuneToFire() {
+        return true;
     }
 
     @Override
@@ -95,9 +104,34 @@ public class DiabloEntity extends MonsterEntity implements IAnimatedEntity {
         if(!this.world.isRemote){
             if(this.getAttackTarget() != null)
                 this.dataManager.set(HEALTH_DATA, this.getHealth());
+
+            if (bloodRemovalTimer > 0) bloodRemovalTimer--;
         }
     }
 
+    // when a player right clicks with a Glass Vial in their hand, collect some demon blood
+    @Override
+    public ActionResultType func_230254_b_(PlayerEntity player, Hand hand) {
+        ItemStack stack = player.getHeldItem(hand);
+
+        if (!world.isRemote() && bloodRemovalTimer == 0 && stack.getItem() == DiabloItems.GLASS_VILE.get()){
+            ItemStack newStack = VialItem.increaseFullness(stack);
+
+            // give it to the player, if inventory full drop it on the ground
+            boolean success = player.addItemStackToInventory(newStack);
+            if (!success){
+                player.entityDropItem(newStack);
+            }
+
+            this.attackEntityFrom(DamageSource.MAGIC, 2.0F);
+            bloodRemovalTimer = 10;  // wait x ticks before you can draw blood again
+
+            return ActionResultType.SUCCESS;
+        }
+
+
+        return super.func_230254_b_(player, hand);
+    }
 
     @Override
     protected int getExperiencePoints(PlayerEntity player) {
@@ -125,19 +159,25 @@ public class DiabloEntity extends MonsterEntity implements IAnimatedEntity {
         return SoundInit.DAMAGE.get();
     }
 
+    // decides which animation to play. animationName is from the json file in resources/id/animations
+    private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event){
+        // idle if not moving fast
+        if(this.getMotion().length() < 0.06){
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.diablomodif.diabloentity.idle", true));
+            return PlayState.CONTINUE;
+        }
+
+        return PlayState.STOP;
+    }
+
     @Override
-    public EntityAnimationManager getAnimationManager() {
-        return manager;
+    public void registerControllers(AnimationData data){
+        data.addAnimationController(new AnimationController(this, "moveController", 20, this::predicate));
     }
 
-    private <E extends DiabloEntity> boolean animationPredicate(AnimationTestEvent<E> event) {
-        if (event.isWalking()) {}
-        else controller.setAnimation(new AnimationBuilder().addAnimation("animation.diablomodif.diabloentity.idle", true));
-
-        return true;
-    }
-    private void registerAnimationControllers() {
-        manager.addAnimationController(controller);
+    @Override
+    public AnimationFactory getFactory(){
+        return this.factory;
     }
 }
 

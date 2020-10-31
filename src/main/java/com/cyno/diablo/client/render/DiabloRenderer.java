@@ -1,26 +1,13 @@
 package com.cyno.diablo.client.render;
 
-import com.cyno.diablo.Diablo;
 import com.cyno.diablo.client.model.DiabloModel;
 import com.cyno.diablo.entities.DiabloEntity;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
-import net.minecraft.client.renderer.entity.MobRenderer;
-import net.minecraft.util.ResourceLocation;
+import software.bernie.geckolib.renderers.geo.GeoEntityRenderer;
 
-public class DiabloRenderer extends MobRenderer<DiabloEntity, DiabloModel<DiabloEntity>> {
-
-    protected static final ResourceLocation DIABLO_TEXTURE = new ResourceLocation(Diablo.MOD_ID, "textures/entity/diablo_texture.png");
-    protected static final ResourceLocation DIABLO_GLOW = new ResourceLocation(Diablo.MOD_ID, "textures/entity/diablo_glow.png");
-
-    public DiabloRenderer(EntityRendererManager renderManagerIn) {
-        super(renderManagerIn, new DiabloModel(), 1.0f);
-    }
-
-    @Override
-    public ResourceLocation getEntityTexture(DiabloEntity entity) {
-
-        return DIABLO_TEXTURE;
-
+public class DiabloRenderer extends GeoEntityRenderer<DiabloEntity> {
+    public DiabloRenderer(EntityRendererManager renderManager){
+        super(renderManager, new DiabloModel());
     }
 }
 
