@@ -1,0 +1,386 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.diablomodif.sculk_maw_entity.idle": {
+			"loop": true,
+			"animation_length": 4.44,
+			"bones": {
+				"mawBody": {
+					"rotation": {
+						"0.0": {
+							"vector": [6.5, 0, 0]
+						},
+						"2.28": {
+							"vector": [10, 0, 0],
+							"easing": "easeInOutCubic"
+						},
+						"4.36": {
+							"vector": [6.5, 0, 0],
+							"easing": "easeInOutCubic"
+						}
+					}
+				},
+				"mawLowerHead": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"1.88": {
+							"vector": [2.5, 0, 0]
+						},
+						"4.2": {
+							"vector": [0, 0, 0]
+						}
+					}
+				},
+				"mawUpperHead": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"1.88": {
+							"vector": [-3, 0, 0]
+						},
+						"4.24": {
+							"vector": [0, 0, 0]
+						}
+					}
+				},
+				"mawRightShoulder": {
+					"rotation": {
+						"0.0": {
+							"vector": [2.5, 0, -2.5]
+						},
+						"1.88": {
+							"vector": [-6, 0, -4],
+							"easing": "easeInOutCubic"
+						},
+						"4.4": {
+							"vector": [2.5, 0, -2.5],
+							"easing": "easeInOutCubic"
+						}
+					}
+				},
+				"mawLeftShoulder": {
+					"rotation": {
+						"0.0": {
+							"vector": [2.5, 0, 2.5]
+						},
+						"1.88": {
+							"vector": [4, 0, 4],
+							"easing": "easeInOutCubic"
+						},
+						"4.12": {
+							"vector": [2.5, 0, 2.5],
+							"easing": "easeInOutCubic"
+						}
+					}
+				}
+			}
+		},
+		"animation.diablomodif.sculk_maw_entity.smashattack": {
+			"loop": true,
+			"animation_length": 6.16,
+			"bones": {
+				"mawBody": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.64": {
+							"vector": [-19.41, 0, 0],
+							"easing": "easeOutBack",
+							"easingArgs": [2]
+						},
+						"1.12": {
+							"vector": [115, 0, 0],
+							"easing": "easeOutBack",
+							"easingArgs": [0.5]
+						},
+						"2.2": {
+							"vector": [115, 0, 0],
+							"easing": "easeInCirc"
+						},
+						"6.12": {
+							"vector": [0, 0, 0],
+							"easing": "easeInSine"
+						}
+					}
+				},
+				"mawLowerHead": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"1.12": {
+							"vector": [-25, 0, 0],
+							"easing": "easeOutBack"
+						},
+						"2.2": {
+							"vector": [-25, 0, 0],
+							"easing": "easeOutBack"
+						},
+						"6.16": {
+							"vector": [0, 0, 0],
+							"easing": "easeInSine"
+						}
+					}
+				},
+				"mawRightShoulder": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"2.4": {
+							"vector": [0, 0, 0]
+						},
+						"4.28": {
+							"vector": [0, 0, -2.5]
+						},
+						"6.12": {
+							"vector": [0, 0, 0]
+						}
+					}
+				},
+				"mawLeftShoulder": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"2.4": {
+							"vector": [0, 0, 0]
+						},
+						"4.28": {
+							"vector": [0, 0, 2.5]
+						},
+						"6.12": {
+							"vector": [0, 0, 0]
+						}
+					}
+				}
+			}
+		},
+		"animation.diablomodif.sculk_maw_entity.soulattack": {
+			"animation_length": 2.6,
+			"bones": {
+				"mawBody": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.76": {
+							"vector": [-12.5, 0, 0],
+							"easing": "easeOutQuint"
+						},
+						"2.04": {
+							"vector": [17.5, 0, 0],
+							"easing": "easeInOutBack"
+						}
+					}
+				},
+				"mawLowerHead": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.76": {
+							"vector": [-15, 0, 0],
+							"easing": "easeOutCubic"
+						},
+						"2.12": {
+							"vector": [15, 0, 0],
+							"easing": "easeInOutBack"
+						}
+					}
+				},
+				"mawRightShoulder": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.36": {
+							"vector": [62.5, 5, -12.5],
+							"easing": "easeOutSine"
+						}
+					}
+				},
+				"mawLeftShoulder": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.28": {
+							"vector": [62.5, -5, 12.5],
+							"easing": "easeOutSine"
+						}
+					}
+				}
+			}
+		},
+		"animation.diablomodif.sculk_maw_entity.noattackwalk": {
+			"loop": true,
+			"animation_length": 4,
+			"bones": {
+				"mawBody": {
+					"rotation": {
+						"0.0": {
+							"vector": [10, 5, 0]
+						},
+						"1.76": {
+							"vector": [5, 6.16, 0]
+						},
+						"4.0": {
+							"vector": [10, 5, 0]
+						}
+					}
+				},
+				"mawRightLeg": {
+					"rotation": {
+						"0.0": {
+							"vector": [10, 0, 0]
+						},
+						"1.72": {
+							"vector": [-10, 0, 0]
+						},
+						"4.0": {
+							"vector": [10, 0, 0]
+						}
+					}
+				},
+				"mawLeftLeg": {
+					"rotation": {
+						"0.0": {
+							"vector": [-10, 0, 0]
+						},
+						"1.72": {
+							"vector": [10, 0, 0]
+						},
+						"4.0": {
+							"vector": [-10, 0, 0]
+						}
+					}
+				}
+			}
+		},
+		"animation.diablomodif.sculk_maw_entity.core_chained": {
+			"loop": true,
+			"animation_length": 8.32,
+			"bones": {
+				"mawBody": {
+					"rotation": {
+						"0.0": {
+							"vector": [6.5, 0, 0]
+						},
+						"4.08": {
+							"vector": [10, 0, 0],
+							"easing": "easeInOutCubic"
+						},
+						"8.32": {
+							"vector": [6.5, 0, 0],
+							"easing": "easeInOutCubic"
+						}
+					}
+				},
+				"mawLowerHead": {
+					"rotation": {
+						"vector": [10, 0, 0]
+					}
+				},
+				"mawUpperHead": {
+					"rotation": {
+						"vector": [7.5, 0, 0]
+					}
+				},
+				"mawRightShoulder": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, -17.5, -142.5]
+						},
+						"4.0": {
+							"vector": [2.5, -17.5, -142.5]
+						},
+						"8.32": {
+							"vector": [0, -17.5, -142.5]
+						}
+					}
+				},
+				"mawLeftShoulder": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 17.5, 142.5]
+						},
+						"4.0": {
+							"vector": [2.5, 17.5, 142.5]
+						},
+						"8.32": {
+							"vector": [0, 17.5, 142.5]
+						}
+					}
+				}
+			}
+		},
+		"animation.diablomodif.sculk_maw_entity.core_chained_free": {
+			"animation_length": 8.32,
+			"bones": {
+				"mawBody": {
+					"rotation": {
+						"0.0": {
+							"vector": [7.5, 0, 0]
+						},
+						"3.92": {
+							"vector": [9, 0, 0],
+							"easing": "easeInOutBack"
+						}
+					}
+				},
+				"mawLowerHead": {
+					"rotation": {
+						"vector": [10, 0, 0]
+					}
+				},
+				"mawUpperHead": {
+					"rotation": {
+						"0.0": {
+							"vector": [7.5, 0, 0]
+						},
+						"1.36": {
+							"vector": [10, 0, 0]
+						}
+					}
+				},
+				"mawRightShoulder": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, -17.5, -142.5]
+						},
+						"1.36": {
+							"vector": [-7.5, -17.5, -142.5],
+							"easing": "easeInOutCubic"
+						},
+						"2.84": {
+							"vector": [-12.5, -17.5, -142.5]
+						}
+					}
+				},
+				"mawLeftShoulder": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 17.5, 142.5]
+						},
+						"1.36": {
+							"vector": [-7.5, 17.5, 142.5],
+							"easing": "easeInOutQuint"
+						},
+						"2.84": {
+							"vector": [-10, 17.5, 142.5]
+						}
+					}
+				}
+			}
+		},
+		"animation.diablomodif.sculk_maw_entity.new": {
+			"loop": true
+		}
+	},
+	"geckolib_format_version": 2
+}
