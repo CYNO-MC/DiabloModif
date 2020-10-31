@@ -2,5 +2,31 @@
   "parent": "item/generated",
   "textures": {
     "layer0": "diablomodif:items/glass_vile"
-  }
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "diablomodif:blood_vial_fullness": 1
+      },
+      "model": "diablomodif:item/glass_vile_1"
+    },
+    {
+      "predicate": {
+        "diablomodif:blood_vial_fullness": 2
+      },
+      "model": "diablomodif:item/glass_vile_2"
+    },
+    {
+      "predicate": {
+        "diablomodif:blood_vial_fullness": 3
+      },
+      "model": "diablomodif:item/glass_vile_3"
+    },
+    {
+      "predicate": {
+        "diablomodif:blood_vial_fullness": 4
+      },
+      "model": "diablomodif:item/glass_vile_4"
+    }
+  ]
 }
