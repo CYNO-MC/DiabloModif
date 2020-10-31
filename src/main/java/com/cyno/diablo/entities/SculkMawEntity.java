@@ -41,9 +41,9 @@ public class SculkMawEntity extends MonsterEntity {
 
     public static AttributeModifierMap.MutableAttribute setCustomAttributes() {
         return SculkMawEntity.registerAttributes()
-                .createMutableAttribute(Attributes.MAX_HEALTH, 999)
-                .createMutableAttribute(Attributes.MOVEMENT_SPEED, 2.00f)
-                .createMutableAttribute(Attributes.FOLLOW_RANGE, 100f)
+                .createMutableAttribute(Attributes.MAX_HEALTH, 750)
+                .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.15f)
+                .createMutableAttribute(Attributes.FOLLOW_RANGE, 50f)
                 .createMutableAttribute(Attributes.ATTACK_KNOCKBACK, 1.0)
                 .createMutableAttribute(Attributes.ATTACK_DAMAGE, 1.0);
 
@@ -54,7 +54,6 @@ public class SculkMawEntity extends MonsterEntity {
         super.registerGoals();
         this.goalSelector.addGoal(0, new MeleeAttackGoal(this, 1.0f, true));
         this.goalSelector.addGoal(1, new WaterAvoidingRandomWalkingGoal(this, 1.2f));
-        this.goalSelector.addGoal(2, new Attack);
 
     }
 
