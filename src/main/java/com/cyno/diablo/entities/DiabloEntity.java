@@ -25,19 +25,13 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
-import software.bernie.geckolib.animation.builder.AnimationBuilder;
-import software.bernie.geckolib.animation.controller.AnimationController;
-import software.bernie.geckolib.animation.controller.EntityAnimationController;
-import software.bernie.geckolib.entity.IAnimatedEntity;
-import software.bernie.geckolib.event.AnimationTestEvent;
-import software.bernie.geckolib.manager.EntityAnimationManager;
 
 import java.util.function.Predicate;
 
-public class DiabloEntity extends MonsterEntity implements IAnimatedEntity {
-    private EntityAnimationManager manager = new EntityAnimationManager();
-    private AnimationController controller = new EntityAnimationController(this, "moveController", 20,
-            this::animationPredicate);
+public class DiabloEntity extends MonsterEntity {  // implements IAnimatedEntity
+    //private EntityAnimationManager manager = new EntityAnimationManager();
+    //private AnimationController controller = new EntityAnimationController(this, "moveController", 20,
+    //        this::animationPredicate);
 
     // A predicate to pass into NearestAttackableTargetGoal to check if the entity is on fire
     private static final Predicate<LivingEntity> IS_ON_FIRE = (entity) -> {
@@ -52,7 +46,7 @@ public class DiabloEntity extends MonsterEntity implements IAnimatedEntity {
 
     public DiabloEntity(EntityType<? extends MonsterEntity> type, World worldIn) {
         super(type, worldIn);
-        registerAnimationControllers();
+        // registerAnimationControllers();
         bloodRemovalTimer = 0;
     }
 
@@ -164,6 +158,7 @@ public class DiabloEntity extends MonsterEntity implements IAnimatedEntity {
         return SoundInit.DAMAGE.get();
     }
 
+    /*
     @Override
     public EntityAnimationManager getAnimationManager() {
         return manager;
@@ -178,5 +173,7 @@ public class DiabloEntity extends MonsterEntity implements IAnimatedEntity {
     private void registerAnimationControllers() {
         manager.addAnimationController(controller);
     }
+
+     */
 }
 

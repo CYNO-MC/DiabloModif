@@ -1,14 +1,12 @@
 package com.cyno.diablo.client.model;
 
 import com.cyno.diablo.entities.AmbiantWardenSoundParticleEntity;
-import com.cyno.diablo.entities.DiabloEntity;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
-import software.bernie.geckolib.animation.model.AnimatedEntityModel;
 
-public class AmbiantWardenSoundParticleModel  extends EntityModel<AmbiantWardenSoundParticleEntity>{
+public class AmbiantWardenSoundParticleModel extends EntityModel<AmbiantWardenSoundParticleEntity>{
     private final ModelRenderer bb_main;
     private final ModelRenderer bone;
 
