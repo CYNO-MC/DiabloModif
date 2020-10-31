@@ -12,8 +12,11 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import software.bernie.geckolib.core.IAnimatable;
+import software.bernie.geckolib.core.manager.AnimationData;
+import software.bernie.geckolib.core.manager.AnimationFactory;
 
-public class SculkMawEntity extends MonsterEntity {
+public class SculkMawEntity extends MonsterEntity implements IAnimatable {
 
     public SculkMawEntity(EntityType<? extends MonsterEntity> type, World worldIn) {
         super(type, worldIn);
@@ -78,7 +81,13 @@ public class SculkMawEntity extends MonsterEntity {
     }
 
 
+    @Override
+    public void registerControllers(AnimationData animationData) {
+        
+    }
 
-
-
+    @Override
+    public AnimationFactory getFactory() {
+        return null;
+    }
 }

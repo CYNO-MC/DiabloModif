@@ -22,9 +22,9 @@ public class DiabloEntityTypes {
             () -> EntityType.Builder.create(WardenEntity::new, EntityClassification.MONSTER).size(1.4f, 3.0f)
                     .build(new ResourceLocation(Diablo.MOD_ID, "warden").toString()));
 
-    public static final RegistryObject<EntityType<WardenEntity>> SCULKMAW = ENTITY_TYPES.register("sculkmaw",
-            () -> EntityType.Builder.create(WardenEntity::new, EntityClassification.MONSTER).size(1.4f, 3.0f)
-                    .build(new ResourceLocation(Diablo.MOD_ID, "warden").toString()));
+    public static final RegistryObject<EntityType<SculkMawEntity>> SCULKMAW = ENTITY_TYPES.register("sculkmaw",
+            () -> EntityType.Builder.create(SculkMawEntity::new, EntityClassification.MONSTER).size(1.4f, 3.0f)
+                    .build(new ResourceLocation(Diablo.MOD_ID, "sculkmaw").toString()));
 
     public static final RegistryObject<EntityType<AmbiantWardenSoundParticleEntity>> WARDEN_SOUND_PARTICLES = ENTITY_TYPES.register("warden_sound_particles",
             () -> EntityType.Builder.create(AmbiantWardenSoundParticleEntity::new, EntityClassification.AMBIENT).size(0.5f, 0.5f)
