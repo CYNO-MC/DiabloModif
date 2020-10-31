@@ -62,15 +62,6 @@ public class SculkMawEntity extends MonsterEntity implements IAnimatable {
 
     }
 
-    private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event){
-        // idle if not moving fast
-        if(this.getMotion().length() < 0.06){
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.diablomodif.diabloentity.idle", true));
-            return PlayState.CONTINUE;
-        }
-
-        return PlayState.STOP;
-    }
 
     // These are placeholders for Sound Effects we will get later
     @Override
@@ -94,6 +85,15 @@ public class SculkMawEntity extends MonsterEntity implements IAnimatable {
         return SoundEvents.ENTITY_ENDERMAN_DEATH;
     }
 
+    private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event){
+        // idle if not moving fast
+        if(this.getMotion().length() < 0.03){
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.diablomodif.sculk_maw_entity.idle", true));
+            return PlayState.CONTINUE;
+        }
+
+        return PlayState.STOP;
+    }
 
     @Override
     public void registerControllers(AnimationData animationData) {

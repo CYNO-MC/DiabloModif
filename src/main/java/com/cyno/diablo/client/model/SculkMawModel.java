@@ -19,6 +19,6 @@ public class SculkMawModel extends AnimatedGeoModel<SculkMawEntity> {
 
     @Override
     public ResourceLocation getAnimationFileLocation(SculkMawEntity object) {
-        return null;
+        return new ResourceLocation(Diablo.MOD_ID, "animations/sculkmaw_entity.json");
     }
 }
