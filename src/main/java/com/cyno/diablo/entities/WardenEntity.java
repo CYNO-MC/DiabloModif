@@ -196,21 +196,22 @@ public class WardenEntity extends MonsterEntity implements IAnimatable {
     }
 
     private <E extends WardenEntity> PlayState animationPredicate(AnimationEvent<E> event){
+        if (this.getIsAttacking()){
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.warden.attacking", false));
+
+            // doesn't return as this is independant of walking
+        }
+
         if(this.getMotion().length() > 0.06){
             // TODO: change animation speed
             // animationManager.setAnimationSpeed((this.getIsAttacking() ? this.getAnimationSpeed() : 1));
             event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.warden.walking", true));
-            return PlayState.CONTINUE;
-        } else {
-            return PlayState.STOP;
+        } else if (!this.getIsAttacking()){
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.warden.idle", true));
         }
 
-        //IF IS ATTACKING SET ATTACK ANIM, WON'T AFFECT THE WALK ANIM AS MUCH AS THE ROTATED GROUPS ARE NOT THE SAME
-        //attackAnimator.setAnimationBlablabla
+        // no condition doesnt have an animation so always returns continue
+        return PlayState.CONTINUE;
     }
-
-    /* private void registerAnimators(){
-        animationManager.addAnimationController(animator);
-    } */
 
 }
