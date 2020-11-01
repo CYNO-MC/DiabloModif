@@ -1,6 +1,7 @@
 package com.cyno.diablo.entities;
 
 import com.cyno.diablo.init.DiabloEntityTypes;
+import com.cyno.diablo.init.DiabloItems;
 import com.cyno.diablo.util.Debug;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
@@ -36,7 +37,7 @@ import javax.annotation.Nullable;
 public class DemonTridentEntity extends AbstractArrowEntity {
     private static final DataParameter<Byte> LOYALTY_LEVEL = EntityDataManager.createKey(DemonTridentEntity.class, DataSerializers.BYTE);
     private static final DataParameter<Boolean> field_226571_aq_ = EntityDataManager.createKey(DemonTridentEntity.class, DataSerializers.BOOLEAN);
-    private ItemStack thrownStack = new ItemStack(Items.TRIDENT);
+    private ItemStack thrownStack = new ItemStack(DiabloItems.DEMON_TRIDENT.get());
     private boolean dealtDamage;
     public int returningTicks;
 
@@ -45,7 +46,7 @@ public class DemonTridentEntity extends AbstractArrowEntity {
     }
 
     public DemonTridentEntity(World worldIn, LivingEntity thrower, ItemStack thrownStackIn) {
-        super(EntityType.TRIDENT, thrower, worldIn);
+        super(DiabloEntityTypes.DEMON_TRIDENT.get(), thrower, worldIn);
         this.thrownStack = thrownStackIn.copy();
         this.dataManager.set(LOYALTY_LEVEL, (byte)EnchantmentHelper.getLoyaltyModifier(thrownStackIn));
         this.dataManager.set(field_226571_aq_, thrownStackIn.hasEffect());
@@ -53,7 +54,7 @@ public class DemonTridentEntity extends AbstractArrowEntity {
 
     @OnlyIn(Dist.CLIENT)
     public DemonTridentEntity(World worldIn, double x, double y, double z) {
-        super(EntityType.TRIDENT, x, y, z, worldIn);
+        super(DiabloEntityTypes.DEMON_TRIDENT.get(), x, y, z, worldIn);
     }
 
     protected void registerData() {
