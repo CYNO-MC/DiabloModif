@@ -37,8 +37,8 @@ public class DiabloEntityTypes {
             () -> EntityType.Builder.create(DiabloFireParticleEntity::new, EntityClassification.AMBIENT).size(0.5f, 0.5f)
                     .build(new ResourceLocation(Diablo.MOD_ID, "diablo_fire_particle").toString()));
 
-    public static final RegistryObject<EntityType<DemonTridentEntity>> DEMON_TRIDENT = ENTITY_TYPES.register("demon_trident",
+    public static final RegistryObject<EntityType<DemonTridentEntity>> DEMON_TRIDENT = ENTITY_TYPES.register("com.cyno.diablo.client.model.demon_trident",
             () -> EntityType.Builder.create((EntityType.IFactory<DemonTridentEntity>) DemonTridentEntity::new, EntityClassification.MISC).size(0.5F, 0.5F).func_233606_a_(4).func_233608_b_(20)
-                    .build(new ResourceLocation(Diablo.MOD_ID, "demon_trident").toString()));
+                    .build(new ResourceLocation(Diablo.MOD_ID, "com.cyno.diablo.client.model.demon_trident").toString()));
 }
 

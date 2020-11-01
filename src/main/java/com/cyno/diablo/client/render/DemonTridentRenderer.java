@@ -7,6 +7,7 @@ import com.cyno.diablo.util.Debug;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.TridentRenderer;
@@ -21,7 +22,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class DemonTridentRenderer extends EntityRenderer<DemonTridentEntity> {
-    private final DemonTridentModel tridentModel = new DemonTridentModel();
+    private final DemonTridentModel model = new DemonTridentModel();
     public static ResourceLocation TEXTURE = new ResourceLocation(Diablo.MOD_ID, "textures/entity/demon_trident.png");
 
     public DemonTridentRenderer(EntityRendererManager renderManagerIn) {
@@ -29,12 +30,16 @@ public class DemonTridentRenderer extends EntityRenderer<DemonTridentEntity> {
     }
 
     public void render(DemonTridentEntity entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn) {
+        Debug.Log("render called!");
+
         matrixStackIn.push();
-        matrixStackIn.rotate(Vector3f.YP.rotationDegrees(MathHelper.lerp(partialTicks, entityIn.prevRotationYaw, entityIn.rotationYaw) - 90.0F));
-        matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(MathHelper.lerp(partialTicks, entityIn.prevRotationPitch, entityIn.rotationPitch) + 90.0F));
-        IVertexBuilder ivertexbuilder = net.minecraft.client.renderer.ItemRenderer.getEntityGlintVertexBuilder(bufferIn, this.tridentModel.getRenderType(this.getEntityTexture(entityIn)), false, entityIn.func_226572_w_());
-        this.tridentModel.render(matrixStackIn, ivertexbuilder, packedLightIn, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
+
+        RenderType renderType = this.model.getRenderType(getEntityTexture(entityIn));
+        IVertexBuilder ivertexbuilder = bufferIn.getBuffer(renderType);
+        this.model.render(matrixStackIn, ivertexbuilder, packedLightIn, OverlayTexture.NO_OVERLAY, 0,0,0,0);
+
         matrixStackIn.pop();
+
         super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
     }
 

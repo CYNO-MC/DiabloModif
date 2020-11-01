@@ -1,49 +1,24 @@
 package com.cyno.diablo.items;
 
 import com.cyno.diablo.Diablo;
-import com.cyno.diablo.client.render.DemonTridentRenderer;
-import com.cyno.diablo.client.render.ModISTER;
 import com.cyno.diablo.entities.DemonTridentEntity;
-import com.cyno.diablo.util.Debug;
-import com.google.common.collect.ImmutableMultimap;
-import com.google.common.collect.Multimap;
-import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.vertex.IVertexBuilder;
-import net.minecraft.block.BlockState;
-import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.client.renderer.ItemRenderer;
-import net.minecraft.client.renderer.entity.model.TridentModel;
-import net.minecraft.client.renderer.tileentity.ItemStackTileEntityRenderer;
 import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.enchantment.IVanishable;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.MoverType;
-import net.minecraft.entity.ai.attributes.Attribute;
-import net.minecraft.entity.ai.attributes.AttributeModifier;
-import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.entity.projectile.AbstractArrowEntity;
-import net.minecraft.entity.projectile.TridentEntity;
-import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.TridentItem;
-import net.minecraft.item.UseAction;
 import net.minecraft.stats.Stats;
 import net.minecraft.util.*;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.world.DimensionType;
 import net.minecraft.world.World;
-
-import java.util.concurrent.Callable;
 
 public class DemonTridentItem extends TridentItem {
     public DemonTridentItem() {
-        super(new Item.Properties().group(Diablo.TAB).maxDamage(1000)
-        .setISTER(() -> (ModISTER::new)));
+        super(new Item.Properties().group(Diablo.TAB).maxDamage(1000));
     }
 
     public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {

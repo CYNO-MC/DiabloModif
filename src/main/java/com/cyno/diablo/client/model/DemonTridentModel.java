@@ -1,36 +1,41 @@
-package com.cyno.diablo.client.model;
+package com.cyno.diablo.client.model;// Made with Blockbench 3.6.6
+// Exported for Minecraft version 1.15
+// Paste this class into your mod and generate all required imports
 
-import com.cyno.diablo.Diablo;
+
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.model.Model;
+import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.entity.Entity;
 
-public class DemonTridentModel extends Model {
-    public static final ResourceLocation TEXTURE_LOCATION = new ResourceLocation(Diablo.MOD_ID, "textures/entity/demon_trident.png");
-    private final ModelRenderer modelRenderer = new ModelRenderer(32, 32, 0, 6);
+public class DemonTridentModel extends EntityModel<Entity> {
+	private final ModelRenderer bb_main;
 
-    public DemonTridentModel() {
-        super(RenderType::getEntitySolid);
-        this.modelRenderer.addBox(-0.5F, 2.0F, -0.5F, 1.0F, 25.0F, 1.0F, 0.0F);
-        ModelRenderer modelrenderer = new ModelRenderer(32, 32, 4, 0);
-        modelrenderer.addBox(-1.5F, 0.0F, -0.5F, 3.0F, 2.0F, 1.0F);
-        this.modelRenderer.addChild(modelrenderer);
-        ModelRenderer modelrenderer1 = new ModelRenderer(32, 32, 4, 3);
-        modelrenderer1.addBox(-2.5F, -3.0F, -0.5F, 1.0F, 4.0F, 1.0F);
-        this.modelRenderer.addChild(modelrenderer1);
-        ModelRenderer modelrenderer2 = new ModelRenderer(32, 32, 0, 0);
-        modelrenderer2.addBox(-0.5F, -4.0F, -0.5F, 1.0F, 4.0F, 1.0F, 0.0F);
-        this.modelRenderer.addChild(modelrenderer2);
-        ModelRenderer modelrenderer3 = new ModelRenderer(32, 32, 4, 3);
-        modelrenderer3.mirror = true;
-        modelrenderer3.addBox(1.5F, -3.0F, -0.5F, 1.0F, 4.0F, 1.0F);
-        this.modelRenderer.addChild(modelrenderer3);
-    }
+	public DemonTridentModel() {
+		textureWidth = 16;
+		textureHeight = 16;
 
-    public void render(MatrixStack matrixStackIn, IVertexBuilder bufferIn, int packedLightIn, int packedOverlayIn, float red, float green, float blue, float alpha) {
-        this.modelRenderer.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
-    }
+		bb_main = new ModelRenderer(this);
+		bb_main.setRotationPoint(0.0F, 24.0F, 0.0F);
+		bb_main.setTextureOffset(0, 0).addBox(-1.0F, -11.0F, 0.0F, 1.0F, 11.0F, 1.0F, 0.0F, false);
+		bb_main.setTextureOffset(8, 8).addBox(-1.0F, -15.0F, 1.0F, 1.0F, 5.0F, 1.0F, 0.0F, false);
+		bb_main.setTextureOffset(4, 4).addBox(-1.0F, -15.0F, -1.0F, 1.0F, 5.0F, 1.0F, 0.0F, false);
+	}
+
+	@Override
+	public void setRotationAngles(Entity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch){
+		//previously the render function, render code was moved to a method below
+	}
+
+	@Override
+	public void render(MatrixStack matrixStack, IVertexBuilder buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha){
+		bb_main.render(matrixStack, buffer, packedLight, packedOverlay);
+	}
+
+	public void setRotationAngle(ModelRenderer modelRenderer, float x, float y, float z) {
+		modelRenderer.rotateAngleX = x;
+		modelRenderer.rotateAngleY = y;
+		modelRenderer.rotateAngleZ = z;
+	}
 }
