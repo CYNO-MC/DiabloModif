@@ -37,6 +37,11 @@ public class SculkMawEntity extends MonsterEntity implements IAnimatable {
     }
 
     @Override
+    public void livingTick() {
+        super.livingTick();
+    }
+
+    @Override
     protected void registerGoals() {
         super.registerGoals();
         this.goalSelector.addGoal(0, new WaterAvoidingRandomWalkingGoal(this, 1.2f));
