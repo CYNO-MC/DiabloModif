@@ -29,8 +29,6 @@ public class ClientEventBusSubscriber {
 
         RenderingRegistry.registerEntityRenderingHandler(DiabloEntityTypes.WARDEN_SOUND_PARTICLES.get(), AmbiantWardenSoundParticleRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(DiabloEntityTypes.DIABLO_FIRE_PARTICLE.get(), DiabloFireParticleRenderer::new);
-
-        RenderingRegistry.registerEntityRenderingHandler(DiabloEntityTypes.DEMON_TRIDENT.get(), DemonTridentRenderer::new);
-    }
+}
 
 }

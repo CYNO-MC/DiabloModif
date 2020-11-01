@@ -45,7 +45,7 @@ public class DemonTridentEntity extends AbstractArrowEntity {
     }
 
     public DemonTridentEntity(World worldIn, LivingEntity thrower, ItemStack thrownStackIn) {
-        super(DiabloEntityTypes.DEMON_TRIDENT.get(), thrower, worldIn);
+        super(EntityType.TRIDENT, thrower, worldIn);
         this.thrownStack = thrownStackIn.copy();
         this.dataManager.set(LOYALTY_LEVEL, (byte)EnchantmentHelper.getLoyaltyModifier(thrownStackIn));
         this.dataManager.set(field_226571_aq_, thrownStackIn.hasEffect());
@@ -53,7 +53,7 @@ public class DemonTridentEntity extends AbstractArrowEntity {
 
     @OnlyIn(Dist.CLIENT)
     public DemonTridentEntity(World worldIn, double x, double y, double z) {
-        super(DiabloEntityTypes.DEMON_TRIDENT.get(), x, y, z, worldIn);
+        super(EntityType.TRIDENT, x, y, z, worldIn);
     }
 
     protected void registerData() {
@@ -130,27 +130,28 @@ public class DemonTridentEntity extends AbstractArrowEntity {
      * Called when the arrow hits an entity
      */
     protected void onEntityHit(EntityRayTraceResult p_213868_1_) {
-        Entity entity = p_213868_1_.getEntity();
+        Entity target = p_213868_1_.getEntity();
         float f = 8.0F;
-        if (entity instanceof LivingEntity) {
-            LivingEntity livingentity = (LivingEntity)entity;
+        if (target instanceof LivingEntity) {
+            LivingEntity livingentity = (LivingEntity)target;
             f += EnchantmentHelper.getModifierForCreature(this.thrownStack, livingentity.getCreatureAttribute());
         }
 
-        Entity entity1 = this.func_234616_v_();
-        DamageSource damagesource = DamageSource.causeTridentDamage(this, (Entity)(entity1 == null ? this : entity1));
+        Entity shooter = this.func_234616_v_();
+        DamageSource damagesource = DamageSource.causeTridentDamage(this, (Entity)(shooter == null ? this : shooter));
         this.dealtDamage = true;
         SoundEvent soundevent = SoundEvents.ITEM_TRIDENT_HIT;
-        if (entity.attackEntityFrom(damagesource, f)) {
-            if (entity.getType() == EntityType.ENDERMAN) {
+        if (target.attackEntityFrom(damagesource, f)) {
+            if (target.getType() == EntityType.ENDERMAN) {
                 return;
             }
 
-            if (entity instanceof LivingEntity) {
-                LivingEntity livingentity1 = (LivingEntity)entity;
-                if (entity1 instanceof LivingEntity) {
-                    EnchantmentHelper.applyThornEnchantments(livingentity1, entity1);
-                    EnchantmentHelper.applyArthropodEnchantments((LivingEntity)entity1, livingentity1);
+            if (target instanceof LivingEntity) {
+                LivingEntity livingentity1 = (LivingEntity)target;
+                target.setFire(5);  // I added this
+                if (shooter instanceof LivingEntity) {
+                    EnchantmentHelper.applyThornEnchantments(livingentity1, shooter);
+                    EnchantmentHelper.applyArthropodEnchantments((LivingEntity)shooter, livingentity1);
                 }
 
                 this.arrowHit(livingentity1);
@@ -159,16 +160,17 @@ public class DemonTridentEntity extends AbstractArrowEntity {
 
         this.setMotion(this.getMotion().mul(-0.01D, -0.1D, -0.01D));
         float f1 = 1.0F;
-        if (this.world instanceof ServerWorld && this.world.isThundering() && EnchantmentHelper.hasChanneling(this.thrownStack)) {
-            BlockPos blockpos = entity.getPosition();
-            if (this.world.canSeeSky(blockpos)) {
-                LightningBoltEntity lightningboltentity = EntityType.LIGHTNING_BOLT.create(this.world);
-                lightningboltentity.moveForced(Vector3d.copyCenteredHorizontally(blockpos));
-                lightningboltentity.setCaster(entity1 instanceof ServerPlayerEntity ? (ServerPlayerEntity)entity1 : null);
-                this.world.addEntity(lightningboltentity);
-                soundevent = SoundEvents.ITEM_TRIDENT_THUNDER;
-                f1 = 5.0F;
-            }
+        boolean isNether = world.getDimensionKey() == World.THE_NETHER;  // I to this condidtion from isThundering
+        // also removed canSeeSky check
+        if (this.world instanceof ServerWorld && isNether && EnchantmentHelper.hasChanneling(this.thrownStack)) {
+            BlockPos blockpos = target.getPosition();
+            LightningBoltEntity lightningboltentity = EntityType.LIGHTNING_BOLT.create(this.world);
+            lightningboltentity.moveForced(Vector3d.copyCenteredHorizontally(blockpos));
+            lightningboltentity.setCaster(shooter instanceof ServerPlayerEntity ? (ServerPlayerEntity)shooter : null);
+            this.world.addEntity(lightningboltentity);
+            soundevent = SoundEvents.ITEM_TRIDENT_THUNDER;
+            f1 = 5.0F;
+
         }
 
         this.playSound(soundevent, f1, 1.0F);
