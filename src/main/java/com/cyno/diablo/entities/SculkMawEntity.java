@@ -5,6 +5,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
+import net.minecraft.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.entity.ai.goal.WaterAvoidingRandomWalkingGoal;
 import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.util.DamageSource;
@@ -15,12 +16,14 @@ import net.minecraft.world.World;
 import software.bernie.geckolib.core.IAnimatable;
 import software.bernie.geckolib.core.PlayState;
 import software.bernie.geckolib.core.builder.AnimationBuilder;
+import software.bernie.geckolib.core.controller.AnimationController;
 import software.bernie.geckolib.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib.core.manager.AnimationData;
 import software.bernie.geckolib.core.manager.AnimationFactory;
 
 public class SculkMawEntity extends MonsterEntity implements IAnimatable {
     private AnimationFactory factory = new AnimationFactory(this);
+
 
     public SculkMawEntity(EntityType<? extends MonsterEntity> type, World worldIn) {
         super(type, worldIn);
@@ -29,7 +32,7 @@ public class SculkMawEntity extends MonsterEntity implements IAnimatable {
     public static AttributeModifierMap.MutableAttribute setCustomAttributes() {
         return SculkMawEntity.registerAttributes()
                 .createMutableAttribute(Attributes.MAX_HEALTH, 750)
-                .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.15f)
+                .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.07f)
                 .createMutableAttribute(Attributes.FOLLOW_RANGE, 50f)
                 .createMutableAttribute(Attributes.ATTACK_KNOCKBACK, 1.0)
                 .createMutableAttribute(Attributes.ATTACK_DAMAGE, 1.0);
@@ -41,12 +44,13 @@ public class SculkMawEntity extends MonsterEntity implements IAnimatable {
         super.livingTick();
     }
 
-    
+
 
     @Override
     protected void registerGoals() {
         super.registerGoals();
-        this.goalSelector.addGoal(0, new WaterAvoidingRandomWalkingGoal(this, 1.2f));
+        this.goalSelector.addGoal(1, new WaterAvoidingRandomWalkingGoal(this, 1.00f));
+        this.goalSelector.addGoal(0, new MeleeAttackGoal(this, 1, true));
 
     }
 
@@ -75,21 +79,20 @@ public class SculkMawEntity extends MonsterEntity implements IAnimatable {
 
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event){
         // idle if not moving fast
-        if(this.getMotion().length() < 0.03){
+        if(this.getMotion().length() < 0.06){
             event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.diablomodif.sculk_maw_entity.idle", true));
-            return PlayState.CONTINUE;
-        }
+        } else event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.diablomodif.sculk_maw_entity.noattackwalk", true));
 
-        return PlayState.STOP;
+        return PlayState.CONTINUE;
     }
 
     @Override
-    public void registerControllers(AnimationData animationData) {
-
+    public void registerControllers(AnimationData data){
+        data.addAnimationController(new AnimationController(this, "moveController", 20, this::predicate));
     }
 
     @Override
     public AnimationFactory getFactory() {
-        return null;
+        return factory;
     }
 }
