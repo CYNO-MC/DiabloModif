@@ -4,10 +4,13 @@ import com.cyno.diablo.goals.AlertedBySoundGoal;
 import com.cyno.diablo.goals.StandardMeleeAttackGoal;
 import com.cyno.diablo.init.DiabloEntityTypes;
 import com.cyno.diablo.init.SoundInit;
+import com.cyno.diablo.util.Debug;
 import net.minecraft.block.BlockState;
+import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
+import net.minecraft.entity.ai.goal.SwimGoal;
 import net.minecraft.entity.ai.goal.WaterAvoidingRandomWalkingGoal;
 import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.network.datasync.DataParameter;
@@ -17,6 +20,7 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import software.bernie.geckolib.core.IAnimatable;
@@ -26,6 +30,16 @@ import software.bernie.geckolib.core.controller.AnimationController;
 import software.bernie.geckolib.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib.core.manager.AnimationData;
 import software.bernie.geckolib.core.manager.AnimationFactory;
+import software.bernie.geckolib.molang.MolangRegistrar;
+import software.bernie.geckolib.resource.GeckoLibCache;
+import software.bernie.geckolib.util.GeckoLibUtil;
+import software.bernie.geckolib.util.MolangUtils;
+import software.bernie.shadowed.eliotlash.mclib.math.Variable;
+import software.bernie.shadowed.eliotlash.molang.MolangParser;
+import software.bernie.shadowed.eliotlash.molang.expressions.MolangAssignment;
+import software.bernie.shadowed.eliotlash.molang.expressions.MolangExpression;
+import software.bernie.shadowed.eliotlash.molang.expressions.MolangMultiStatement;
+import software.bernie.shadowed.eliotlash.molang.expressions.MolangValue;
 
 
 public class WardenEntity extends MonsterEntity implements IAnimatable {
@@ -41,6 +55,7 @@ public class WardenEntity extends MonsterEntity implements IAnimatable {
         return factory;
     }
 
+    private static final DataParameter<Float> ANIM_TIME = EntityDataManager.createKey(WardenEntity.class, DataSerializers.FLOAT);
     private static final DataParameter<Float> ANIM_SPEED = EntityDataManager.createKey(WardenEntity.class, DataSerializers.FLOAT);
     private static final DataParameter<Boolean> IS_ATTACKING = EntityDataManager.createKey(WardenEntity.class, DataSerializers.BOOLEAN);
 
@@ -62,9 +77,11 @@ public class WardenEntity extends MonsterEntity implements IAnimatable {
         // registerAnimators();
         if(!worldIn.isRemote()){
             if(instance == null)
+            {
                 instance = this;
-
-            if(this != instance)
+                GeckoLibCache.getInstance().parser.register(new Variable("query.anim_speed", 1));
+            }
+            else
             {
                 remove();
             }
@@ -89,6 +106,7 @@ public class WardenEntity extends MonsterEntity implements IAnimatable {
         alertedBySoundGoal = new AlertedBySoundGoal(this, 1.4f, true);
         this.goalSelector.addGoal(0,  meleeAttackGoal);
         this.goalSelector.addGoal(1, new WaterAvoidingRandomWalkingGoal(this, 1.2f));
+        this.goalSelector.addGoal(0, new SwimGoal(this));
         this.goalSelector.addGoal(0, alertedBySoundGoal);
     }
 
@@ -97,6 +115,7 @@ public class WardenEntity extends MonsterEntity implements IAnimatable {
         super.registerData();
         this.dataManager.register(ANIM_SPEED, wardenSpeed);
         this.dataManager.register(IS_ATTACKING, false);
+        this.dataManager.register(ANIM_TIME, 0f);
     }
 
 
@@ -139,12 +158,17 @@ public class WardenEntity extends MonsterEntity implements IAnimatable {
                 this.AddSoundParticlesCoroutineAt(lastHeardPos);
 
             this.dataManager.set(IS_ATTACKING, this.getAttackTarget() != null);
+            this.dataManager.set(ANIM_TIME, this.getAnimTime() + 0.001f);
         }
 
     }
 
     public Boolean getIsAttacking(){
         return this.dataManager.get(IS_ATTACKING);
+    }
+
+    public Float getAnimTime(){
+        return this.dataManager.get(ANIM_TIME);
     }
 
     @Override
@@ -196,22 +220,22 @@ public class WardenEntity extends MonsterEntity implements IAnimatable {
     }
 
     private <E extends WardenEntity> PlayState animationPredicate(AnimationEvent<E> event){
-        if (this.getIsAttacking()){
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.warden.attacking", false));
+     /*   if (this.getIsAttacking()){
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.warden.attack", false));
 
             // doesn't return as this is independant of walking
-        }
-
-        if(this.getMotion().length() > 0.06){
+        } */
+        if(event.getAnimatable().getMotion().length() > 0.07f){
             // TODO: change animation speed
-            // animationManager.setAnimationSpeed((this.getIsAttacking() ? this.getAnimationSpeed() : 1));
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.warden.walking", true));
-        } else if (!this.getIsAttacking()){
+            GeckoLibCache.getInstance().parser.setValue("query.anim_speed", wardenSpeed);
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.warden.walking_molang", true));
+        }
+        else{
             event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.warden.idle", true));
         }
-
-        // no condition doesnt have an animation so always returns continue
         return PlayState.CONTINUE;
+        // no condition doesnt have an animation so always returns continue
+
     }
 
 }
