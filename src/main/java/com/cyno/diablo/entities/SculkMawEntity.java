@@ -41,6 +41,8 @@ public class SculkMawEntity extends MonsterEntity implements IAnimatable {
         super.livingTick();
     }
 
+    
+
     @Override
     protected void registerGoals() {
         super.registerGoals();
