@@ -1,5 +1,6 @@
 package com.cyno.diablo.goals;
 
+import com.cyno.diablo.entities.DiabloEntity;
 import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.MeleeAttackGoal;
@@ -7,9 +8,17 @@ import net.minecraft.entity.ai.goal.MeleeAttackGoal;
 /* The same as MeleeAttackGoal but it checks that the target is on fire before it continues executing  */
 
 public class FlamingTargetMeleeAttackGoal extends MeleeAttackGoal {
-    public FlamingTargetMeleeAttackGoal(CreatureEntity entityIn, double speedIn, boolean useLongMemory) {
+    private DiabloEntity diablo;
+    public FlamingTargetMeleeAttackGoal(DiabloEntity entityIn, double speedIn, boolean useLongMemory) {
         super(entityIn, speedIn, useLongMemory);
+        diablo = entityIn;
     }
+
+    @Override
+    public boolean shouldExecute() {
+        return super.shouldExecute() && !this.diablo.isCurrentlyGrabbing;
+    }
+
     @Override
     protected double getAttackReachSqr(LivingEntity attackTarget) {
         return (double)(this.attacker.getWidth() * 3.0F  + attackTarget.getWidth());
@@ -23,7 +32,7 @@ public class FlamingTargetMeleeAttackGoal extends MeleeAttackGoal {
             assert target != null;
             boolean isOnFire = target.getFireTimer() > 0;
             if (!isOnFire) this.attacker.setAttackTarget(null);
-            return isOnFire;
+            return isOnFire && !this.diablo.isCurrentlyGrabbing;
         } else {
             return false;
         }

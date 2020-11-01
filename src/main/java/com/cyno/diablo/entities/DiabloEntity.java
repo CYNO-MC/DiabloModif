@@ -2,6 +2,7 @@ package com.cyno.diablo.entities;
 
 import com.cyno.diablo.goals.FireCircleAttackGoal;
 import com.cyno.diablo.goals.FlamingTargetMeleeAttackGoal;
+import com.cyno.diablo.goals.GrabAttackGoal;
 import com.cyno.diablo.init.DiabloItems;
 import com.cyno.diablo.init.SoundInit;
 import com.cyno.diablo.items.VialItem;
@@ -43,7 +44,12 @@ public class DiabloEntity extends MonsterEntity implements IAnimatedEntity {
     private static final Predicate<LivingEntity> IS_ON_FIRE = (entity) -> {
         return entity.getFireTimer() > 0;
     };
+
+    // counts down to when you can draw blood again
     private int bloodRemovalTimer;
+
+    // set in GrabAttackGoal, checked in FlamingTargetMeeleAttackGoal. makes it not attack while grabbing someone
+    public boolean isCurrentlyGrabbing;
 
 
     public float getHealthData (){
@@ -54,6 +60,7 @@ public class DiabloEntity extends MonsterEntity implements IAnimatedEntity {
         super(type, worldIn);
         registerAnimationControllers();
         bloodRemovalTimer = 0;
+        isCurrentlyGrabbing = false;
     }
 
     public static AttributeModifierMap.MutableAttribute setCustomAttributes() {
@@ -75,11 +82,14 @@ public class DiabloEntity extends MonsterEntity implements IAnimatedEntity {
         // If there are any flaming players nearby, set them to attackTarget
         this.goalSelector.addGoal(0, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, 1, true, false, IS_ON_FIRE));
 
+        // If the target is very nearby, grab them (so they can't move) and deal damage over time until they deal a cetain amount of damage
+        this.goalSelector.addGoal(1, new GrabAttackGoal(this));
+
         // Walk towards and attack the target. Stop if they are no longer on fire
-        this.goalSelector.addGoal(1, new FlamingTargetMeleeAttackGoal(this, 1.0d, true));
+        this.goalSelector.addGoal(2, new FlamingTargetMeleeAttackGoal(this, 1.0d, true));
 
         // When there are no flaming players nearby, shoot rings of fire particles
-        this.goalSelector.addGoal(2, new FireCircleAttackGoal(this, 48, 1.5D));
+        this.goalSelector.addGoal(3, new FireCircleAttackGoal(this, 48, 1.5D));
     }
 
     @Override
