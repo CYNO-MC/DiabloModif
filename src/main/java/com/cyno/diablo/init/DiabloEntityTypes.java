@@ -4,7 +4,9 @@ import com.cyno.diablo.Diablo;
 import com.cyno.diablo.entities.*;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.projectile.AbstractArrowEntity;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.World;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -35,5 +37,8 @@ public class DiabloEntityTypes {
             () -> EntityType.Builder.create(DiabloFireParticleEntity::new, EntityClassification.AMBIENT).size(0.5f, 0.5f)
                     .build(new ResourceLocation(Diablo.MOD_ID, "diablo_fire_particle").toString()));
 
+    public static final RegistryObject<EntityType<DemonTridentEntity>> DEMON_TRIDENT = ENTITY_TYPES.register("demon_trident",
+            () -> EntityType.Builder.create((EntityType.IFactory<DemonTridentEntity>) DemonTridentEntity::new, EntityClassification.MISC).size(0.5F, 0.5F).func_233606_a_(4).func_233608_b_(20)
+                    .build(new ResourceLocation(Diablo.MOD_ID, "demon_trident").toString()));
 }
 

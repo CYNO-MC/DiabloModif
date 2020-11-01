@@ -2,10 +2,7 @@ package com.cyno.diablo.init;
 
 import com.cyno.diablo.Diablo;
 import com.cyno.diablo.blocks.BlockItemBase;
-import com.cyno.diablo.items.ArsonPotion;
-import com.cyno.diablo.items.DemonBlood;
-import com.cyno.diablo.items.ItemBase;
-import com.cyno.diablo.items.VialItem;
+import com.cyno.diablo.items.*;
 import com.cyno.diablo.util.enums.DiabloItemTier;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
@@ -34,6 +31,8 @@ public class DiabloItems {
     // Tools
     public static final RegistryObject<SwordItem> THE_CONFLAGRATE = ITEMS.register("the_conflagrate",
             () -> new SwordItem(DiabloItemTier.THE_CONFLAGRATE, 9, +3.0f, new Item.Properties().group(Diablo.TAB)));
+
+    public static final RegistryObject<Item> DEMON_TRIDENT = ITEMS.register("demon_trident", DemonTridentItem::new);
 
     @SubscribeEvent
     public static void onRegisterItems(final RegistryEvent.Register<Item> event) {
