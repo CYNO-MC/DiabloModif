@@ -12,9 +12,15 @@ import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.math.BlockPos;
+import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
 
+import java.util.HashMap;
 import java.util.UUID;
 
+@Mod.EventBusSubscriber
 public class GrabAttackGoal extends Goal {
     final int RANGE_SQ = 4;  // can use this attack while within root x of the target
     final int DAMAGE_THRESHOLD = 40;  // releases after taking x/2 hearts of damage
@@ -58,6 +64,7 @@ public class GrabAttackGoal extends Goal {
             attacker.setAttackTarget(null);
             cooldown = attacker.ticksExisted + INTERVAL;
             attacker.isCurrentlyGrabbing = false;
+            forcedPlayerPos.put(target.getUniqueID(), null);
 
             Debug.Log("target released");
         }
@@ -73,6 +80,7 @@ public class GrabAttackGoal extends Goal {
         startingHealth = attacker.getHealth();
         target = attacker.getAttackTarget();
         attacker.isCurrentlyGrabbing = true;
+        forcedPlayerPos.put(target.getUniqueID(), target.getPosition().up(3));
 
         // give it knockback resistance so you can't hit it away. will be removed when you're released
         AttributeModifier mod = new AttributeModifier("diablo_grab_knockres", 1, AttributeModifier.Operation.ADDITION);
@@ -86,12 +94,22 @@ public class GrabAttackGoal extends Goal {
 
         // if it knocked you back right before it grabbed you, run to you
         // without this you sometimes get stuck out of range and just die
-        boolean isTooFar = attacker.getDistanceSq(target) > (RANGE_SQ+1);
-        if (isTooFar){
-            attacker.getNavigator().tryMoveToXYZ(target.getPosX(),target.getPosY(),target.getPosZ(), 3.0F);
-        }
+        //boolean isTooFar = attacker.getDistanceSq(target) > (RANGE_SQ+1);
+        //if (isTooFar){
+        //    attacker.getNavigator().tryMoveToXYZ(target.getPosX(),target.getPosY(),target.getPosZ(), 3.0F);
+        //}
 
-        target.addPotionEffect(new EffectInstance(Effects.SLOWNESS, 5, 9));
+        //target.addPotionEffect(new EffectInstance(Effects.SLOWNESS, 5, 9));
         target.attackEntityFrom(DamageSource.CRAMMING, 1F);  // actually only damages twice a second
+    }
+
+    static HashMap<UUID, BlockPos> forcedPlayerPos = new HashMap<>();
+    @SubscribeEvent
+    public static void onPlayerTick(TickEvent.PlayerTickEvent event){
+        UUID id = event.player.getUniqueID();
+        BlockPos pos = forcedPlayerPos.get(id);
+        if (pos != null){
+            event.player.setPosition(pos.getX(), pos.getY(), pos.getZ());
+        }
     }
 }
