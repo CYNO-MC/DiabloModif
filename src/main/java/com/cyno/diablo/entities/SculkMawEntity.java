@@ -26,25 +26,6 @@ public class SculkMawEntity extends MonsterEntity implements IAnimatable {
         super(type, worldIn);
     }
 
-    // I made it quite spaced out for ya, I am only creating the basic monster entity.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     public static AttributeModifierMap.MutableAttribute setCustomAttributes() {
         return SculkMawEntity.registerAttributes()
                 .createMutableAttribute(Attributes.MAX_HEALTH, 750)
