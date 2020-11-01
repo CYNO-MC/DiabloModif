@@ -8,13 +8,18 @@ import com.mojang.blaze3d.vertex.IVertexBuilder;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
+import net.minecraft.client.renderer.entity.TridentRenderer;
 import net.minecraft.client.renderer.entity.model.TridentModel;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.entity.projectile.TridentEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3f;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
+
+@OnlyIn(Dist.CLIENT)
 public class DemonTridentRenderer extends EntityRenderer<DemonTridentEntity> {
     public static final ResourceLocation TRIDENT = new ResourceLocation(Diablo.MOD_ID, "textures/entity/demon_trident.png");
     private final DemonTridentModel tridentModel = new DemonTridentModel();

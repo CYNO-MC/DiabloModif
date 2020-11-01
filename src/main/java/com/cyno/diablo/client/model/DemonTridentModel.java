@@ -7,13 +7,16 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.model.Model;
 import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
+@OnlyIn(Dist.CLIENT)
 public class DemonTridentModel extends Model {
     public static final ResourceLocation TEXTURE_LOCATION = new ResourceLocation(Diablo.MOD_ID, "textures/entity/demon_trident.png");
     private final ModelRenderer modelRenderer = new ModelRenderer(32, 32, 0, 6);
 
     public DemonTridentModel() {
-        super(RenderType::getEntitySolid);
+        super(RenderType::getEntityCutout);
         this.modelRenderer.addBox(-0.5F, 2.0F, -0.5F, 1.0F, 25.0F, 1.0F, 0.0F);
         ModelRenderer modelrenderer = new ModelRenderer(32, 32, 4, 0);
         modelrenderer.addBox(-1.5F, 0.0F, -0.5F, 3.0F, 2.0F, 1.0F);
