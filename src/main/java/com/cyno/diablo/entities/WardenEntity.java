@@ -67,9 +67,9 @@ public class WardenEntity extends MonsterEntity implements IAnimatable {
     public float maxParticlesDelay = 20;
     public boolean canHear = false;
     public Vector3d lastHeardPos;
-    float wardenSpeed = 1.8f;
     float initWardenSpeed = 1.8f;
     float maxWardenSpeed = 2.8f;
+    float wardenSpeed;
     private AnimationFactory animationManager = new AnimationFactory(this);
 
     public WardenEntity(EntityType<? extends MonsterEntity> type, World worldIn) {
@@ -79,13 +79,12 @@ public class WardenEntity extends MonsterEntity implements IAnimatable {
             if(instance == null)
             {
                 instance = this;
-                GeckoLibCache.getInstance().parser.register(new Variable("query.anim_speed", 1));
-            }
+                }
             else
             {
                 remove();
             }
-            this.accelerateMovement(initWardenSpeed);
+            this.accelerateMovement(wardenSpeed);
         }
     }
 
@@ -101,7 +100,6 @@ public class WardenEntity extends MonsterEntity implements IAnimatable {
     @Override
     protected void registerGoals() {
         super.registerGoals();
-        wardenSpeed = 1.8f;
         meleeAttackGoal = new StandardMeleeAttackGoal(this, wardenSpeed, true, true);
         alertedBySoundGoal = new AlertedBySoundGoal(this, 1.4f, true);
         this.goalSelector.addGoal(0,  meleeAttackGoal);
@@ -124,12 +122,18 @@ public class WardenEntity extends MonsterEntity implements IAnimatable {
             this.meleeAttackGoal.setSpeed(speed);
             // this.animationManager.setAnimationSpeed(speed);
             this.dataManager.set(ANIM_SPEED, speed);
+            wardenSpeed = speed;
 
         }
     }
 
     public Float getAnimationSpeed(){
-        return this.dataManager.get(ANIM_SPEED);
+        // animation speed as a fraction of the initial one times the magic number
+        // this is multiplied by the anim time to compress the sine waves used for animations
+        float s = this.dataManager.get(ANIM_SPEED) / initWardenSpeed;
+        s = ((s-1) * 5) + 1;  // the portion larger than 1 is mulitplied by a magic number
+        Debug.Log(s);
+        return s;
     }
 
     private void AddSoundParticlesCoroutineAt(Vector3d p){
@@ -159,6 +163,10 @@ public class WardenEntity extends MonsterEntity implements IAnimatable {
 
             this.dataManager.set(IS_ATTACKING, this.getAttackTarget() != null);
             this.dataManager.set(ANIM_TIME, this.getAnimTime() + 0.001f);
+
+            if (this.getAttackTarget() == null){
+                this.accelerateMovement(Math.max(initWardenSpeed, wardenSpeed - 0.01F));
+            }
         }
 
     }
@@ -179,10 +187,10 @@ public class WardenEntity extends MonsterEntity implements IAnimatable {
 
     @Override
     public boolean attackEntityFrom(DamageSource source, float amount) {
-        if(this.getHealth() < (3 * this.getMaxHealth())/4)
+        if(true || this.getHealth() < (3 * this.getMaxHealth())/4)
         {
             if(wardenSpeed < maxWardenSpeed)
-            this.accelerateMovement(Math.max(wardenSpeed + amount * 0.1f, initWardenSpeed));
+            this.accelerateMovement(wardenSpeed + 0.05F);
         }
         else
         {
@@ -227,7 +235,6 @@ public class WardenEntity extends MonsterEntity implements IAnimatable {
         } */
         if(event.getAnimatable().getMotion().length() > 0.07f){
             // TODO: change animation speed
-            GeckoLibCache.getInstance().parser.setValue("query.anim_speed", wardenSpeed);
             event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.warden.walking_molang", true));
         }
         else{
