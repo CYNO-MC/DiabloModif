@@ -40,6 +40,8 @@ public class DiabloEntity extends MonsterEntity implements IAnimatable {
     private static final Predicate<LivingEntity> IS_ON_FIRE = (entity) -> {
         return entity.getFireTimer() > 0;
     };
+
+    // how long until you can fill a demon blood vial again
     private int bloodRemovalTimer;
 
     public float getHealthData (){
@@ -172,7 +174,7 @@ public class DiabloEntity extends MonsterEntity implements IAnimatable {
 
     @Override
     public void registerControllers(AnimationData data){
-        data.addAnimationController(new AnimationController(this, "moveController", 20, this::predicate));
+        data.addAnimationController(new AnimationController(this, "moveController", 0, this::predicate));
     }
 
     @Override

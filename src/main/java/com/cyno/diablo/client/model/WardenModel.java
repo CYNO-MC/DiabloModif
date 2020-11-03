@@ -34,6 +34,7 @@ public class WardenModel extends AnimatedGeoModel<WardenEntity> {
         super.setMolangQueries(animatable, currentTick);
         MolangParser parser = GeckoLibCache.getInstance().parser;
 
+        // allows the value of WardenEntity#getAnimationSpeed to be access from molang animation with query.anim_speed
         parser.setValue("query.anim_speed", ((WardenEntity)animatable).getAnimationSpeed());
     }
 }

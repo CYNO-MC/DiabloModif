@@ -45,6 +45,8 @@ import software.bernie.shadowed.eliotlash.molang.expressions.MolangValue;
 public class WardenEntity extends MonsterEntity implements IAnimatable {
     private AnimationFactory factory = new AnimationFactory(this);
 
+    // when transitionLengthTicks was set to 20, it did the crazy spinning thing whenever it switched between animations
+    // with 0 it just snaps to the new animation
     @Override
     public void registerControllers(AnimationData data) {
         data.addAnimationController(new AnimationController(this, "moveController", 0, this::animationPredicate));
@@ -67,8 +69,8 @@ public class WardenEntity extends MonsterEntity implements IAnimatable {
     public float maxParticlesDelay = 20;
     public boolean canHear = false;
     public Vector3d lastHeardPos;
-    float initWardenSpeed = 1.8f;
-    float maxWardenSpeed = 2.8f;
+    float initWardenSpeed = 1.6f;
+    float maxWardenSpeed = 2.6f;
     float wardenSpeed;
     private AnimationFactory animationManager = new AnimationFactory(this);
 
@@ -128,11 +130,15 @@ public class WardenEntity extends MonsterEntity implements IAnimatable {
     }
 
     public Float getAnimationSpeed(){
-        // animation speed as a fraction of the initial one times the magic number
-        // this is multiplied by the anim time to compress the sine waves used for animations
+        float MAGIC_NUMBER = 5.0F;
+
+        // animation speed as a fraction of the initial one
         float s = this.dataManager.get(ANIM_SPEED) / initWardenSpeed;
-        s = ((s-1) * 5) + 1;  // the portion larger than 1 is mulitplied by a magic number
-        Debug.Log(s);
+
+        // the portion larger than 1 is multiplied by a magic number so only the increase in move speed scales animation speed
+        s = ((s-1) * MAGIC_NUMBER) + 1;
+
+        // this is multiplied by the anim time to compress the sine waves used for animations
         return s;
     }
 
@@ -187,12 +193,10 @@ public class WardenEntity extends MonsterEntity implements IAnimatable {
 
     @Override
     public boolean attackEntityFrom(DamageSource source, float amount) {
-        if(true || this.getHealth() < (3 * this.getMaxHealth())/4)
-        {
+        if(this.getHealth() < (3 * this.getMaxHealth())/4) {
             if(wardenSpeed < maxWardenSpeed)
-            this.accelerateMovement(wardenSpeed + 0.05F);
-        }
-        else
+            this.accelerateMovement(wardenSpeed + 0.1F);
+        } else
         {
             this.accelerateMovement(initWardenSpeed);
         }
