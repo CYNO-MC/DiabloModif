@@ -174,6 +174,10 @@ public class DiabloEntity extends MonsterEntity implements IAnimatable {
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event){
         // idle if not moving fast
 
+        if(this.getMotion().length() < 0.06){
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.diablomodif.diablo_entity.idle", true));
+        }
+
         if (isCurrentlyGrabbing){
             event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.diablomodif.diablo_entity.grabattackstart", false));
         }
