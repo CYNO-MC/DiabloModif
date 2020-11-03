@@ -6,7 +6,6 @@ import com.cyno.diablo.goals.GrabAttackGoal;
 import com.cyno.diablo.init.DiabloItems;
 import com.cyno.diablo.init.SoundInit;
 import com.cyno.diablo.items.VialItem;
-import com.cyno.diablo.util.Debug;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -24,7 +23,6 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.Hand;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import software.bernie.geckolib.animation.builder.AnimationBuilder;
 import software.bernie.geckolib.animation.controller.AnimationController;
@@ -181,7 +179,7 @@ public class DiabloEntity extends MonsterEntity implements IAnimatedEntity {
 
     private <E extends DiabloEntity> boolean animationPredicate(AnimationTestEvent<E> event) {
         if (event.isWalking()) {}
-        else controller.setAnimation(new AnimationBuilder().addAnimation("animation.diablomodif.diabloentity.idle", true));
+        else controller.setAnimation(new AnimationBuilder().addAnimation("animation.diablomodif.diablo_entity.idle", true));
 
         return true;
     }
