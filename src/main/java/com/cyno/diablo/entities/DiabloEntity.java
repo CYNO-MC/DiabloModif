@@ -172,10 +172,10 @@ public class DiabloEntity extends MonsterEntity implements IAnimatable {
 
     // decides which animation to play. animationName is from the json file in resources/id/animations
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event){
-        
+
 
         if (isCurrentlyGrabbing){
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.diablomodif.diablo_entity.grabattack", false));
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.diablomodif.diablo_entity.grabattack", true));
             return PlayState.CONTINUE;
         }
 
