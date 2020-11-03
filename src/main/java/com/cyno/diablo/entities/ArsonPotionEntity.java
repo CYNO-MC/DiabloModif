@@ -72,19 +72,18 @@ public class ArsonPotionEntity extends PotionEntity {
                 return;
             }
 
-            BlockPos blockpos1 = ray.getPos().offset(ray.getFace());  // pos to put fire in
-            addFireAtPos(blockpos1);
+            BlockPos firePos = ray.getPos().offset(ray.getFace());
+            addFireAtPos(firePos);
 
-            center = blockpos1;
-            hasHitGround = true;
+            center = firePos;  // center of the fire circle
+            hasHitGround = true;  // trigger fire circle adding logic
 
             this.setMotion(Vector3d.ZERO);
             this.setInvisible(true);
         }
     }
 
-    // called for each position the circle decides to effect
-    // if its air makes it fire
+    // called for each position the circle decides to effect, if its air makes it fire
     private void addFireAtPos(BlockPos pos){
         if (this.world.getBlockState(pos).isAir() && this.world.getBlockState(pos.down()).isOpaqueCube(this.world, pos.down())) {
             this.world.setBlockState(pos, AbstractFireBlock.getFireForPlacement(this.world, pos));
