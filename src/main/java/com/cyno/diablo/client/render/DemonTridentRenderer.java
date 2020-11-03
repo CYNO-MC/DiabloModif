@@ -2,16 +2,13 @@ package com.cyno.diablo.client.render;
 
 import com.cyno.diablo.Diablo;
 import com.cyno.diablo.client.model.DemonTridentModel;
-import com.cyno.diablo.entities.DemonTridentEntity;
+import com.cyno.diablo.entities.projectiles.DemonTridentEntity;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
-import net.minecraft.client.renderer.entity.TridentRenderer;
-import net.minecraft.client.renderer.entity.model.TridentModel;
 import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.entity.projectile.TridentEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3f;

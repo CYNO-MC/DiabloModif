@@ -1,8 +1,7 @@
-package com.cyno.diablo.entities;
+package com.cyno.diablo.entities.projectiles;
 
 import com.cyno.diablo.init.DiabloEntityTypes;
 import com.cyno.diablo.init.DiabloItems;
-import com.cyno.diablo.util.Debug;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -11,9 +10,7 @@ import net.minecraft.entity.effect.LightningBoltEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.entity.projectile.AbstractArrowEntity;
-import net.minecraft.entity.projectile.TridentEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.IPacket;
 import net.minecraft.network.datasync.DataParameter;
@@ -33,8 +30,8 @@ import net.minecraftforge.fml.network.NetworkHooks;
 
 import javax.annotation.Nullable;
 
-// this started by just copying everything from TridentEntity
-// can't just extend it becuase I need to accesss some private things
+// same as a normal trident but enchants that normally work while in water work in the nether instead and has a flame effect
+// this started by just copying everything from TridentEntity, can't just extend it becuase I need to accesss some private things
 
 public class DemonTridentEntity extends AbstractArrowEntity {
     private static final DataParameter<Byte> LOYALTY_LEVEL = EntityDataManager.createKey(DemonTridentEntity.class, DataSerializers.BYTE);
@@ -150,33 +147,43 @@ public class DemonTridentEntity extends AbstractArrowEntity {
             }
 
             if (target instanceof LivingEntity) {
-                LivingEntity livingentity1 = (LivingEntity)target;
+                LivingEntity livingTarget = (LivingEntity)target;
                 target.setFire(5);  // I added this
                 if (shooter instanceof LivingEntity) {
-                    EnchantmentHelper.applyThornEnchantments(livingentity1, shooter);
-                    EnchantmentHelper.applyArthropodEnchantments((LivingEntity)shooter, livingentity1);
+                    EnchantmentHelper.applyThornEnchantments(livingTarget, shooter);
+                    EnchantmentHelper.applyArthropodEnchantments((LivingEntity)shooter, livingTarget);
                 }
 
-                this.arrowHit(livingentity1);
+                this.arrowHit(livingTarget);
             }
         }
 
+        // do the thing where it looks like it bounces of the target
         this.setMotion(this.getMotion().mul(-0.01D, -0.1D, -0.01D));
-        float f1 = 1.0F;
-        boolean isNether = world.getDimensionKey() == World.THE_NETHER;  // I to this condidtion from isThundering
-        // also removed canSeeSky check
+
+        float volume = 1.0F;
+        boolean didChanneling = handleChanneling(shooter, target);
+        if (didChanneling){
+            soundevent = SoundEvents.ITEM_TRIDENT_THUNDER;
+            volume = 5.0F;
+        }
+
+
+        this.playSound(soundevent, volume, 1.0F);
+    }
+
+    private boolean handleChanneling(Entity shooter, Entity target){
+        // I changed this condidtion from isThundering, also removed canSeeSky check
+        boolean isNether = world.getDimensionKey() == World.THE_NETHER;
         if (this.world instanceof ServerWorld && isNether && EnchantmentHelper.hasChanneling(this.thrownStack)) {
             BlockPos blockpos = target.getPosition();
             LightningBoltEntity lightningboltentity = EntityType.LIGHTNING_BOLT.create(this.world);
             lightningboltentity.moveForced(Vector3d.copyCenteredHorizontally(blockpos));
             lightningboltentity.setCaster(shooter instanceof ServerPlayerEntity ? (ServerPlayerEntity)shooter : null);
             this.world.addEntity(lightningboltentity);
-            soundevent = SoundEvents.ITEM_TRIDENT_THUNDER;
-            f1 = 5.0F;
-
+            return true;
         }
-
-        this.playSound(soundevent, f1, 1.0F);
+        return false;
     }
 
     /**
@@ -223,6 +230,8 @@ public class DemonTridentEntity extends AbstractArrowEntity {
 
     }
 
+
+    // If a projectile doesn't render (is just randomly invisible), you need to add this function. Thanks Adrien!
     @Override
     public IPacket<?> createSpawnPacket() {
         return NetworkHooks.getEntitySpawningPacket(this);

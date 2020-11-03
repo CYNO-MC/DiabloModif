@@ -1,15 +1,10 @@
 package com.cyno.diablo.items;
 
 import com.cyno.diablo.Diablo;
-import com.cyno.diablo.entities.ArsonPotionEntity;
-import net.minecraft.advancements.CriteriaTriggers;
-import net.minecraft.entity.LivingEntity;
+import com.cyno.diablo.entities.projectiles.ArsonPotionEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.entity.projectile.PotionEntity;
 import net.minecraft.item.*;
-import net.minecraft.potion.EffectInstance;
-import net.minecraft.potion.PotionUtils;
 import net.minecraft.stats.Stats;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;

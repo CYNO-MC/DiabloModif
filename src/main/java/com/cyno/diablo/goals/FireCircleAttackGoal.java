@@ -1,11 +1,8 @@
 package com.cyno.diablo.goals;
 
-import com.cyno.diablo.Diablo;
 import com.cyno.diablo.entities.DiabloEntity;
-import com.cyno.diablo.entities.DiabloFireParticleEntity;
-import net.minecraft.entity.LivingEntity;
+import com.cyno.diablo.entities.projectiles.DiabloFireParticleEntity;
 import net.minecraft.entity.ai.goal.Goal;
-import net.minecraft.world.World;
 
 public class FireCircleAttackGoal extends Goal {
     private final DiabloEntity shooter;

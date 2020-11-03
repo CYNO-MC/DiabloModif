@@ -1,4 +1,4 @@
-package com.cyno.diablo.entities;
+package com.cyno.diablo.entities.projectiles;
 
 import com.cyno.diablo.util.CircleHelper;
 import net.minecraft.block.AbstractFireBlock;

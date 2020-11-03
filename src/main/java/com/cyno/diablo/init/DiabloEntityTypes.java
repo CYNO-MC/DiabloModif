@@ -2,11 +2,11 @@ package com.cyno.diablo.init;
 
 import com.cyno.diablo.Diablo;
 import com.cyno.diablo.entities.*;
+import com.cyno.diablo.entities.projectiles.DemonTridentEntity;
+import com.cyno.diablo.entities.projectiles.DiabloFireParticleEntity;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.projectile.AbstractArrowEntity;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;

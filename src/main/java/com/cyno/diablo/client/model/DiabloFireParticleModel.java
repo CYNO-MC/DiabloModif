@@ -1,7 +1,6 @@
 package com.cyno.diablo.client.model;
 
-import com.cyno.diablo.entities.AmbiantWardenSoundParticleEntity;
-import com.cyno.diablo.entities.DiabloFireParticleEntity;
+import com.cyno.diablo.entities.projectiles.DiabloFireParticleEntity;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import net.minecraft.client.renderer.entity.model.EntityModel;

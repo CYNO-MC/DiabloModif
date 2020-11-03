@@ -1,10 +1,8 @@
 package com.cyno.diablo.client.render;
 
 import com.cyno.diablo.Diablo;
-import com.cyno.diablo.client.model.AmbiantWardenSoundParticleModel;
 import com.cyno.diablo.client.model.DiabloFireParticleModel;
-import com.cyno.diablo.entities.AmbiantWardenSoundParticleEntity;
-import com.cyno.diablo.entities.DiabloFireParticleEntity;
+import com.cyno.diablo.entities.projectiles.DiabloFireParticleEntity;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.util.ResourceLocation;

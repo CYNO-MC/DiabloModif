@@ -1,7 +1,7 @@
 package com.cyno.diablo.items;
 
 import com.cyno.diablo.Diablo;
-import com.cyno.diablo.entities.DemonTridentEntity;
+import com.cyno.diablo.entities.projectiles.DemonTridentEntity;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.MoverType;
@@ -16,6 +16,8 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 
+// same as a normal trident but enchants that normally work while in water work in the nether instead and has a flame effect
+// has to extend TridentItem so it can get trident enchants without bothering makeing a new enchant type thingy
 public class DemonTridentItem extends TridentItem {
     public DemonTridentItem() {
         super(new Item.Properties().group(Diablo.TAB).maxDamage(1000));
@@ -25,7 +27,7 @@ public class DemonTridentItem extends TridentItem {
         ItemStack itemstack = playerIn.getHeldItem(handIn);
         if (itemstack.getDamage() >= itemstack.getMaxDamage() - 1) {
             return ActionResult.resultFail(itemstack);
-        } else if (EnchantmentHelper.getRiptideModifier(itemstack) > 0 && !canApplyRiptide(worldIn)) {
+        } else if (EnchantmentHelper.getRiptideModifier(itemstack) > 0 && !isInNether(worldIn)) {
             return ActionResult.resultFail(itemstack);
         } else {
             playerIn.setActiveHand(handIn);
@@ -39,7 +41,7 @@ public class DemonTridentItem extends TridentItem {
             int time = this.getUseDuration(stack) - timeLeft;
             if (time >= 10) {
                 int riptideLevel = EnchantmentHelper.getRiptideModifier(stack);
-                if (riptideLevel <= 0 || canApplyRiptide(worldIn)) {
+                if (riptideLevel <= 0 || isInNether(worldIn)) {
                     if (!worldIn.isRemote) {
                         stack.damageItem(1, playerentity, (p_220047_1_) -> {
                             p_220047_1_.sendBreakAnimation(entityLiving.getActiveHand());
@@ -73,7 +75,7 @@ public class DemonTridentItem extends TridentItem {
         }
     }
 
-    private boolean canApplyRiptide(World world) {
+    private boolean isInNether(World world) {
         return world.getDimensionKey() == World.THE_NETHER;
     }
 

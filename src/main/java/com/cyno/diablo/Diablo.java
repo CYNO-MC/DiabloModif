@@ -1,6 +1,7 @@
 package com.cyno.diablo;
 
 import com.cyno.diablo.entities.*;
+import com.cyno.diablo.entities.projectiles.DiabloFireParticleEntity;
 import com.cyno.diablo.init.DiabloBlocks;
 import com.cyno.diablo.init.DiabloEntityTypes;
 import com.cyno.diablo.init.DiabloItems;
