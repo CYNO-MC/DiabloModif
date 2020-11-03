@@ -1,68 +1,342 @@
 {
 	"format_version": "1.8.0",
 	"animations": {
-		"animation.diablomodif.diabloentity.attack": {
-			"loop": true
-		},
-		"animation.diablomodif.diabloentity.idle": {
-			"animation_length": 4.36,
+		"animation.diablomodif.diablo_entity.noattack_injuredwalk": {
+			"loop": true,
+			"animation_length": 1.36,
 			"bones": {
-				"body": {
+				"diabloBelly": {
+					"rotation": {
+						"0.0": {
+							"vector": [12.5, 0, 5]
+						},
+						"0.6": {
+							"vector": [25, 0, 2.5]
+						},
+						"1.32": {
+							"vector": [12.5, 0, 5]
+						}
+					}
+				},
+				"diabloChest": {
+					"rotation": {
+						"0.04": {
+							"vector": [0, 0, -2.5]
+						},
+						"0.6": {
+							"vector": [0, 0, -7.5]
+						},
+						"1.28": {
+							"vector": [0, 0, -2.5]
+						}
+					}
+				},
+				"diabloRightArm": {
+					"rotation": {
+						"0.0": {
+							"vector": [-20, 0, -2.5]
+						},
+						"0.64": {
+							"vector": [2.5, 0, -2.5]
+						},
+						"1.32": {
+							"vector": [-20, 0, -2.5]
+						}
+					}
+				},
+				"diabloRightFist": {
+					"rotation": {
+						"vector": [-12.5, 0, 0]
+					}
+				},
+				"diabloLeftArm": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 5]
+						},
+						"0.6": {
+							"vector": [-12.5, -2.5, 7.5]
+						},
+						"1.32": {
+							"vector": [0, 0, 5]
+						}
+					}
+				},
+				"diabloRightLeg": {
+					"rotation": {
+						"0.0": {
+							"vector": [-10, 0, 0]
+						},
+						"0.64": {
+							"vector": [10, 0, 0],
+							"easing": "easeInOutSine"
+						},
+						"1.32": {
+							"vector": [-10, 0, 0],
+							"easing": "easeInOutSine"
+						}
+					}
+				},
+				"diabloLeftLeg": {
+					"rotation": {
+						"0.0": {
+							"vector": [10, 0, 0]
+						},
+						"0.64": {
+							"vector": [-10, 0, 0],
+							"easing": "easeInOutSine"
+						},
+						"1.32": {
+							"vector": [10, 0, 0],
+							"easing": "easeInOutSine"
+						}
+					}
+				}
+			}
+		},
+		"animation.diablomodif.diablo_entity.walk": {
+			"loop": true,
+			"animation_length": 1.36,
+			"bones": {
+				"diabloChest": {
+					"rotation": {
+						"0.0": {
+							"vector": [17.5, 0, 3.5],
+							"easing": "easeInOutQuad"
+						},
+						"0.6": {
+							"vector": [17.5, 0, -3.5],
+							"easing": "easeInOutQuad"
+						},
+						"1.28": {
+							"vector": [17.5, 0, 3.5],
+							"easing": "easeInOutQuad"
+						}
+					}
+				},
+				"diabloRightLeg": {
+					"rotation": {
+						"0.0": {
+							"vector": [-10, 0, 0]
+						},
+						"0.64": {
+							"vector": [10, 0, 0],
+							"easing": "easeInOutSine"
+						},
+						"1.32": {
+							"vector": [-10, 0, 0],
+							"easing": "easeInOutSine"
+						}
+					}
+				},
+				"diabloLeftLeg": {
+					"rotation": {
+						"0.0": {
+							"vector": [10, 0, 0]
+						},
+						"0.64": {
+							"vector": [-10, 0, 0],
+							"easing": "easeInOutSine"
+						},
+						"1.32": {
+							"vector": [10, 0, 0],
+							"easing": "easeInOutSine"
+						}
+					}
+				},
+				"diabloWaist": {
+					"rotation": {
+						"0.0": {
+							"vector": [-2.5, 0, 0]
+						},
+						"0.6": {
+							"vector": [-10, 0, 2.5]
+						},
+						"1.32": {
+							"vector": [-2.5, 0, 0]
+						}
+					}
+				},
+				"diabloRightArm": {
+					"rotation": {
+						"0.0": {
+							"vector": [-17.5, 0, -7.5]
+						},
+						"0.6": {
+							"vector": [0, 0, -5]
+						},
+						"1.32": {
+							"vector": [-17.5, 0, -7.5]
+						}
+					}
+				},
+				"diabloLeftArm": {
+					"rotation": {
+						"0.0": {
+							"vector": [5, 0, 2.5]
+						},
+						"0.6": {
+							"vector": [-20, 0, 7.5]
+						},
+						"1.32": {
+							"vector": [5, 0, 2.5]
+						}
+					}
+				}
+			}
+		},
+		"animation.diablomodif.diablo_entity.idle": {
+			"loop": true,
+			"animation_length": 4.08,
+			"bones": {
+				"diabloBelly": {
 					"rotation": {
 						"0.0": {
 							"vector": [0, 0, 0]
 						},
-						"2.16": {
-							"vector": [1.4, 0, 0],
-							"easing": "easeInOutQuad"
+						"2.08": {
+							"vector": [5, 0, 0],
+							"easing": "easeInCubic"
 						},
-						"4.36": {
+						"2.24": {
+							"vector": [5, 0, 0],
+							"easing": "easeInCubic"
+						},
+						"4.08": {
 							"vector": [0, 0, 0],
-							"easing": "easeOutQuad"
+							"easing": "easeOutCubic"
 						}
 					}
 				},
-				"right_arm": {
+				"diabloChest": {
 					"rotation": {
 						"0.0": {
 							"vector": [0, 0, 0]
 						},
-						"2.12": {
-							"vector": [0, 0, 2.7]
+						"2.08": {
+							"vector": [2, 0, 0]
 						},
-						"4.32": {
+						"2.24": {
+							"vector": [2, 0, 0]
+						},
+						"4.08": {
 							"vector": [0, 0, 0]
 						}
 					}
 				},
-				"right_arm2": {
+				"diabloArmsJoint": {
 					"rotation": {
 						"0.0": {
 							"vector": [0, 0, 0]
 						},
-						"2.16": {
-							"vector": [0, 0, -2.7],
-							"easing": "easeInOutQuad"
+						"2.08": {
+							"vector": [-7.5, 0, 0]
 						},
-						"4.32": {
-							"vector": [0, 0, 0]
-						}
-					}
-				},
-				"head": {
-					"rotation": {
-						"0.0": {
-							"vector": [0, 0, 0]
+						"2.24": {
+							"vector": [-7.5, 0, 0]
 						},
-						"2.12": {
-							"vector": [2.5, 0, 0]
-						},
-						"4.32": {
+						"4.08": {
 							"vector": [0, 0, 0]
 						}
 					}
 				}
 			}
+		},
+		"animation.diablomodif.diablo_entity.grabattack": {
+			"loop": "hold_on_last_frame",
+			"animation_length": 8,
+			"bones": {
+				"diabloBelly": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.44": {
+							"vector": [15, -2.5, -2.5],
+							"easing": "easeInOutQuad"
+						}
+					}
+				},
+				"diabloNeckJoint": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.28": {
+							"vector": [15, 0, 0],
+							"easing": "easeInQuad"
+						},
+						"0.56": {
+							"vector": [15, 0, 0],
+							"easing": "easeInQuad"
+						},
+						"0.92": {
+							"vector": [2.5, 0, 0]
+						}
+					}
+				},
+				"diabloRightArm": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.44": {
+							"vector": [-62.5, 0, 0],
+							"easing": "easeInOutQuart"
+						},
+						"1.04": {
+							"vector": [-95, 0, 0],
+							"easing": "easeInOutQuart"
+						},
+						"8.0": {
+							"vector": [-95, 5, 0],
+							"easing": "linear"
+						}
+					}
+				},
+				"diabloRightFist": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.32": {
+							"vector": [0, -10, 25],
+							"easing": "easeInOutQuart"
+						}
+					}
+				},
+				"diabloLeftArm": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.44": {
+							"vector": [-62.5, 0, 0],
+							"easing": "easeInOutQuart"
+						},
+						"1.04": {
+							"vector": [-95, 0, 0],
+							"easing": "easeInOutQuart"
+						},
+						"8.0": {
+							"vector": [-95, -5, 0],
+							"easing": "linear"
+						}
+					}
+				},
+				"diabloLeftFist": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.44": {
+							"vector": [0, 20, -25],
+							"easing": "easeInOutQuart"
+						}
+					}
+				}
+			}
 		}
-	}
+	},
+	"geckolib_format_version": 2
 }
