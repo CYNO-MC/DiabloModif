@@ -179,8 +179,8 @@ public class DiabloEntity extends MonsterEntity implements IAnimatable {
         }
 
         if (isCurrentlyGrabbing){
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.diablomodif.diablo_entity.grabattack", true));
-            return PlayState.CONTINUE;
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.diablomodif.diablo_entity.grabattackstart", false));
+            return PlayState.STOP;
         }
 
         return PlayState.STOP;

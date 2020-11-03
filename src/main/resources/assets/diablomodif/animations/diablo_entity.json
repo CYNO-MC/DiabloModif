@@ -242,8 +242,7 @@
 				}
 			}
 		},
-		"animation.diablomodif.diablo_entity.grabattack": {
-			"loop": "hold_on_last_frame",
+		"animation.diablomodif.diablo_entity.grabattackstart": {
 			"animation_length": 8,
 			"bones": {
 				"diabloBelly": {
@@ -333,6 +332,47 @@
 							"vector": [0, 20, -25],
 							"easing": "easeInOutQuart"
 						}
+					}
+				}
+			}
+		},
+		"animation.diablomodif.diablo_entity.grabattackfinish": {
+			"loop": true,
+			"animation_length": 0.08,
+			"bones": {
+				"diabloBelly": {
+					"rotation": {
+						"vector": [15, -2.5, -2.5],
+						"easing": "easeInOutQuad"
+					}
+				},
+				"diabloNeckJoint": {
+					"rotation": {
+						"vector": [2.5, 0, 0]
+					}
+				},
+				"diabloRightArm": {
+					"rotation": {
+						"vector": [-95, 5, 0],
+						"easing": "linear"
+					}
+				},
+				"diabloRightFist": {
+					"rotation": {
+						"vector": [0, -10, 25],
+						"easing": "easeInOutQuart"
+					}
+				},
+				"diabloLeftArm": {
+					"rotation": {
+						"vector": [-95, -5, 0],
+						"easing": "linear"
+					}
+				},
+				"diabloLeftFist": {
+					"rotation": {
+						"vector": [0, 20, -25],
+						"easing": "easeInOutQuart"
 					}
 				}
 			}
