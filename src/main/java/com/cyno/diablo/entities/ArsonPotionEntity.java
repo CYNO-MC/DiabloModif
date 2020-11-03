@@ -51,6 +51,7 @@ public class ArsonPotionEntity extends PotionEntity {
 
     }
 
+
     // when it hits a block, set the block above to fire and start the circles going outward
     // if it hits entity, set on fire but keep falling until it hits a block
     @Override
