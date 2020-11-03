@@ -47,7 +47,7 @@ public class WardenEntity extends MonsterEntity implements IAnimatable {
 
     @Override
     public void registerControllers(AnimationData data) {
-        data.addAnimationController(new AnimationController(this, "moveController", 20, this::animationPredicate));
+        data.addAnimationController(new AnimationController(this, "moveController", 0, this::animationPredicate));
     }
 
     @Override
