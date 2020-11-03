@@ -243,6 +243,7 @@
 			}
 		},
 		"animation.diablomodif.diablo_entity.grabattackstart": {
+			"loop": true,
 			"animation_length": 8,
 			"bones": {
 				"diabloBelly": {
