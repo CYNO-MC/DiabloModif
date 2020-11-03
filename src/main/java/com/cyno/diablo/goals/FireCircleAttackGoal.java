@@ -7,6 +7,9 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.world.World;
 
+// every <INTERVAL> ticks, shoots out a circle of <particleNumberIn> DiabloFireParticleEntities from <shooterIn>
+// can cause cramming damage if <particleNumberIn> is too large
+
 public class FireCircleAttackGoal extends Goal {
     private final DiabloEntity shooter;
     private final double yOffset;

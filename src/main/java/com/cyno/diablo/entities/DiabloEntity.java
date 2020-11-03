@@ -6,7 +6,6 @@ import com.cyno.diablo.goals.GrabAttackGoal;
 import com.cyno.diablo.init.DiabloItems;
 import com.cyno.diablo.init.SoundInit;
 import com.cyno.diablo.items.VialItem;
-import com.cyno.diablo.util.Debug;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -24,21 +23,19 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.Hand;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
-import software.bernie.geckolib.animation.builder.AnimationBuilder;
-import software.bernie.geckolib.animation.controller.AnimationController;
-import software.bernie.geckolib.animation.controller.EntityAnimationController;
-import software.bernie.geckolib.entity.IAnimatedEntity;
-import software.bernie.geckolib.event.AnimationTestEvent;
-import software.bernie.geckolib.manager.EntityAnimationManager;
+import software.bernie.geckolib.core.IAnimatable;
+import software.bernie.geckolib.core.PlayState;
+import software.bernie.geckolib.core.builder.AnimationBuilder;
+import software.bernie.geckolib.core.controller.AnimationController;
+import software.bernie.geckolib.core.event.predicate.AnimationEvent;
+import software.bernie.geckolib.core.manager.AnimationData;
+import software.bernie.geckolib.core.manager.AnimationFactory;
 
 import java.util.function.Predicate;
 
-public class DiabloEntity extends MonsterEntity implements IAnimatedEntity {
-    private EntityAnimationManager manager = new EntityAnimationManager();
-    private AnimationController controller = new EntityAnimationController(this, "moveController", 20,
-            this::animationPredicate);
+public class DiabloEntity extends MonsterEntity implements IAnimatable {
+    private AnimationFactory factory = new AnimationFactory(this);
 
     // A predicate to pass into NearestAttackableTargetGoal to check if the entity is on fire
     private static final Predicate<LivingEntity> IS_ON_FIRE = (entity) -> {
@@ -58,7 +55,6 @@ public class DiabloEntity extends MonsterEntity implements IAnimatedEntity {
 
     public DiabloEntity(EntityType<? extends MonsterEntity> type, World worldIn) {
         super(type, worldIn);
-        registerAnimationControllers();
         bloodRemovalTimer = 0;
         isCurrentlyGrabbing = false;
     }
@@ -174,19 +170,25 @@ public class DiabloEntity extends MonsterEntity implements IAnimatedEntity {
         return SoundInit.DAMAGE.get();
     }
 
+    // decides which animation to play. animationName is from the json file in resources/id/animations
+    private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event){
+        // idle if not moving fast
+        if(this.getMotion().length() < 0.06){
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.diablomodif.diabloentity.idle", true));
+            return PlayState.CONTINUE;
+        }
+
+        return PlayState.STOP;
+    }
+
     @Override
-    public EntityAnimationManager getAnimationManager() {
-        return manager;
+    public void registerControllers(AnimationData data){
+        data.addAnimationController(new AnimationController(this, "moveController", 0, this::predicate));
     }
 
-    private <E extends DiabloEntity> boolean animationPredicate(AnimationTestEvent<E> event) {
-        if (event.isWalking()) {}
-        else controller.setAnimation(new AnimationBuilder().addAnimation("animation.diablomodif.diabloentity.idle", true));
-
-        return true;
-    }
-    private void registerAnimationControllers() {
-        manager.addAnimationController(controller);
+    @Override
+    public AnimationFactory getFactory(){
+        return this.factory;
     }
 }
 
