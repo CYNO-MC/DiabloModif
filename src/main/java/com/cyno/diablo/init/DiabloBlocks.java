@@ -47,7 +47,7 @@ public class DiabloBlocks {
 
 
     // Light Source Blocks
-    
+
     public static final RegistryObject<Block> WARPED_GLOWSTONE_BLOCK = BLOCKS.register("warped_glowstone_block", () -> new Block(Block.Properties.create(Material.GLASS)
             .sound(SoundType.GLASS)
             .harvestLevel(0)
@@ -68,6 +68,12 @@ public class DiabloBlocks {
             .sound(SoundType.NETHERRACK)
             .harvestLevel(0)
             .harvestTool(ToolType.PICKAXE)));
+
+    public static final RegistryObject<Block> HARDENED_SOUL_SAND = BLOCKS.register("hardened_soul_sand_block", () -> new Block(Block.Properties.create(Material.SAND)
+            .hardnessAndResistance(1.5f, 1.5f)
+            .sound(SoundType.SOUL_SAND)
+            .harvestLevel(0)
+            .harvestTool(ToolType.SHOVEL)));
 
 
 
