@@ -14,9 +14,10 @@
   "item.diablomodif.demon_blood": "Demon Blood",
   "item.diablomodif.arson_potion": "Splash Potion of Arson",
 
-  "entity.diablomodif.distorted": "d i s t o r t e d",
   "entity.diablomodif.warden": "The Warden",
+  "entity.diablomodif.sculkmaw": "The Sculk Maw",
   "entity.diablomodif.diablo": "Diablo",
+  "entity.diablomodif.diablominion": "Diablo's Minion",
 
   "itemGroup.diabloTab": "Diablo"
 }
