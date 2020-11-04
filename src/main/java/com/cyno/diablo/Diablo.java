@@ -1,6 +1,9 @@
 package com.cyno.diablo;
 
-import com.cyno.diablo.entities.*;
+import com.cyno.diablo.entities.AmbiantWardenSoundParticleEntity;
+import com.cyno.diablo.entities.DiabloEntity;
+import com.cyno.diablo.entities.DiabloFireParticleEntity;
+import com.cyno.diablo.entities.WardenEntity;
 import com.cyno.diablo.init.*;
 import com.cyno.diablo.util.BrewingHandler;
 import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
@@ -26,6 +29,7 @@ public class Diablo {
     public static final String MOD_ID = "diablomodif";
 
     public Diablo() {
+        GeckoLib.initialize();
         IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
         eventBus.addListener(this::setup);
