@@ -29,6 +29,7 @@ public class DiabloMinionEntity extends MonsterEntity implements IAnimatable {
     public AnimationFactory factory = new AnimationFactory(this);
 
     private int bloodRemovalTimer;
+    private boolean isWalking;
     public float getHealthData (){
         return this.dataManager.get(HEALTH_DATA);
     }
@@ -36,6 +37,7 @@ public class DiabloMinionEntity extends MonsterEntity implements IAnimatable {
     public DiabloMinionEntity(EntityType<? extends MonsterEntity> type, World worldIn) {
         super(type, worldIn);
         bloodRemovalTimer = 0;
+        isWalking = getMotion().length() > 0.45f;
     }
 
     @Override
@@ -47,7 +49,7 @@ public class DiabloMinionEntity extends MonsterEntity implements IAnimatable {
     public static AttributeModifierMap.MutableAttribute setCustomAttributes() {
         return DiabloMinionEntity.registerAttributes()
                 .createMutableAttribute(Attributes.MAX_HEALTH, 10.0f)
-                .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.65f)
+                .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.45f)
                 .createMutableAttribute(Attributes.ATTACK_KNOCKBACK, 1.0f)
                 .createMutableAttribute(Attributes.ATTACK_DAMAGE, 3.0f)
                 .createMutableAttribute(Attributes.FOLLOW_RANGE, 50.0f);
@@ -122,9 +124,12 @@ public class DiabloMinionEntity extends MonsterEntity implements IAnimatable {
 
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event){
 
-        if(this.getMotion().length() < 0.65){
+        if(this.getMotion().length() < 0.45){
             event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.diablomodif.diablo_minion_entity.idle", true));
-        } else event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.diablomodif.diablo_minion_entity.walk", true));
+        }
+        if(isWalking = true){
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.diablomodif.diablo_minion_entity.walk", true));
+        }
 
         return PlayState.CONTINUE;
     }

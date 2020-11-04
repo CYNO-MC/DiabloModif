@@ -17,6 +17,9 @@
 						"4.16": {
 							"vector": [0, 0, 0]
 						}
+					},
+					"position": {
+						"vector": [0, 0, 0]
 					}
 				},
 				"Body": {
@@ -132,6 +135,9 @@
 					}
 				}
 			}
+		},
+		"animation.diablomodif.diablo_minion_entity.new": {
+			"loop": true
 		}
 	},
 	"geckolib_format_version": 2
