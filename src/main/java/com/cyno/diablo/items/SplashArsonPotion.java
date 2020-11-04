@@ -15,8 +15,8 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 
-public class ArsonPotion extends Item {
-    public ArsonPotion() {
+public class SplashArsonPotion extends Item {
+    public SplashArsonPotion() {
         super(new Item.Properties().group(Diablo.TAB).maxStackSize(1));
     }
 

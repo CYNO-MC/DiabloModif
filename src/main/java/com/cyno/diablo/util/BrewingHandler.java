@@ -1,19 +1,23 @@
 package com.cyno.diablo.util;
 
 import com.cyno.diablo.init.DiabloItems;
+import com.cyno.diablo.init.PotionInit;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionUtils;
 import net.minecraft.potion.Potions;
+import net.minecraftforge.common.brewing.BrewingRecipe;
 import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
 import net.minecraftforge.common.brewing.IBrewingRecipe;
 
 public class BrewingHandler {
     // registers new brewing recipes. call from FMLCommonSetupEvent
     public static void addPotionRecipes(){
-        BrewingRecipeRegistry.addRecipe(new BetterBrewingRecipe(Potions.AWKWARD, DiabloItems.ORB_OF_WRATH.get(), DiabloItems.ARSON_POTION.get()));
+        BrewingRecipeRegistry.addRecipe(new BetterBrewingRecipe(Potions.AWKWARD, DiabloItems.ORB_OF_WRATH.get(), DiabloItems.DRINKABLE_ARSON_POTION.get()));
+        BrewingRecipeRegistry.addRecipe(new BrewingRecipe(Ingredient.fromItems(DiabloItems.DRINKABLE_ARSON_POTION.get()), Ingredient.fromItems(Items.GUNPOWDER), new ItemStack(DiabloItems.ARSON_POTION.get())));
     }
 
     // my tutorial on this: https://youtu.be/uQEfNkY5fJc
@@ -59,4 +63,6 @@ public class BrewingHandler {
             }
         }
     }
+
+
 }
