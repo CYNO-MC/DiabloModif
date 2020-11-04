@@ -18,7 +18,21 @@ public class DiabloBlocks {
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, Diablo.MOD_ID);
 
 
-    //Blocks
+    // Ancient Variation Blocks
+    public static final RegistryObject<Block> ANCIENT_PILLAR = BLOCKS.register("ancient_pillar", () -> new RotatedPillarBlock(AbstractBlock.Properties.create(Material.IRON)
+            .hardnessAndResistance(30f, 1200.0f)
+            .sound(SoundType.ANCIENT_DEBRIS)
+            .harvestLevel(3)
+            .harvestTool(ToolType.PICKAXE)
+            .setRequiresTool()));
+
+    public static final RegistryObject<Block> ANCIENT_BRICK_BLOCK = BLOCKS.register("ancient_brick_block", () -> new Block(Block.Properties.create(Material.ROCK)
+            .hardnessAndResistance(30f, 1200.0f)
+            .sound(SoundType.ANCIENT_DEBRIS)
+            .harvestLevel(3)
+            .harvestTool(ToolType.PICKAXE)));
+
+    // Nether Brick Variations
     public static final RegistryObject<Block> REINFORCED_NETHER_BRICK_BLOCK = BLOCKS.register("reinforced_nether_brick_block", () -> new Block(Block.Properties.create(Material.IRON)
             .hardnessAndResistance(50.0f, 1200f)
             .sound(SoundType.METAL)
@@ -31,6 +45,9 @@ public class DiabloBlocks {
             .harvestLevel(0)
             .harvestTool(ToolType.PICKAXE)));
 
+
+    // Light Source Blocks
+    
     public static final RegistryObject<Block> WARPED_GLOWSTONE_BLOCK = BLOCKS.register("warped_glowstone_block", () -> new Block(Block.Properties.create(Material.GLASS)
             .sound(SoundType.GLASS)
             .harvestLevel(0)
@@ -38,12 +55,7 @@ public class DiabloBlocks {
             .hardnessAndResistance(0.3f,0.3f)
             .setLightLevel(value -> 15)));
 
-    public static final RegistryObject<Block> ANCIENT_PILLAR = BLOCKS.register("ancient_pillar", () -> new RotatedPillarBlock(AbstractBlock.Properties.create(Material.IRON)
-            .hardnessAndResistance(30f, 1200.0f)
-            .sound(SoundType.ANCIENT_DEBRIS)
-            .harvestLevel(3)
-            .harvestTool(ToolType.PICKAXE)
-            .setRequiresTool()));
+    // Hardened Variations
 
     public static final RegistryObject<Block> HARDENED_OBSIDIAN = BLOCKS.register("hardened_obsidian_block", () -> new Block(Block.Properties.create(Material.IRON)
             .hardnessAndResistance(150.0f, 1200f)
@@ -56,16 +68,6 @@ public class DiabloBlocks {
             .sound(SoundType.NETHERRACK)
             .harvestLevel(0)
             .harvestTool(ToolType.PICKAXE)));
-
-    public static final RegistryObject<Block> ANCIENT_BRICK_BLOCK = BLOCKS.register("ancient_brick_block", () -> new Block(Block.Properties.create(Material.ROCK)
-            .hardnessAndResistance(30f, 1200.0f)
-            .sound(SoundType.ANCIENT_DEBRIS)
-            .harvestLevel(3)
-            .harvestTool(ToolType.PICKAXE)));
-
-
-
-
 
 
 
