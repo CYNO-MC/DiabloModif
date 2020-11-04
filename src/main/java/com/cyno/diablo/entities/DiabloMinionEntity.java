@@ -79,14 +79,14 @@ public class DiabloMinionEntity extends MonsterEntity implements IAnimatable {
         if (!world.isRemote() && bloodRemovalTimer == 0 && stack.getItem() == DiabloItems.GLASS_VILE.get()){
             ItemStack newStack = VialItem.increaseFullness(stack);
 
-            // give it to the player, if inventory full drop it on the ground
+
             boolean success = player.addItemStackToInventory(newStack);
             if (!success){
                 player.entityDropItem(newStack);
             }
 
             this.attackEntityFrom(DamageSource.MAGIC, 1.0F);
-            bloodRemovalTimer = 10;  // wait x ticks before you can draw blood again
+            bloodRemovalTimer = 10;
 
             return ActionResultType.SUCCESS;
         }

@@ -15,6 +15,7 @@ public class ClientEventBusSubscriber {
     @SubscribeEvent
     public static void onClientSetup(FMLClientSetupEvent event) {
         RenderingRegistry.registerEntityRenderingHandler(DiabloEntityTypes.DIABLO.get(), DiabloRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(DiabloEntityTypes.DIABLOMINION.get(), DiabloMinionRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(DiabloEntityTypes.WARDEN.get(), WardenRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(DiabloEntityTypes.SCULKMAW.get(), SculkMawRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(DiabloEntityTypes.WARDEN_SOUND_PARTICLES.get(), AmbiantWardenSoundParticleRenderer::new);

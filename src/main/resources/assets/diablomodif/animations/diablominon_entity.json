@@ -47,6 +47,91 @@
 					}
 				}
 			}
+		},
+		"animation.diablomodif.diablo_minion_entity.walk": {
+			"loop": true,
+			"animation_length": 0.8,
+			"bones": {
+				"Head": {
+					"position": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.16": {
+							"vector": [0, 0.3, 0]
+						},
+						"0.32": {
+							"vector": [0, 0, 0]
+						},
+						"0.56": {
+							"vector": [0, 0.3, 0]
+						},
+						"0.8": {
+							"vector": [0, 0, 0]
+						}
+					}
+				},
+				"LeftLeg": {
+					"rotation": {
+						"0.0": {
+							"vector": [-37.5, 0, 0]
+						},
+						"0.4": {
+							"vector": [37.5, 0, 0],
+							"easing": "easeOutQuint"
+						},
+						"0.8": {
+							"vector": [-37.5, 0, 0],
+							"easing": "easeOutQuint"
+						}
+					}
+				},
+				"RightLeg": {
+					"rotation": {
+						"0.0": {
+							"vector": [37.5, 0, 0]
+						},
+						"0.4": {
+							"vector": [-37.5, 0, 0],
+							"easing": "easeOutQuint"
+						},
+						"0.8": {
+							"vector": [37.5, 0, 0],
+							"easing": "easeOutQuint"
+						}
+					}
+				},
+				"Underbelly": {
+					"rotation": {
+						"0.0": {
+							"vector": [5, -2.5, 0]
+						},
+						"0.32": {
+							"vector": [5, 2.5, 0],
+							"easing": "easeInOutQuint"
+						},
+						"0.8": {
+							"vector": [5, -2.5, 0],
+							"easing": "easeInOutQuint"
+						}
+					}
+				},
+				"Body": {
+					"rotation": {
+						"0.0": {
+							"vector": [5, -2.5, 0]
+						},
+						"0.4": {
+							"vector": [5, 2.5, 0],
+							"easing": "easeInOutQuint"
+						},
+						"0.8": {
+							"vector": [5, -2.5, 0],
+							"easing": "easeInOutQuint"
+						}
+					}
+				}
+			}
 		}
 	},
 	"geckolib_format_version": 2
