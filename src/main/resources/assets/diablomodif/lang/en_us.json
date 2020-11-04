@@ -12,12 +12,16 @@
   "item.diablomodif.the_horns_of_diablo": "The Horns of Diablo",
   "item.diablomodif.orb_of_wrath": "Orb Of Wrath",
   "item.diablomodif.demon_blood": "Demon Blood",
+
   "item.diablomodif.arson_potion": "Splash Potion of Arson",
+  "item.diablomodif.drinkable_arson_potion": "Potion of Arson",
 
   "entity.diablomodif.warden": "The Warden",
   "entity.diablomodif.sculkmaw": "The Sculk Maw",
   "entity.diablomodif.diablo": "Diablo",
   "entity.diablomodif.diablominion": "Diablo's Minion",
 
-  "itemGroup.diabloTab": "Diablo"
+  "itemGroup.diabloTab": "Diablo",
+
+  "effect.diablomodif.arson": "Arson"
 }
