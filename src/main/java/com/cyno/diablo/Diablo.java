@@ -44,6 +44,7 @@ public class Diablo {
             GlobalEntityTypeAttributes.put(DiabloEntityTypes.WARDEN_SOUND_PARTICLES.get(), AmbiantWardenSoundParticleEntity.setCustomAttributes().create());
             GlobalEntityTypeAttributes.put(DiabloEntityTypes.DIABLO_FIRE_PARTICLE.get(), DiabloFireParticleEntity.setCustomAttributes().create());
             GlobalEntityTypeAttributes.put(DiabloEntityTypes.DIABLO.get(), DiabloEntity.setCustomAttributes().create());
+            GlobalEntityTypeAttributes.put(DiabloEntityTypes.DIABLOMINION.get(), DiabloMinionEntity.setCustomAttributes().create());
             GlobalEntityTypeAttributes.put(DiabloEntityTypes.WARDEN.get(), WardenEntity.setCustomAttributes().create());
             GlobalEntityTypeAttributes.put(DiabloEntityTypes.SCULKMAW.get(), SculkMawEntity.setCustomAttributes().create());
             BrewingHandler.addPotionRecipes();  // add recipe for arson potion

@@ -28,7 +28,6 @@ import software.bernie.geckolib.core.manager.AnimationFactory;
 public class DiabloMinionEntity extends MonsterEntity implements IAnimatable {
     public AnimationFactory factory = new AnimationFactory(this);
     private int bloodRemovalTimer;
-    private boolean isWalking;
     public float getHealthData (){
         return this.dataManager.get(HEALTH_DATA);
     }
@@ -36,7 +35,6 @@ public class DiabloMinionEntity extends MonsterEntity implements IAnimatable {
     public DiabloMinionEntity(EntityType<? extends MonsterEntity> type, World worldIn) {
         super(type, worldIn);
         bloodRemovalTimer = 0;
-        isWalking = getMotion().length() < 60f;
     }
 
     @Override
@@ -124,16 +122,10 @@ public class DiabloMinionEntity extends MonsterEntity implements IAnimatable {
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event){
         if(this.getMotion().length() < 0.15){
             event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.diablomodif.diablominion_entity.idle", true));
-            return PlayState.CONTINUE;
-        }
-        if(this.isWalking = true) {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.diablomodif.diablominion_entity.walk", true));
-            return PlayState.CONTINUE;
-
-        }
-
-        return PlayState.STOP;
+        } else event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.diablomodif.diablominion_entity.walk", true));
+        return PlayState.CONTINUE;
     }
+
     @Override
     public void registerControllers(AnimationData data) {
         data.addAnimationController(new AnimationController(this, "moveController", 0, this::predicate));
