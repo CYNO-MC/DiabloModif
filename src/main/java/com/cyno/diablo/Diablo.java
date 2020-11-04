@@ -1,15 +1,13 @@
 package com.cyno.diablo;
 
 import com.cyno.diablo.entities.*;
-import com.cyno.diablo.init.DiabloBlocks;
-import com.cyno.diablo.init.DiabloEntityTypes;
-import com.cyno.diablo.init.DiabloItems;
-import com.cyno.diablo.init.SoundInit;
+import com.cyno.diablo.init.*;
 import com.cyno.diablo.util.BrewingHandler;
 import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.DeferredWorkQueue;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -26,13 +24,16 @@ public class Diablo {
     public static final String MOD_ID = "diablomodif";
 
     public Diablo() {
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::doClientStuff);
+        IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
-        SoundInit.SOUNDS.register(FMLJavaModLoadingContext.get().getModEventBus());
-        DiabloBlocks.BLOCKS.register(FMLJavaModLoadingContext.get().getModEventBus());
-        DiabloItems.ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
-        DiabloEntityTypes.ENTITY_TYPES.register(FMLJavaModLoadingContext.get().getModEventBus());
+        eventBus.addListener(this::setup);
+        eventBus.addListener(this::doClientStuff);
+
+        SoundInit.SOUNDS.register(eventBus);
+        DiabloBlocks.BLOCKS.register(eventBus);
+        DiabloItems.ITEMS.register(eventBus);
+        DiabloEntityTypes.ENTITY_TYPES.register(eventBus);
+        PotionInit.EFFECTS.register(eventBus);
 
         MinecraftForge.EVENT_BUS.register(this);
 
