@@ -20,12 +20,11 @@ import software.bernie.geckolib.GeckoLib;
 
 @Mod("diablomodif")
 public class Diablo {
-
-
     public static final Logger LOGGER = LogManager.getLogger();
     public static final String MOD_ID = "diablomodif";
 
     public Diablo() {
+        GeckoLib.initialize();
         IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
         eventBus.addListener(this::setup);
@@ -38,7 +37,6 @@ public class Diablo {
         PotionInit.EFFECTS.register(eventBus);
 
         MinecraftForge.EVENT_BUS.register(this);
-
     }
 
     private void setup(final FMLCommonSetupEvent event) {
