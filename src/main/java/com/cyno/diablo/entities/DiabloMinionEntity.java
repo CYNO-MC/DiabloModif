@@ -27,6 +27,7 @@ import software.bernie.geckolib.core.manager.AnimationFactory;
 
 public class DiabloMinionEntity extends MonsterEntity implements IAnimatable {
     public AnimationFactory factory = new AnimationFactory(this);
+
     private int bloodRemovalTimer;
     public float getHealthData (){
         return this.dataManager.get(HEALTH_DATA);
@@ -120,9 +121,11 @@ public class DiabloMinionEntity extends MonsterEntity implements IAnimatable {
     }
 
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event){
-        if(this.getMotion().length() < 0.15){
+
+        if(this.getMotion().length() < 0.65){
             event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.diablomodif.diablominion_entity.idle", true));
         } else event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.diablomodif.diablominion_entity.walk", true));
+
         return PlayState.CONTINUE;
     }
 
