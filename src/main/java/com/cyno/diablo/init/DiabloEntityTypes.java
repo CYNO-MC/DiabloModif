@@ -18,8 +18,8 @@ public class DiabloEntityTypes {
             () -> EntityType.Builder.create(DiabloEntity::new, EntityClassification.MONSTER).size(1.4f, 5.5f)
             .build(new ResourceLocation(Diablo.MOD_ID, "diablo").toString()));
 
-    public static final RegistryObject<EntityType<DiabloEntity>> DIABLOMINION = ENTITY_TYPES.register("diablominion",
-            () -> EntityType.Builder.create(DiabloEntity::new, EntityClassification.MONSTER).size(2.0f, 2.0f)
+    public static final RegistryObject<EntityType<DiabloMinionEntity>> DIABLOMINION = ENTITY_TYPES.register("diablominion",
+            () -> EntityType.Builder.create(DiabloMinionEntity::new, EntityClassification.MONSTER).size(2.0f, 2.0f)
                     .build(new ResourceLocation(Diablo.MOD_ID, "diablominion").toString()));
 
     public static final RegistryObject<EntityType<WardenEntity>> WARDEN = ENTITY_TYPES.register("warden",

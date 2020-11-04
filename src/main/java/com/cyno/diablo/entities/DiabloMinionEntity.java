@@ -26,14 +26,14 @@ import software.bernie.geckolib.core.manager.AnimationData;
 import software.bernie.geckolib.core.manager.AnimationFactory;
 
 public class DiabloMinionEntity extends MonsterEntity implements IAnimatable {
-    private AnimationFactory factory = new AnimationFactory(this);
+    public AnimationFactory factory = new AnimationFactory(this);
     private int bloodRemovalTimer;
     private boolean isWalking;
     public float getHealthData (){
         return this.dataManager.get(HEALTH_DATA);
     }
 
-    protected DiabloMinionEntity(EntityType<? extends MonsterEntity> type, World worldIn) {
+    public DiabloMinionEntity(EntityType<? extends MonsterEntity> type, World worldIn) {
         super(type, worldIn);
         bloodRemovalTimer = 0;
         isWalking = getMotion().length() < 60f;
