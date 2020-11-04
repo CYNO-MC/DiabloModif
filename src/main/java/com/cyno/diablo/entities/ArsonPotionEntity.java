@@ -1,16 +1,23 @@
 package com.cyno.diablo.entities;
 
+import com.cyno.diablo.init.DiabloEntityTypes;
+import com.cyno.diablo.init.DiabloItems;
 import com.cyno.diablo.util.CircleHelper;
+import com.cyno.diablo.util.Debug;
 import net.minecraft.block.AbstractFireBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.IRendersAsItem;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.projectile.PotionEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.network.IPacket;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.network.NetworkHooks;
 
 public class ArsonPotionEntity extends PotionEntity {
     boolean hasHitGround;
@@ -23,10 +30,13 @@ public class ArsonPotionEntity extends PotionEntity {
     public ArsonPotionEntity(EntityType<? extends PotionEntity> typeIn, World worldIn) {
         super(typeIn, worldIn);
         hasHitGround = false;
+        this.setItem(new ItemStack(DiabloItems.ARSON_POTION.get()));
     }
 
     public ArsonPotionEntity(World worldIn, LivingEntity livingEntityIn) {
-        super(worldIn, livingEntityIn);
+        this(DiabloEntityTypes.ARSON_POTION.get(), worldIn);
+        this.setShooter(livingEntityIn);
+        this.setPosition(livingEntityIn.getPosX(), livingEntityIn.getPosYEye() - (double)0.1F, livingEntityIn.getPosZ());
     }
 
     @Override
@@ -78,5 +88,10 @@ public class ArsonPotionEntity extends PotionEntity {
         if (this.world.getBlockState(pos).isAir() && this.world.getBlockState(pos.down()).isOpaqueCube(this.world, pos.down())) {
             this.world.setBlockState(pos, AbstractFireBlock.getFireForPlacement(this.world, pos));
         }
+    }
+
+    @Override
+    public IPacket<?> createSpawnPacket() {
+        return NetworkHooks.getEntitySpawningPacket(this);
     }
 }

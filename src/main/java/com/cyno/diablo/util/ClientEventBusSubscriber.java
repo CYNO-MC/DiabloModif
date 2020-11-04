@@ -5,6 +5,7 @@ import com.cyno.diablo.client.render.*;
 import com.cyno.diablo.entities.DiabloFireParticleEntity;
 import com.cyno.diablo.init.DiabloEntityTypes;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.entity.SpriteRenderer;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.SoundEvents;
 import net.minecraftforge.api.distmarker.Dist;
@@ -28,6 +29,7 @@ public class ClientEventBusSubscriber {
         RenderingRegistry.registerEntityRenderingHandler(DiabloEntityTypes.WARDEN.get(), WardenRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(DiabloEntityTypes.WARDEN_SOUND_PARTICLES.get(), AmbiantWardenSoundParticleRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(DiabloEntityTypes.DIABLO_FIRE_PARTICLE.get(), DiabloFireParticleRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(DiabloEntityTypes.ARSON_POTION.get(), (manager)-> new SpriteRenderer<>(manager, Minecraft.getInstance().getItemRenderer()));
     }
 
 }
