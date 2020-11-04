@@ -131,7 +131,7 @@ public class DiabloMinionEntity extends MonsterEntity implements IAnimatable {
 
     @Override
     public void registerControllers(AnimationData data) {
-        data.addAnimationController(new AnimationController(this, "moveController", 0, this::predicate));
+        data.addAnimationController(new AnimationController(this, "moveController", 20, this::predicate));
     }
 
     @Override
