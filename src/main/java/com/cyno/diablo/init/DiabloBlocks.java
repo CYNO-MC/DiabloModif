@@ -73,7 +73,7 @@ public class DiabloBlocks {
             .hardnessAndResistance(1.5f, 1.5f)
             .sound(SoundType.SOUL_SAND)
             .harvestLevel(0)
-            .slipperiness(0.05f)
+            .speedFactor(0.1F)
             .harvestTool(ToolType.SHOVEL)));
 
 
