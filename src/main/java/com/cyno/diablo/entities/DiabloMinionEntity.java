@@ -124,7 +124,10 @@ public class DiabloMinionEntity extends MonsterEntity implements IAnimatable {
 
         if(this.getMotion().length() < 0.45){
             event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.diablomodif.diablo_minion_entity.idle", true));
-        } else event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.diablomodif.diablo_minion_entity.walk", true));
+        }
+        if(this.getMotion().length() >= 0.45){
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.diablomodif.diablo_minion_entity.walk", true));
+        }
         return PlayState.CONTINUE;
     }
 
