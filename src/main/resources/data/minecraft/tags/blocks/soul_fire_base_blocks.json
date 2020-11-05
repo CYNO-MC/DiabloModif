@@ -3,6 +3,6 @@
   "values": [
     "minecraft:soul_sand",
     "minecraft:soul_soil",
-    "diablomodif:block/hardened_soul_sand_block"
+    "diablomodif:hardened_soul_sand_block"
   ]
 }
