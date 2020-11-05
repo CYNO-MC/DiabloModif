@@ -138,6 +138,9 @@
 		},
 		"animation.diablomodif.diablo_minion_entity.new": {
 			"loop": true
+		},
+		"animation.diablomodif.diablo_minion_entity.death": {
+			"loop": true
 		}
 	},
 	"geckolib_format_version": 2

@@ -133,12 +133,14 @@ public class DiabloMinionEntity extends MonsterEntity implements IAnimatable {
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event){
         if(!(limbSwingAmount > -0.15F && limbSwingAmount < 0.15F)) {
             event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.diablomodif.diablo_minion_entity.walk", true));
-        } else  event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.diablomodif.diablo_minion_entity.idle", true));
-
-
-
-
-
+        }
+        if (this.dead) {
+            if (world.isRemote) {
+                event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.diablomodif.diablo_minion_entity.death", false));
+                return PlayState.CONTINUE;
+            }
+        }
+        event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.diablomodif.diablo_minion_entity.idle", true));
         return PlayState.CONTINUE;
     }
 
