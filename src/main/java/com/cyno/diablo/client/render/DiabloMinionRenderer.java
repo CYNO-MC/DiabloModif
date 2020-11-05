@@ -9,4 +9,10 @@ public class DiabloMinionRenderer extends GeoEntityRenderer<DiabloMinionEntity> 
     public DiabloMinionRenderer(EntityRendererManager renderManager){
         super(renderManager, new DiabloMinionModel());
     }
+
+    // Overriding Death Animation
+    @Override
+    protected float getDeathMaxRotation(DiabloMinionEntity entityLivingBaseIn) {
+        return 0.0f;
+    }
 }
