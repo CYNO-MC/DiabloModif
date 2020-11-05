@@ -1,10 +1,7 @@
 package com.cyno.diablo.init;
 
 import com.cyno.diablo.Diablo;
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.RotatedPillarBlock;
-import net.minecraft.block.SoundType;
+import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.fml.RegistryObject;
@@ -69,7 +66,7 @@ public class DiabloBlocks {
             .harvestLevel(0)
             .harvestTool(ToolType.PICKAXE)));
 
-    public static final RegistryObject<Block> HARDENED_SOUL_SAND = BLOCKS.register("hardened_soul_sand_block", () -> new Block(Block.Properties.create(Material.SAND)
+    public static final RegistryObject<Block> HARDENED_SOUL_SAND = BLOCKS.register("hardened_soul_sand_block", () -> new SoulSandBlock(Block.Properties.create(Material.SAND)
             .hardnessAndResistance(1.5f, 1.5f)
             .sound(SoundType.SOUL_SAND)
             .harvestLevel(0)
