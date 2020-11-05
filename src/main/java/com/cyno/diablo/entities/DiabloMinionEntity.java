@@ -134,6 +134,11 @@ public class DiabloMinionEntity extends MonsterEntity implements IAnimatable {
         if(!(limbSwingAmount > -0.15F && limbSwingAmount < 0.15F)) {
             event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.diablomodif.diablo_minion_entity.walk", true));
         } else  event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.diablomodif.diablo_minion_entity.idle", true));
+
+
+
+
+
         return PlayState.CONTINUE;
     }
 
