@@ -41,6 +41,10 @@ public class DiabloMinionEntity extends MonsterEntity implements IAnimatable {
         bloodRemovalTimer = 0;
     }
 
+    public boolean isImmuneToFire() {
+        return true;
+    }
+
     @Override
     protected void registerGoals(){
         super.registerGoals();
