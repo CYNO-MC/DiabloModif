@@ -41,7 +41,7 @@ public class DiabloMinionEntity extends MonsterEntity implements IAnimatable {
     @Override
     protected void registerGoals(){
         super.registerGoals();
-        this.goalSelector.addGoal(0, new WaterAvoidingRandomWalkingGoal(this,0.45f));
+        this.goalSelector.addGoal(0, new WaterAvoidingRandomWalkingGoal(this,0.75f));
     }
 
     public static AttributeModifierMap.MutableAttribute setCustomAttributes() {
