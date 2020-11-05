@@ -1,5 +1,6 @@
 package com.cyno.diablo.entities;
 
+import com.cyno.diablo.goals.StandardMeleeAttackGoal;
 import com.cyno.diablo.init.DiabloItems;
 import com.cyno.diablo.init.SoundInit;
 import com.cyno.diablo.items.VialItem;
@@ -7,6 +8,8 @@ import net.minecraft.block.BlockState;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
+import net.minecraft.entity.ai.goal.HurtByTargetGoal;
+import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
 import net.minecraft.entity.ai.goal.WaterAvoidingRandomWalkingGoal;
 import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -41,7 +44,10 @@ public class DiabloMinionEntity extends MonsterEntity implements IAnimatable {
     @Override
     protected void registerGoals(){
         super.registerGoals();
-        this.goalSelector.addGoal(0, new WaterAvoidingRandomWalkingGoal(this,0.75f));
+        this.goalSelector.addGoal(4, new WaterAvoidingRandomWalkingGoal(this,0.75f));
+        this.goalSelector.addGoal(3, new StandardMeleeAttackGoal(this,0.75f,true,true));
+        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));
+        this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
     }
 
     public static AttributeModifierMap.MutableAttribute setCustomAttributes() {
