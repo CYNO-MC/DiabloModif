@@ -103,6 +103,13 @@ public class DiabloMinionEntity extends MonsterEntity implements IAnimatable {
 
         return super.func_230254_b_(player, hand);
     }
+    @Override
+    protected void onDeathUpdate() {
+        ++this.deathTime;
+        if (this.deathTime == 80) {
+            this.remove();
+        }
+    }
 
     @Override
     protected int getExperiencePoints(PlayerEntity player) {
