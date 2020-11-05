@@ -140,7 +140,7 @@
 			"loop": true
 		},
 		"animation.diablomodif.diablo_minion_entity.death": {
-			"animation_length": 1.6,
+			"animation_length": 8,
 			"bones": {
 				"LavaGolem": {
 					"position": {
