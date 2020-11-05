@@ -48,7 +48,7 @@ public class DiabloMinionEntity extends MonsterEntity implements IAnimatable {
     @Override
     protected void registerGoals(){
         super.registerGoals();
-        this.goalSelector.addGoal(4, new WaterAvoidingRandomWalkingGoal(this,0.75f));
+        this.goalSelector.addGoal(4, new WaterAvoidingRandomWalkingGoal(this,0.45f));
         this.goalSelector.addGoal(3, new StandardMeleeAttackGoal(this,0.75f,true,true));
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));
         this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
@@ -56,10 +56,10 @@ public class DiabloMinionEntity extends MonsterEntity implements IAnimatable {
 
     public static AttributeModifierMap.MutableAttribute setCustomAttributes() {
         return DiabloMinionEntity.registerAttributes()
-                .createMutableAttribute(Attributes.MAX_HEALTH, 10.0f)
-                .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.45f)
-                .createMutableAttribute(Attributes.ATTACK_KNOCKBACK, 1.0f)
-                .createMutableAttribute(Attributes.ATTACK_DAMAGE, 3.0f)
+                .createMutableAttribute(Attributes.MAX_HEALTH, 100f)
+                .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.35f)
+                .createMutableAttribute(Attributes.ATTACK_KNOCKBACK, 3.0f)
+                .createMutableAttribute(Attributes.ATTACK_DAMAGE, 12f)
                 .createMutableAttribute(Attributes.FOLLOW_RANGE, 50.0f);
     }
     private static final DataParameter<Float> HEALTH_DATA = EntityDataManager.createKey(DiabloMinionEntity.class, DataSerializers.FLOAT);
@@ -67,7 +67,7 @@ public class DiabloMinionEntity extends MonsterEntity implements IAnimatable {
     @Override
     protected void registerData() {
         super.registerData();
-        this.dataManager.register(HEALTH_DATA, 10.0f);
+        this.dataManager.register(HEALTH_DATA, 100f);
     }
 
     @Override
