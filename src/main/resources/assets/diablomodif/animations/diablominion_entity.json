@@ -140,7 +140,80 @@
 			"loop": true
 		},
 		"animation.diablomodif.diablo_minion_entity.death": {
-			"loop": true
+			"animation_length": 1.6,
+			"bones": {
+				"LavaGolem": {
+					"position": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.88": {
+							"vector": [0, 0, 0]
+						},
+						"1.56": {
+							"vector": [0, -52, 0],
+							"easing": "easeOutQuint"
+						}
+					},
+					"scale": {
+						"1.24": {
+							"vector": [1, 1, 1]
+						},
+						"1.56": {
+							"vector": [0.001, 0.001, 0.001]
+						}
+					}
+				},
+				"Head": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.28": {
+							"vector": [-40, 0, 0],
+							"easing": "easeOutQuart"
+						}
+					}
+				},
+				"Underbelly": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.32": {
+							"vector": [7.5, 0, 0],
+							"easing": "easeOutQuint"
+						}
+					}
+				},
+				"Body": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.32": {
+							"vector": [-12.5, 0, 0],
+							"easing": "easeOutQuint"
+						}
+					}
+				},
+				"Arms": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.88": {
+							"vector": [-160, 0, 0],
+							"easing": "easeOutQuint"
+						}
+					}
+				},
+				"Chest": {
+					"rotation": {
+						"vector": [0, 0, 0]
+					}
+				}
+			}
 		}
 	},
 	"geckolib_format_version": 2
