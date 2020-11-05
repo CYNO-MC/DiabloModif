@@ -41,7 +41,7 @@ public class DiabloMinionEntity extends MonsterEntity implements IAnimatable {
     @Override
     protected void registerGoals(){
         super.registerGoals();
-        this.goalSelector.addGoal(0, new WaterAvoidingRandomWalkingGoal(this,1));
+        this.goalSelector.addGoal(0, new WaterAvoidingRandomWalkingGoal(this,0.45f));
     }
 
     public static AttributeModifierMap.MutableAttribute setCustomAttributes() {
@@ -125,12 +125,15 @@ public class DiabloMinionEntity extends MonsterEntity implements IAnimatable {
         if(this.getMotion().length() < 0.45){
             event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.diablomodif.diablo_minion_entity.idle", true));
         }
+        if(this.getMotion().length() > 0.45){
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.diablomodif.diablo_minion_entity.walk", true));
+        }
         return PlayState.CONTINUE;
     }
 
     @Override
     public void registerControllers(AnimationData data) {
-        data.addAnimationController(new AnimationController(this, "moveController", 20, this::predicate));
+        data.addAnimationController(new AnimationController(this, "moveController", 0, this::predicate));
     }
 
     @Override
