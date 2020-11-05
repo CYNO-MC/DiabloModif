@@ -32,7 +32,7 @@ public class DiabloBlocks {
     // Nether Brick Variations
     public static final RegistryObject<Block> REINFORCED_NETHER_BRICK_BLOCK = BLOCKS.register("reinforced_nether_brick_block", () -> new Block(Block.Properties.create(Material.IRON)
             .hardnessAndResistance(50.0f, 1200f)
-            .sound(SoundType.METAL)
+            .sound(SoundType.STONE)
             .harvestLevel(3)
             .harvestTool(ToolType.PICKAXE)));
 
@@ -60,7 +60,7 @@ public class DiabloBlocks {
             .harvestLevel(4)
             .harvestTool(ToolType.PICKAXE)));
 
-    public static final RegistryObject<Block> HARDENED_NETHERRACK = BLOCKS.register("hardened_netherrack_block", () -> new Block(Block.Properties.create(Material.ROCK)
+    public static final RegistryObject<Block> HARDENED_NETHERRACK = BLOCKS.register("hardened_netherrack_block", () -> new NetherrackBlock(Block.Properties.create(Material.ROCK)
             .hardnessAndResistance(1.2f, 1.2f)
             .sound(SoundType.NETHERRACK)
             .harvestLevel(0)
