@@ -2,8 +2,10 @@ package com.cyno.diablo.init;
 
 import com.cyno.diablo.Diablo;
 import com.cyno.diablo.blocks.BlockItemBase;
+import com.cyno.diablo.items.ArsonPotion;
+import com.cyno.diablo.items.DemonBlood;
 import com.cyno.diablo.items.ItemBase;
-import com.cyno.diablo.items.ModSpawnEggItem;
+import com.cyno.diablo.items.VialItem;
 import com.cyno.diablo.util.enums.DiabloItemTier;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
@@ -22,11 +24,14 @@ public class DiabloItems {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Diablo.MOD_ID);
 
     // Items
-    public static final RegistryObject<Item> GLASS_VILE = ITEMS.register("glass_vile", ItemBase::new);
+    public static final RegistryObject<Item> GLASS_VILE = ITEMS.register("glass_vile", VialItem::new);
     public static final RegistryObject<Item> THE_HORNS_OF_DIABLO = ITEMS.register("the_horns_of_diablo", ItemBase::new);
-    public static final RegistryObject<Item> BURNLING_SPAWN_EGG = ITEMS.register("burnling_spawn_egg", () -> new ModSpawnEggItem(DiabloEntityTypes.BURNLING, 0xf57d0c, 0xf2b00a, new Item.Properties().group(Diablo.TAB)));
+    public static final RegistryObject<Item> ORB_OF_WRATH = ITEMS.register("orb_of_wrath", ItemBase::new);
+    public static final RegistryObject<Item> DEMON_BLOOD = ITEMS.register("demon_blood", DemonBlood::new);
 
-    //Tools
+    public static final RegistryObject<Item> ARSON_POTION = ITEMS.register("arson_potion", ArsonPotion::new);
+
+    // Tools
     public static final RegistryObject<SwordItem> THE_CONFLAGRATE = ITEMS.register("the_conflagrate",
             () -> new SwordItem(DiabloItemTier.THE_CONFLAGRATE, 9, +3.0f, new Item.Properties().group(Diablo.TAB)));
 

@@ -92,6 +92,12 @@ public class WardenModel extends AnimatedEntityModel<WardenEntity> {
         this.rootBones.add(bone);
     }
 
+    @Override
+    public void setRotationAngles(WardenEntity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+        super.setRotationAngles(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
+        head.rotateAngleX = -headPitch * ((float)Math.PI / 180);
+        head.rotateAngleY = netHeadYaw * ((float)Math.PI / 180);
+    }
 
     @Override
     public ResourceLocation getAnimationFileLocation()
