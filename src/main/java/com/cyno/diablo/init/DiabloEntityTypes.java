@@ -18,11 +18,6 @@ public class DiabloEntityTypes {
             () -> EntityType.Builder.create(DiabloEntity::new, EntityClassification.MONSTER).size(1.4f, 5.5f)
             .build(new ResourceLocation(Diablo.MOD_ID, "diablo").toString()));
 
-
-    public static final RegistryObject<EntityType<DistortedEntity>> DISTORTED = ENTITY_TYPES.register("distorted",
-            () -> EntityType.Builder.create(DistortedEntity::new, EntityClassification.MONSTER).size(1.0f, 2.0f)
-                    .build(new ResourceLocation(Diablo.MOD_ID, "distorted").toString()));
-
     public static final RegistryObject<EntityType<WardenEntity>> WARDEN = ENTITY_TYPES.register("warden",
             () -> EntityType.Builder.create(WardenEntity::new, EntityClassification.MONSTER).size(1.4f, 3.0f)
                     .build(new ResourceLocation(Diablo.MOD_ID, "warden").toString()));
@@ -41,6 +36,10 @@ public class DiabloEntityTypes {
     public static final RegistryObject<EntityType<LavaBubbleProjectileEntity>> LAVA_BUBBLE = ENTITY_TYPES.register("lava_bubble",
             () -> EntityType.Builder.create(LavaBubbleProjectileEntity::new, EntityClassification.MONSTER).size(0.6f, 0.6f)
                     .build(new ResourceLocation(Diablo.MOD_ID, "lava_bubble").toString()));
+
+    public static final RegistryObject<EntityType<ArsonPotionEntity>> ARSON_POTION = ENTITY_TYPES.register("arson_potion",
+            () -> EntityType.Builder.create((EntityType.IFactory<ArsonPotionEntity>) ArsonPotionEntity::new, EntityClassification.MISC).size(0.25f, 0.25f)
+                    .build(new ResourceLocation(Diablo.MOD_ID, "arson_potion").toString()));
 
 }
 

@@ -13,7 +13,9 @@
   "item.diablomodif.the_horns_of_diablo": "The Horns of Diablo",
   "item.diablomodif.orb_of_wrath": "Orb Of Wrath",
   "item.diablomodif.demon_blood": "Demon Blood",
+
   "item.diablomodif.arson_potion": "Splash Potion of Arson",
+  "item.diablomodif.drinkable_arson_potion": "Potion of Arson",
 
   "entity.diablomodif.distorted": "d i s t o r t e d",
   "entity.diablomodif.warden": "The Warden",
@@ -21,5 +23,7 @@
   "entity.diablomodif.lava_bubble": "Burnling",
   "entity.diablomodif.diablo": "Diablo",
 
-  "itemGroup.diabloTab": "Diablo"
+  "itemGroup.diabloTab": "Diablo",
+
+  "effect.diablomodif.arson": "Arson"
 }

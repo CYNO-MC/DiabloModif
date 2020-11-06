@@ -1,16 +1,23 @@
 package com.cyno.diablo.entities;
 
+import com.cyno.diablo.init.DiabloEntityTypes;
+import com.cyno.diablo.init.DiabloItems;
 import com.cyno.diablo.util.CircleHelper;
+import com.cyno.diablo.util.Debug;
 import net.minecraft.block.AbstractFireBlock;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.IRendersAsItem;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.projectile.PotionEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.network.IPacket;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.network.NetworkHooks;
 
 public class ArsonPotionEntity extends PotionEntity {
     boolean hasHitGround;
@@ -23,11 +30,13 @@ public class ArsonPotionEntity extends PotionEntity {
     public ArsonPotionEntity(EntityType<? extends PotionEntity> typeIn, World worldIn) {
         super(typeIn, worldIn);
         hasHitGround = false;
+        this.setItem(new ItemStack(DiabloItems.ARSON_POTION.get()));
     }
 
     public ArsonPotionEntity(World worldIn, LivingEntity livingEntityIn) {
-        super(worldIn, livingEntityIn);
-        hasHitGround = false;
+        this(DiabloEntityTypes.ARSON_POTION.get(), worldIn);
+        this.setShooter(livingEntityIn);
+        this.setPosition(livingEntityIn.getPosX(), livingEntityIn.getPosYEye() - (double)0.1F, livingEntityIn.getPosZ());
     }
 
     @Override
@@ -72,22 +81,26 @@ public class ArsonPotionEntity extends PotionEntity {
                 return;
             }
 
-            BlockPos blockpos1 = ray.getPos().offset(ray.getFace());  // pos to put fire in
-            addFireAtPos(blockpos1);
+            BlockPos firePos = ray.getPos().offset(ray.getFace());
+            addFireAtPos(firePos);
 
-            center = blockpos1;
-            hasHitGround = true;
+            center = firePos;  // center of the fire circle
+            hasHitGround = true;  // trigger fire circle adding logic
 
             this.setMotion(Vector3d.ZERO);
             this.setInvisible(true);
         }
     }
 
-    // called for each position the circle decides to effect
-    // if its air makes it fire
+    // called for each position the circle decides to effect, if its air makes it fire
     private void addFireAtPos(BlockPos pos){
         if (this.world.getBlockState(pos).isAir() && this.world.getBlockState(pos.down()).isOpaqueCube(this.world, pos.down())) {
             this.world.setBlockState(pos, AbstractFireBlock.getFireForPlacement(this.world, pos));
         }
+    }
+
+    @Override
+    public IPacket<?> createSpawnPacket() {
+        return NetworkHooks.getEntitySpawningPacket(this);
     }
 }

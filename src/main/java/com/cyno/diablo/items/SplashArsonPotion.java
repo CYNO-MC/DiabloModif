@@ -15,8 +15,8 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 
-public class ArsonPotion extends Item {
-    public ArsonPotion() {
+public class SplashArsonPotion extends Item {
+    public SplashArsonPotion() {
         super(new Item.Properties().group(Diablo.TAB).maxStackSize(1));
     }
 
@@ -28,6 +28,8 @@ public class ArsonPotion extends Item {
         ItemStack itemstack = playerIn.getHeldItem(handIn);
         if (!worldIn.isRemote) {
             PotionEntity potionentity = new ArsonPotionEntity(worldIn, playerIn);
+
+            // shoot the entity. (shooter, pitch, yaw, downwardness? idk, velocity, inaccuracy)
             potionentity.func_234612_a_(playerIn, playerIn.rotationPitch, playerIn.rotationYaw, -20.0F, 0.5F, 1.0F);
             worldIn.addEntity(potionentity);
         }
