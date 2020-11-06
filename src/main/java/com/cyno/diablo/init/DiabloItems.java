@@ -30,6 +30,9 @@ public class DiabloItems {
     public static final RegistryObject<Item> ARSON_POTION = ITEMS.register("arson_potion", SplashArsonPotion::new);
     public static final RegistryObject<Item> DRINKABLE_ARSON_POTION = ITEMS.register("drinkable_arson_potion", () -> new ModPotion(() -> new EffectInstance(PotionInit.ARSON_EFFECT.get(), 600, 0)));
 
+    public static final RegistryObject<Item> SOUND_BOOK = ITEMS.register("sound_book", SoundBookItem::new);
+
+
     // Tools
     public static final RegistryObject<SwordItem> THE_CONFLAGRATE = ITEMS.register("the_conflagrate",
             () -> new SwordItem(DiabloItemTier.THE_CONFLAGRATE, 9, +3.0f, new Item.Properties().group(Diablo.TAB)));
