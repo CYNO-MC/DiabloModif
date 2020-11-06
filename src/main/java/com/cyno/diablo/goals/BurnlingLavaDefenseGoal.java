@@ -10,6 +10,7 @@ import net.minecraft.util.math.BlockPos;
 public class BurnlingLavaDefenseGoal extends Goal {
     private BurnlingEntity creature;
     boolean magmaSet = false;
+    boolean lavaSet = false;
     int radius = 30;
     float currentLavaMeltTime = 0;
     float maxLavaMeltTime = 40;
@@ -30,12 +31,12 @@ public class BurnlingLavaDefenseGoal extends Goal {
 
     @Override
     public boolean shouldExecute() {
-        return this.creature.getAttackTarget() != null && !this.creature.isSurroundedByLava();
+        return this.creature.getAttackTarget() != null && !lavaSet;
     }
 
     @Override
     public boolean shouldContinueExecuting() {
-        return this.creature.getAttackTarget() != null && !this.creature.isSurroundedByLava();
+        return this.creature.getAttackTarget() != null && !lavaSet;
     }
 
     @Override
@@ -72,6 +73,9 @@ public class BurnlingLavaDefenseGoal extends Goal {
                     {
                         this.currentLavaMeltTime = 0;
                         CircleHelper.horizontalCircle(this.creature.getPosition().down(), i, this::addLavaPos);
+
+                        if(i == radius - 1)
+                            lavaSet = true;
                     }
 
                 }
