@@ -3,7 +3,6 @@ package com.cyno.diablo.entities;
 import com.cyno.diablo.goals.BurnlingAttackGoal;
 import com.cyno.diablo.goals.BurnlingLavaDefenseGoal;
 import com.cyno.diablo.init.DiabloEntityTypes;
-import com.cyno.diablo.util.Debug;
 import com.cyno.diablo.util.MathUtils;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -29,7 +28,6 @@ import software.bernie.geckolib.core.IAnimatable;
 import software.bernie.geckolib.core.PlayState;
 import software.bernie.geckolib.core.builder.AnimationBuilder;
 import software.bernie.geckolib.core.controller.AnimationController;
-import software.bernie.geckolib.core.event.CustomInstructionKeyframeEvent;
 import software.bernie.geckolib.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib.core.manager.AnimationData;
 import software.bernie.geckolib.core.manager.AnimationFactory;
@@ -40,6 +38,7 @@ public class BurnlingEntity extends MonsterEntity implements IAnimatable {
 
     private static final DataParameter<Boolean> IS_ATTACKING = EntityDataManager.createKey(BurnlingEntity.class, DataSerializers.BOOLEAN);
 
+    public boolean canMove = true;
     private float currentAttackStep = 0f; //adds a little delay at the beginning of the "timer" otherwise the animation of the burnling and instantiation of the lava bubbble don't match (replace with the geckolib 3.0.0)
     private float maxAttackInterval = 60f;
     private AnimationFactory factory = new AnimationFactory(this);
@@ -117,6 +116,31 @@ public class BurnlingEntity extends MonsterEntity implements IAnimatable {
         return true;
     }
 
+    @Override
+    public void applyEntityCollision(Entity entityIn) {
+        if(!(entityIn instanceof LavaBubbleProjectileEntity))
+        {
+            super.applyEntityCollision(entityIn);
+        }
+    }
+
+    @Override
+    protected void collideWithNearbyEntities() {
+            super.collideWithNearbyEntities();
+    }
+
+    @Override
+    protected void collideWithEntity(Entity entityIn) {
+        if(!(entityIn instanceof LavaBubbleProjectileEntity))
+        {
+            super.collideWithEntity(entityIn);
+        }
+    }
+
+    @Override
+    public boolean canBeCollidedWith() {
+        return false;
+    }
 
     public static AttributeModifierMap.MutableAttribute setCustomAttributes() {
         return BurnlingEntity.registerAttributes()
@@ -139,6 +163,9 @@ public class BurnlingEntity extends MonsterEntity implements IAnimatable {
         this.goalSelector.addGoal(1, this.walkGoal);
     }
 
+
+    @Override
+    public void applyKnockback(float strength, double ratioX, double ratioZ) {}
 
     @Override
     protected int getExperiencePoints(PlayerEntity player) {
@@ -179,7 +206,7 @@ public class BurnlingEntity extends MonsterEntity implements IAnimatable {
 
     @Override
     public void travel(Vector3d travelVector) {
-        if(!this.getAttacking())
+        if(!this.getAttacking() && canMove)
         super.travel(travelVector);
         else
             super.travel(new Vector3d(0, travelVector.getY(), 0));

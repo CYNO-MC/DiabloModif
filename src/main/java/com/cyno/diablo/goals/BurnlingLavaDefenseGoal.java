@@ -2,7 +2,6 @@ package com.cyno.diablo.goals;
 
 import com.cyno.diablo.entities.BurnlingEntity;
 import com.cyno.diablo.util.CircleHelper;
-import net.minecraft.block.AbstractFireBlock;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.util.math.BlockPos;
@@ -75,7 +74,10 @@ public class BurnlingLavaDefenseGoal extends Goal {
                         CircleHelper.horizontalCircle(this.creature.getPosition().down(), i, this::addLavaPos);
 
                         if(i == radius - 1)
+                        {
                             lavaSet = true;
+                            this.creature.canMove = false;
+                        }
                     }
 
                 }

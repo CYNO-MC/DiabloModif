@@ -107,9 +107,9 @@ public class LavaBubbleProjectileEntity extends MobEntity {
 
     @Override
     protected void collideWithEntity(Entity entityIn) {
-        super.collideWithEntity(entityIn);
         if(!(entityIn instanceof BurnlingEntity) && !(entityIn instanceof LavaBubbleProjectileEntity) && !entityIn.isImmuneToFire())
         {
+            super.collideWithEntity(entityIn);
             entityIn.attackEntityFrom(DamageSource.LAVA, 4);
             entityIn.setFire(3);
             this.doSplashLava(1);

@@ -34,6 +34,9 @@ public class DiabloItems {
     public static final RegistryObject<SwordItem> THE_CONFLAGRATE = ITEMS.register("the_conflagrate",
             () -> new SwordItem(DiabloItemTier.THE_CONFLAGRATE, 9, +3.0f, new Item.Properties().group(Diablo.TAB)));
 
+
+    // Spawn eggs
+    public static final RegistryObject<Item> BURNLING_SPAWN_EGG = ITEMS.register("burnling_spawn_egg", () -> new ModSpawnEggItem(DiabloEntityTypes.BURNLING, 0xf55d42, 0xf59042, new Item.Properties().group(Diablo.TAB)));
     @SubscribeEvent
     public static void onRegisterItems(final RegistryEvent.Register<Item> event) {
         final IForgeRegistry<Item> registry = event.getRegistry();
