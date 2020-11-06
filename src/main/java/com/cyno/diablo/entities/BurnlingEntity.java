@@ -1,20 +1,16 @@
 package com.cyno.diablo.entities;
 
-import com.cyno.diablo.Diablo;
-import com.cyno.diablo.goals.AlertedBySoundGoal;
 import com.cyno.diablo.goals.BurnlingAttackGoal;
-import com.cyno.diablo.goals.StandardMeleeAttackGoal;
+import com.cyno.diablo.goals.BurnlingLavaDefenseGoal;
 import com.cyno.diablo.init.DiabloEntityTypes;
-import com.cyno.diablo.util.AnimationUtils;
 import com.cyno.diablo.util.Debug;
+import com.cyno.diablo.util.MathUtils;
 import net.minecraft.block.BlockState;
-import net.minecraft.client.world.ClientWorld;
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
-import net.minecraft.entity.ai.goal.LookAtGoal;
-import net.minecraft.entity.ai.goal.LookRandomlyGoal;
 import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
 import net.minecraft.entity.ai.goal.WaterAvoidingRandomWalkingGoal;
 import net.minecraft.entity.merchant.villager.VillagerEntity;
@@ -27,37 +23,29 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
-import software.bernie.geckolib.animation.builder.AnimationBuilder;
-import software.bernie.geckolib.animation.controller.AnimationController;
-import software.bernie.geckolib.animation.controller.EntityAnimationController;
-import software.bernie.geckolib.entity.IAnimatedEntity;
-import software.bernie.geckolib.event.AnimationTestEvent;
-import software.bernie.geckolib.event.CustomInstructionKeyframeEvent;
-import software.bernie.geckolib.manager.EntityAnimationManager;
+import software.bernie.geckolib.core.IAnimatable;
+import software.bernie.geckolib.core.PlayState;
+import software.bernie.geckolib.core.builder.AnimationBuilder;
+import software.bernie.geckolib.core.controller.AnimationController;
+import software.bernie.geckolib.core.event.CustomInstructionKeyframeEvent;
+import software.bernie.geckolib.core.event.predicate.AnimationEvent;
+import software.bernie.geckolib.core.manager.AnimationData;
+import software.bernie.geckolib.core.manager.AnimationFactory;
 
 import javax.annotation.Nullable;
 
-public class BurnlingEntity extends MonsterEntity implements IAnimatedEntity {
+public class BurnlingEntity extends MonsterEntity implements IAnimatable {
 
     private static final DataParameter<Boolean> IS_ATTACKING = EntityDataManager.createKey(BurnlingEntity.class, DataSerializers.BOOLEAN);
 
     private float currentAttackStep = 0f; //adds a little delay at the beginning of the "timer" otherwise the animation of the burnling and instantiation of the lava bubbble don't match (replace with the geckolib 3.0.0)
     private float maxAttackInterval = 60f;
-    private EntityAnimationManager animationManager = new EntityAnimationManager();
-    public AnimationController animator = new EntityAnimationController(this, "moveController", 1, this::animationPredicate);
-
+    private AnimationFactory factory = new AnimationFactory(this);
     public WaterAvoidingRandomWalkingGoal walkGoal;
     public BurnlingEntity(EntityType<? extends MonsterEntity> type, World worldIn) {
         super(type, worldIn);
-        registerAnimators();
-    }
-
-    @Override
-    public EntityAnimationManager getAnimationManager() {
-        return animationManager;
     }
 
 
@@ -75,41 +63,53 @@ public class BurnlingEntity extends MonsterEntity implements IAnimatedEntity {
     }
 
     public void SpawnLavaBubbles(float speed){
-        Debug.Danger("...............");
         LavaBubbleProjectileEntity lavaBubbleProjectileEntity = new LavaBubbleProjectileEntity(DiabloEntityTypes.LAVA_BUBBLE.get(), this.world);
         lavaBubbleProjectileEntity.setPosition(this.getPosX(), this.getPosY() + 0.5f, this.getPosZ());
-        lavaBubbleProjectileEntity.addVelocity((this.rand.nextInt(6) - 3) * speed,(this.rand.nextInt(6)) * speed,(this.rand.nextInt(6) - 3) * speed);
+
+
+        float xPow = MathUtils.getRandomWithExclusion(-3, 6, 0);
+        float zPow = MathUtils.getRandomWithExclusion(-3, 6, 0);
+
+        lavaBubbleProjectileEntity.addVelocity(xPow * speed,(this.rand.nextInt(6) + 1) * speed,zPow * speed);
         this.world.addEntity(lavaBubbleProjectileEntity);
      //   Debug.Log();
     }
-    private <E extends BurnlingEntity> boolean animationPredicate(AnimationTestEvent<E> event){
+    private <E extends BurnlingEntity> PlayState animationPredicate(AnimationEvent<E> event){
 
         if(this.getAttacking()){
-            animator.setAnimation(new AnimationBuilder().addAnimation("animation.burnling.attack", true));
-
-            return true;
+            if(this.isSurroundedByLava()){
+                event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.burnling.attack", true));
+            }
+            else{
+                event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.burnling.defense", false));
+            }
+            return PlayState.CONTINUE;
         }
         else{
             if(this.getMotion().length() > 0.06){
-                animator.setAnimation(new AnimationBuilder().addAnimation("animation.burnling.walking", true));
-                return true;
+                event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.burnling.walking", true));
+                return PlayState.CONTINUE;
             }
             else
             {
-                return false;
+                return PlayState.STOP;
             }
         }
     }
 
-    private <E extends Entity> boolean instructionPredicate(CustomInstructionKeyframeEvent<E> event){
-         if(event.instructions.get(0).equals("spawnParticles")){
-          //   ((BurnlingEntity) event.getEntity()).SpawnLavaBubbles(0.2f); //THIS IS WHERE IT FUCKS UP CANT CALL FUNCTION FROM event.getEntity() or from my class directly (i.e this.spawnLavaBubbles)
+    public boolean isSurroundedByLava(){
 
-             return true;
-        }
-         else{
-             return false;
-         }
+        //return wether the entity is standing on a block (different than lava and water) and that this block is surrounded by lava
+        return !this.world.getBlockState(this.getPosition().down()).getBlock().matchesBlock(Blocks.LAVA)
+                && !this.world.getBlockState(this.getPosition().down()).getBlock().matchesBlock(Blocks.WATER)
+                && this.world.getBlockState(this.getPosition().down().south()).getBlock().matchesBlock(Blocks.LAVA)
+                && this.world.getBlockState(this.getPosition().down().north()).getBlock().matchesBlock(Blocks.LAVA)
+                && this.world.getBlockState(this.getPosition().down().west()).getBlock().matchesBlock(Blocks.LAVA)
+                && this.world.getBlockState(this.getPosition().down().east()).getBlock().matchesBlock(Blocks.LAVA)
+                && this.world.getBlockState(this.getPosition().down().south().east()).getBlock().matchesBlock(Blocks.LAVA)
+                && this.world.getBlockState(this.getPosition().down().south().west()).getBlock().matchesBlock(Blocks.LAVA)
+                && this.world.getBlockState(this.getPosition().down().north().east()).getBlock().matchesBlock(Blocks.LAVA)
+                && this.world.getBlockState(this.getPosition().down().north().west()).getBlock().matchesBlock(Blocks.LAVA);
     }
 
     @Override
@@ -133,16 +133,12 @@ public class BurnlingEntity extends MonsterEntity implements IAnimatedEntity {
         super.registerGoals();
         this.goalSelector.addGoal(0, new NearestAttackableTargetGoal(this, VillagerEntity.class, true));
         this.goalSelector.addGoal(0, new NearestAttackableTargetGoal(this, PlayerEntity.class, true));
-        this.goalSelector.addGoal(1, new BurnlingAttackGoal(this));
-
+        this.goalSelector.addGoal(1, new BurnlingAttackGoal(this, 30));
+        this.goalSelector.addGoal(1, new BurnlingLavaDefenseGoal(this, 5));
         this.walkGoal = new WaterAvoidingRandomWalkingGoal(this, 1.2f);
         this.goalSelector.addGoal(1, this.walkGoal);
     }
 
-    private void registerAnimators(){
-        animationManager.addAnimationController(animator);
-        animator.registerCustomInstructionListener(this::instructionPredicate);
-    }
 
     @Override
     protected int getExperiencePoints(PlayerEntity player) {
@@ -192,27 +188,17 @@ public class BurnlingEntity extends MonsterEntity implements IAnimatedEntity {
     @Override
     public void livingTick() {
         super.livingTick();
-        if(!this.world.isRemote()){
-            if(this.getAttacking())
-            {
-                if(this.currentAttackStep < this.maxAttackInterval)
-                {
-                    ++this.currentAttackStep;
-                }
-                else{
-                    this.currentAttackStep = 0;
-                    this.SpawnLavaBubbles(0.2f);
-                }
-
-            }
-            else
-                if(currentAttackStep > 0)
-                    this.currentAttackStep = 0;
-
+        if(!this.world.isRemote())
             this.setAttacking(this.getAttackTarget() != null);
-            if(this.isInWater())
-                this.attackEntityFrom(DamageSource.DROWN, 4);
-        }
+    }
 
+    @Override
+    public void registerControllers(AnimationData animationData) {
+        animationData.addAnimationController(new AnimationController(this, "moveController", 0, this::animationPredicate));
+    }
+
+    @Override
+    public AnimationFactory getFactory() {
+        return factory;
     }
 }

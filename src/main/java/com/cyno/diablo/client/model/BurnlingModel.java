@@ -1,13 +1,12 @@
 package com.cyno.diablo.client.model;
 
+import com.cyno.diablo.Diablo;
 import com.cyno.diablo.entities.BurnlingEntity;
-import com.cyno.diablo.entities.WardenEntity;
 import net.minecraft.util.ResourceLocation;
-import software.bernie.geckolib.animation.model.AnimatedEntityModel;
-import software.bernie.geckolib.animation.render.AnimatedModelRenderer;
+import software.bernie.geckolib.model.AnimatedGeoModel;
 
-public class BurnlingModel extends AnimatedEntityModel<BurnlingEntity> {
-    private final AnimatedModelRenderer Body;
+public class BurnlingModel extends AnimatedGeoModel<BurnlingEntity> {
+ /*   private final AnimatedModelRenderer Body;
     private final AnimatedModelRenderer UpperJaw;
     private final AnimatedModelRenderer spike8;
     private final AnimatedModelRenderer spike7;
@@ -273,11 +272,19 @@ public class BurnlingModel extends AnimatedEntityModel<BurnlingEntity> {
 
         this.rootBones.add(Body);
     }
-
+ */
+    @Override
+    public ResourceLocation getModelLocation(BurnlingEntity burnlingEntity) {
+        return new ResourceLocation(Diablo.MOD_ID, "geo/burnling_model.geo.json");
+    }
 
     @Override
-    public ResourceLocation getAnimationFileLocation()
-    {
+    public ResourceLocation getTextureLocation(BurnlingEntity burnlingEntity) {
+        return new ResourceLocation(Diablo.MOD_ID, "textures/entity/burnling.png");
+    }
+
+    @Override
+    public ResourceLocation getAnimationFileLocation(BurnlingEntity burnlingEntity) {
         return new ResourceLocation("diablomodif", "animations/burnling_entity.json");
     }
 }

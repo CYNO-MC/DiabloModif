@@ -8,17 +8,16 @@ import com.cyno.diablo.entities.WardenEntity;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
+import software.bernie.geckolib.renderers.geo.GeoEntityRenderer;
 
-public class BurnlingRenderer extends MobRenderer<BurnlingEntity, BurnlingModel> {
-
-    protected static final ResourceLocation TEXTURE = new ResourceLocation(Diablo.MOD_ID, "textures/entity/burnling.png");
-
-    public BurnlingRenderer(EntityRendererManager renderManagerIn) {
-        super(renderManagerIn, new BurnlingModel(), 1.0f);
+public class BurnlingRenderer extends GeoEntityRenderer<BurnlingEntity> {
+    public BurnlingRenderer(EntityRendererManager renderManager) {
+        super(renderManager, new BurnlingModel());
     }
 
     @Override
-    public ResourceLocation getEntityTexture(BurnlingEntity entity) {
-        return TEXTURE;
+    protected int getBlockLight(BurnlingEntity entityIn, BlockPos partialTicks) {
+        return 15;
     }
 }

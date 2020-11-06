@@ -77,20 +77,20 @@ public class LavaBubbleProjectileEntity extends MobEntity {
     }
 
     private void doSplashLava(int radius){
+        if(this.world.getBlockState(this.getPosition()).getBlock().matchesBlock(Blocks.LAVA) || this.world.getBlockState(this.getPosition()).getBlock().matchesBlock(Blocks.MAGMA_BLOCK))
+            return;
+
         int X = this.getPosition().getX();
         int Y = this.getPosition().getY() - 1;
         int Z = this.getPosition().getZ();
 
         BlockPos pos;
 
-        if(this.world.getBlockState(this.getPosition()).getBlock().matchesBlock(Blocks.LAVA))
-            return;
-
         for(int y = Y - radius; y < Y + radius; y++){
             for(int z = Z - radius; z < Z + radius; z++){
                 for(int x = X - radius; x < X + radius; x++){
                     pos = new BlockPos(x, y, z);
-                    if(!this.world.getBlockState(pos).getBlock().matchesBlock(Blocks.AIR) && !this.world.getBlockState(pos).getBlock().matchesBlock(Blocks.CAVE_AIR) && !this.world.getBlockState(pos).getBlock().matchesBlock(Blocks.VOID_AIR) && !this.world.getBlockState(pos).getBlock().matchesBlock(Blocks.LAVA)){
+                    if(!this.world.getBlockState(pos).getBlock().matchesBlock(Blocks.AIR) && !this.world.getBlockState(pos).getBlock().matchesBlock(Blocks.CAVE_AIR) && !this.world.getBlockState(pos).getBlock().matchesBlock(Blocks.VOID_AIR) && !this.world.getBlockState(pos).getBlock().matchesBlock(Blocks.LAVA) && !this.world.getBlockState(pos).getBlock().matchesBlock(Blocks.MAGMA_BLOCK)){
                         Debug.Log(this.world.getBlockState(pos).getMaterial() != null);
                         if(this.world.getBlockState(pos).getMaterial().blocksMovement()){
                             this.world.setBlockState(pos, Blocks.LAVA.getDefaultState());

@@ -1,9 +1,6 @@
 package com.cyno.diablo;
 
-import com.cyno.diablo.entities.AmbiantWardenSoundParticleEntity;
-import com.cyno.diablo.entities.DiabloEntity;
-import com.cyno.diablo.entities.DiabloFireParticleEntity;
-import com.cyno.diablo.entities.WardenEntity;
+import com.cyno.diablo.entities.*;
 import com.cyno.diablo.init.*;
 import com.cyno.diablo.util.BrewingHandler;
 import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
@@ -51,6 +48,9 @@ public class Diablo {
             GlobalEntityTypeAttributes.put(DiabloEntityTypes.DIABLO_FIRE_PARTICLE.get(), DiabloFireParticleEntity.setCustomAttributes().create());
             GlobalEntityTypeAttributes.put(DiabloEntityTypes.DIABLO.get(), DiabloEntity.setCustomAttributes().create());
             GlobalEntityTypeAttributes.put(DiabloEntityTypes.WARDEN.get(), WardenEntity.setCustomAttributes().create());
+            GlobalEntityTypeAttributes.put(DiabloEntityTypes.LAVA_BUBBLE.get(), LavaBubbleProjectileEntity.setCustomAttributes().create());
+            GlobalEntityTypeAttributes.put(DiabloEntityTypes.BURNLING.get(), BurnlingEntity.setCustomAttributes().create());
+
 
             BrewingHandler.addPotionRecipes();  // add recipe for arson potion
         });
