@@ -30,5 +30,9 @@ public class DiabloEntityTypes {
             () -> EntityType.Builder.create(DiabloFireParticleEntity::new, EntityClassification.AMBIENT).size(0.5f, 0.5f)
                     .build(new ResourceLocation(Diablo.MOD_ID, "diablo_fire_particle").toString()));
 
+    public static final RegistryObject<EntityType<ArsonPotionEntity>> ARSON_POTION = ENTITY_TYPES.register("arson_potion",
+            () -> EntityType.Builder.create((EntityType.IFactory<ArsonPotionEntity>) ArsonPotionEntity::new, EntityClassification.MISC).size(0.25f, 0.25f)
+                    .build(new ResourceLocation(Diablo.MOD_ID, "arson_potion").toString()));
+
 }
 
