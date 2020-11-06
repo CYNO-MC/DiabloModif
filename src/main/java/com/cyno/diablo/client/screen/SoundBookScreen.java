@@ -1,8 +1,11 @@
 package com.cyno.diablo.client.screen;
 
+import com.cyno.diablo.init.SoundInit;
 import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.audio.SimpleSound;
 import net.minecraft.client.gui.DialogTexts;
 import net.minecraft.client.gui.chat.NarratorChatListener;
 import net.minecraft.client.gui.screen.ReadBookScreen;
@@ -13,6 +16,7 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.ListNBT;
 import net.minecraft.util.IReorderingProcessor;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.*;
 import net.minecraft.util.text.event.ClickEvent;
@@ -75,6 +79,9 @@ public class SoundBookScreen extends Screen {
      * Moves the book to the specified page and returns true if it exists, false otherwise
      */
     public boolean showPage(int pageNum) {
+        // TODO: base on page, consumer passed in
+        Minecraft.getInstance().getSoundHandler().play(SimpleSound.master(SoundInit.DAMAGE.get(), 1.0F, 2.0F));
+
         int i = MathHelper.clamp(pageNum, 0, this.bookInfo.getPageCount() - 1);
         if (i != this.currPage) {
             this.currPage = i;

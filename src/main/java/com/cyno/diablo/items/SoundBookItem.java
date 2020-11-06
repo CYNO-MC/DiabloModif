@@ -20,7 +20,7 @@ public class SoundBookItem extends ItemBase {
         ItemStack stack = playerIn.getHeldItem(handIn);
         setContents(stack);
 
-        Minecraft.getInstance().displayGuiScreen(new SoundBookScreen(new ReadBookScreen.WrittenBookInfo(stack)));
+        if (worldIn.isRemote()) Minecraft.getInstance().displayGuiScreen(new SoundBookScreen(new ReadBookScreen.WrittenBookInfo(stack)));
 
         return super.onItemRightClick(worldIn, playerIn, handIn);
     }
