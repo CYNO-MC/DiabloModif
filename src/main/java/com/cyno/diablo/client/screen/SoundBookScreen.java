@@ -1,5 +1,6 @@
 package com.cyno.diablo.client.screen;
 
+import com.cyno.diablo.Diablo;
 import com.cyno.diablo.init.SoundInit;
 import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.matrix.MatrixStack;
@@ -16,6 +17,7 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.ListNBT;
 import net.minecraft.util.IReorderingProcessor;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.*;
@@ -24,6 +26,8 @@ import net.minecraft.util.text.event.ClickEvent;
 import javax.annotation.Nullable;
 import java.util.Collections;
 import java.util.List;
+import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 public class SoundBookScreen extends Screen {
     public static final ReadBookScreen.IBookInfo EMPTY_BOOK = new ReadBookScreen.IBookInfo() {
@@ -53,19 +57,21 @@ public class SoundBookScreen extends Screen {
      * Determines if a sound is played when the page is turned
      */
     private final boolean pageTurnSounds;
+    private Consumer<Integer> pageSounds;
 
     public SoundBookScreen(ReadBookScreen.IBookInfo bookInfoIn) {
-        this(bookInfoIn, true);
+        this(bookInfoIn, true, null);
     }
 
     public SoundBookScreen() {
-        this(EMPTY_BOOK, false);
+        this(EMPTY_BOOK, false, null);
     }
 
-    private SoundBookScreen(ReadBookScreen.IBookInfo bookInfoIn, boolean pageTurnSoundsIn) {
+    public SoundBookScreen(ReadBookScreen.IBookInfo bookInfoIn, boolean pageTurnSoundsIn, Consumer<Integer> pageSoundsIn) {
         super(NarratorChatListener.EMPTY);
         this.bookInfo = bookInfoIn;
         this.pageTurnSounds = pageTurnSoundsIn;
+        this.pageSounds = pageSoundsIn;
     }
 
     public void func_214155_a(ReadBookScreen.IBookInfo p_214155_1_) {
@@ -79,9 +85,6 @@ public class SoundBookScreen extends Screen {
      * Moves the book to the specified page and returns true if it exists, false otherwise
      */
     public boolean showPage(int pageNum) {
-        // TODO: base on page, consumer passed in
-        Minecraft.getInstance().getSoundHandler().play(SimpleSound.master(SoundInit.DAMAGE.get(), 1.0F, 2.0F));
-
         int i = MathHelper.clamp(pageNum, 0, this.bookInfo.getPageCount() - 1);
         if (i != this.currPage) {
             this.currPage = i;
@@ -136,6 +139,7 @@ public class SoundBookScreen extends Screen {
         }
 
         this.updateButtons();
+        playPageSound();
     }
 
     /**
@@ -147,6 +151,13 @@ public class SoundBookScreen extends Screen {
         }
 
         this.updateButtons();
+        playPageSound();
+    }
+
+    private void playPageSound(){
+        if (this.pageSounds != null){
+            this.pageSounds.accept(this.currPage);
+        }
     }
 
     private void updateButtons() {
