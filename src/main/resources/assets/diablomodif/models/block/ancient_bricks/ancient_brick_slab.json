@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab",
+  "textures": {
+    "bottom": "diablomodif:blocks/ancient_bricks/ancient_brick_block",
+    "top": "diablomodif:blocks/ancient_bricks/ancient_brick_block",
+    "side": "diablomodif:blocks/ancient_bricks/ancient_brick_block"
+  }
+}

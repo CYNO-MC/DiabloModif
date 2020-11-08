@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/wall_inventory",
+  "textures": {
+    "wall": "diablomodif:blocks/ancient_bricks/ancient_wall"
+  }
+}

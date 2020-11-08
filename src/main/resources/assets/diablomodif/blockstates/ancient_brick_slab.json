@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "diablomodif:block/ancient_bricks/ancient_brick_slab"
+    },
+    "type=double": {
+      "model": "diablomodif:block/ancient_bricks/ancient_brick_block"
+    },
+    "type=top": {
+      "model": "diablomodif:block/ancient_bricks/ancient_brick_slab_top"
+    }
+  }
+}
