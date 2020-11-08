@@ -35,13 +35,13 @@ public class DiabloBlocks {
             .harvestLevel(3)
             .harvestTool(ToolType.PICKAXE)));
 
-    public static final RegistryObject<Block> ANCIENT_FENCE = BLOCKS.register("ancient_fence", () -> new Block(Block.Properties.create(Material.ROCK)
+    public static final RegistryObject<Block> ANCIENT_FENCE = BLOCKS.register("ancient_fence", () -> new FenceBlock(Block.Properties.create(Material.ROCK)
             .hardnessAndResistance(30f, 1200.0f)
             .sound(SoundType.ANCIENT_DEBRIS)
             .harvestLevel(3)
             .harvestTool(ToolType.PICKAXE)));
 
-    public static final RegistryObject<Block> ANCIENT_WALL = BLOCKS.register("ancient_wall", () -> new Block(Block.Properties.create(Material.ROCK)
+    public static final RegistryObject<Block> ANCIENT_WALL = BLOCKS.register("ancient_wall", () -> new WallBlock(Block.Properties.create(Material.ROCK)
             .hardnessAndResistance(30f, 1200.0f)
             .sound(SoundType.ANCIENT_DEBRIS)
             .harvestLevel(3)
