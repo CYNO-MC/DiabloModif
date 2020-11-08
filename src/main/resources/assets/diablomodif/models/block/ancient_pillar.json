@@ -1,7 +1,0 @@
-{
-	"parent": "block/cube_column",
-	"textures": {
-		"end": "diablomodif:blocks/ancient_pillar_end",
-		"side":  "diablomodif:blocks/ancient_pillar_side"
-	}
-}
