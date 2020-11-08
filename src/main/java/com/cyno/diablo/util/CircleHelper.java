@@ -10,6 +10,13 @@ public class CircleHelper {
 
     private static void drawCirclePart(int xc, int yc, int x, int y,  int height, Consumer<BlockPos> action)
     {
+        if(y == 1)
+        {
+            handleBlock(xc+1, height, yc+1, action);
+            handleBlock(xc+1, height, yc-1, action);
+            handleBlock(xc-1, height, yc-1, action);
+            handleBlock(xc-1, height, yc+1, action);
+        }
         handleBlock(xc+x, height, yc+y, action);
         handleBlock(xc-x, height, yc+y,  action);
         handleBlock(xc+x, height, yc-y,  action);

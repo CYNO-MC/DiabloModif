@@ -9,6 +9,7 @@
 
   "item.diablomodif.the_conflagrate": "The Conflagrate",
   "item.diablomodif.glass_vile": "Glass Vile",
+  "item.diablomodif.burnling_spawn_egg": "Burnling Spawn Egg",
   "item.diablomodif.the_horns_of_diablo": "The Horns of Diablo",
   "item.diablomodif.orb_of_wrath": "Orb Of Wrath",
   "item.diablomodif.demon_blood": "Demon Blood",
@@ -18,6 +19,8 @@
 
   "entity.diablomodif.warden": "The Warden",
   "entity.diablomodif.sculkmaw": "The Sculk Maw",
+  "entity.diablomodif.burnling": "Burnling",
+  "entity.diablomodif.lava_bubble": "Burnling",
   "entity.diablomodif.diablo": "Diablo",
   "entity.diablomodif.diablominion": "Diablo's Minion",
 

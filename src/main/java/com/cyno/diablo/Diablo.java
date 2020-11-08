@@ -47,6 +47,10 @@ public class Diablo {
             GlobalEntityTypeAttributes.put(DiabloEntityTypes.DIABLOMINION.get(), DiabloMinionEntity.setCustomAttributes().create());
             GlobalEntityTypeAttributes.put(DiabloEntityTypes.WARDEN.get(), WardenEntity.setCustomAttributes().create());
             GlobalEntityTypeAttributes.put(DiabloEntityTypes.SCULKMAW.get(), SculkMawEntity.setCustomAttributes().create());
+            GlobalEntityTypeAttributes.put(DiabloEntityTypes.LAVA_BUBBLE.get(), LavaBubbleProjectileEntity.setCustomAttributes().create());
+            GlobalEntityTypeAttributes.put(DiabloEntityTypes.BURNLING.get(), BurnlingEntity.setCustomAttributes().create());
+
+
             BrewingHandler.addPotionRecipes();  // add recipe for arson potion
         });
     }
