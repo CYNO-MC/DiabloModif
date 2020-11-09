@@ -29,6 +29,12 @@ public class DiabloBlocks {
             .harvestLevel(3)
             .harvestTool(ToolType.PICKAXE)));
 
+    public static final RegistryObject<Block> ANCIENT_PLATE = BLOCKS.register("ancient_plate", () -> new Block(Block.Properties.create(Material.ROCK)
+            .hardnessAndResistance(30f, 1200.0f)
+            .sound(SoundType.ANCIENT_DEBRIS)
+            .harvestLevel(3)
+            .harvestTool(ToolType.PICKAXE)));
+
     public static final RegistryObject<Block> ANCIENT_BRICK_STAIRS = BLOCKS.register("ancient_brick_stairs", () -> new StairsBlock(() -> ANCIENT_BRICK_BLOCK.get().getDefaultState(), AbstractBlock.Properties.create(Material.ROCK)
             .hardnessAndResistance(30f, 1200.0f)
             .sound(SoundType.ANCIENT_DEBRIS)

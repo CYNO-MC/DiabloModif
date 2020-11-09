@@ -2,11 +2,19 @@
   "block.diablomodif.reinforced_nether_brick_block": "Reinforced Nether Brick",
   "block.diablomodif.nether_brick_plank_block": "Nether Brick Planks",
   "block.diablomodif.warped_glowstone_block": "Soulstone",
+
   "block.diablomodif.hardened_obsidian_block": "Hardened Obsidian",
   "block.diablomodif.hardened_netherrack_block": "Hardened Netherrack",
   "block.diablomodif.hardened_soul_sand_block": "Hardened Soul Sand",
+
   "block.diablomodif.ancient_pillar": "Ancient Pillar",
   "block.diablomodif.ancient_brick_block": "Ancient Brick",
+  "block.diablomodif.ancient_plate": "Ancient Plate",
+  "block.diablomodif.ancient_brick_stairs": "Ancient Brick Stairs",
+  "block.diablomodif.ancient_brick_slab": "Ancient Brick Slab",
+  "block.diablomodif.chiseled_ancient_brick": "Chiseled Ancient Brick",
+  "block.diablomodif.ancient_fence": "Ancient Fence",
+  "block.diablomodif.ancient_wall": "Ancient Wall",
 
   "item.diablomodif.the_conflagrate": "The Conflagrate",
   "item.diablomodif.glass_vile": "Glass Vile",
@@ -17,11 +25,10 @@
   "item.diablomodif.arson_potion": "Splash Potion of Arson",
   "item.diablomodif.drinkable_arson_potion": "Potion of Arson",
 
-  "entity.diablomodif.distorted": "d i s t o r t e d",
   "entity.diablomodif.warden": "The Warden",
   "entity.diablomodif.diablo": "Diablo",
 
-  "itemGroup.diabloTab": "Diablo",
+  "itemGroup.diabloTab": "The Stygian Depths",
 
   "effect.diablomodif.arson": "Arson"
 }
