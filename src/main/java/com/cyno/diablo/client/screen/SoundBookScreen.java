@@ -2,6 +2,7 @@ package com.cyno.diablo.client.screen;
 
 import com.cyno.diablo.Diablo;
 import com.cyno.diablo.init.SoundInit;
+import com.cyno.diablo.items.SoundBookItem;
 import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -57,21 +58,35 @@ public class SoundBookScreen extends Screen {
      * Determines if a sound is played when the page is turned
      */
     private final boolean pageTurnSounds;
-    private Consumer<Integer> pageSounds;
+    private List<SoundBookItem.SoundData> pageSounds;
+    private SoundBookItem.SoundData ambientSound;
+    private int ambientSoundLength;
+    private int time;
 
-    public SoundBookScreen(ReadBookScreen.IBookInfo bookInfoIn) {
-        this(bookInfoIn, true, null);
-    }
-
-    public SoundBookScreen() {
-        this(EMPTY_BOOK, false, null);
-    }
-
-    public SoundBookScreen(ReadBookScreen.IBookInfo bookInfoIn, boolean pageTurnSoundsIn, Consumer<Integer> pageSoundsIn) {
+    public SoundBookScreen(ReadBookScreen.IBookInfo bookInfoIn, boolean pageTurnSoundsIn, List<SoundBookItem.SoundData> pageSoundsIn, SoundBookItem.SoundData ambientSoundIn, int ambientSoundLengthIn) {
         super(NarratorChatListener.EMPTY);
         this.bookInfo = bookInfoIn;
         this.pageTurnSounds = pageTurnSoundsIn;
         this.pageSounds = pageSoundsIn;
+        this.ambientSound = ambientSoundIn;
+        this.ambientSoundLength = ambientSoundLengthIn;
+        this.time = ambientSoundLengthIn;
+    }
+
+    @Override
+    public void closeScreen(){
+        if (this.ambientSound != null) this.ambientSound.stop();
+        super.closeScreen();
+    }
+
+    @Override
+    public void tick(){
+        super.tick();
+        this.time++;
+        if (this.time >= this.ambientSoundLength){
+            this.ambientSound.play();
+            this.time = 0;
+        }
     }
 
     public void func_214155_a(ReadBookScreen.IBookInfo p_214155_1_) {
@@ -110,7 +125,7 @@ public class SoundBookScreen extends Screen {
 
     protected void addDoneButton() {
         this.addButton(new Button(this.width / 2 - 100, 196, 200, 20, DialogTexts.GUI_DONE, (p_214161_1_) -> {
-            this.minecraft.displayGuiScreen((Screen) null);
+            closeScreen();
         }));
     }
 
@@ -155,8 +170,12 @@ public class SoundBookScreen extends Screen {
     }
 
     private void playPageSound(){
-        if (this.pageSounds != null){
-            this.pageSounds.accept(this.currPage);
+        Minecraft.getInstance().getSoundHandler().stop();
+        if (this.pageSounds != null && this.pageSounds.size() > this.currPage){
+            if (this.currPage > 0) this.pageSounds.get(this.currPage - 1).stop();
+            this.pageSounds.get(this.currPage).play();
+
+            this.time = this.ambientSoundLength;
         }
     }
 

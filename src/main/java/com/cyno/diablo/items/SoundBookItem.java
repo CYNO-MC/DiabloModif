@@ -3,6 +3,7 @@ package com.cyno.diablo.items;
 import com.cyno.diablo.client.screen.SoundBookScreen;
 import com.cyno.diablo.init.SoundInit;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.audio.ISound;
 import net.minecraft.client.audio.SimpleSound;
 import net.minecraft.client.gui.screen.ReadBookScreen;
 import net.minecraft.client.gui.screen.WinGameScreen;
@@ -12,10 +13,7 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;
 import net.minecraft.nbt.ListNBT;
 import net.minecraft.nbt.StringNBT;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.util.SoundEvents;
+import net.minecraft.util.*;
 import net.minecraft.world.World;
 
 import java.util.ArrayList;
@@ -27,22 +25,41 @@ public class SoundBookItem extends ItemBase {
         ItemStack stack = playerIn.getHeldItem(handIn);
         setContents(stack);
 
-        Minecraft.getInstance().displayGuiScreen(new SoundBookScreen(new ReadBookScreen.WrittenBookInfo(stack), false, this::pageSounds));
+        SoundData ambientSound = new SoundData(SoundInit.AMBIENT.get(), 0.25F);
+        Minecraft.getInstance().displayGuiScreen(new SoundBookScreen(new ReadBookScreen.WrittenBookInfo(stack), false, getPageSounds(), ambientSound, 220));
 
         return super.onItemRightClick(worldIn, playerIn, handIn);
     }
 
-    private void pageSounds(int page){
-        List<SoundEvent> sounds = new ArrayList<>();
-        for (int i=0;i<6;i++) sounds.add(SoundEvents.ITEM_BOOK_PAGE_TURN);
-        sounds.add(SoundInit.STEP.get());
-        sounds.add(SoundInit.WDAMAGE.get());
-        sounds.add(SoundInit.WDAMAGE.get());
-        for (int i=0;i<3;i++) sounds.add(SoundInit.STEP.get());
-        sounds.add(SoundEvents.BLOCK_PORTAL_TRAVEL);
+    private List<SoundData> getPageSounds(){
+        List<SoundData> sounds = new ArrayList<>();
+        for (int i=0;i<6;i++) sounds.add(new SoundData(SoundEvents.ITEM_BOOK_PAGE_TURN));
+        sounds.add(new SoundData(SoundEvents.BLOCK_STONE_STEP, 4.0F));
+        sounds.add(new SoundData(SoundInit.WDAMAGE.get()));
+        sounds.add(new SoundData(SoundInit.WDAMAGE.get()));
+        for (int i=0;i<3;i++) sounds.add(new SoundData(SoundEvents.BLOCK_STONE_STEP, 4.0F));
+        sounds.add(new SoundData(SoundEvents.BLOCK_PORTAL_TRAVEL, 0.10F));
 
-        if (sounds.size() > page){
-            Minecraft.getInstance().getSoundHandler().play(SimpleSound.master(sounds.get(page), 1.0F, 2.0F));
+        return sounds;
+    }
+
+    public static class SoundData {
+        private final ISound sound;
+
+        protected SoundData(SoundEvent soundEvent){
+            this(soundEvent, 2.0F);
+        }
+
+        protected SoundData(SoundEvent soundEvent, float volume){
+            this.sound = SimpleSound.master(soundEvent, 1.0F, volume);
+        }
+
+        public void play(){
+            Minecraft.getInstance().getSoundHandler().play(this.sound);
+        }
+
+        public void stop(){
+            Minecraft.getInstance().getSoundHandler().stop(this.sound);
         }
     }
 
@@ -76,7 +93,7 @@ public class SoundBookItem extends ItemBase {
         addPage("blacksmiths in his village. Throughout his life, he was told stories and accounts of what life was like in the Nether. Unlike many of the children around him, he was interested in the idea of this new place. As time ticked forward, He began working as an-", pages);
         addPage("apprentice for the prestigious blacksmith known as Wilton Claye. He forged the finest blades and built a name while doing so. Kennard respected him. Heroes would venture out of their way just to encounter Wilton and have the chance of wielding his work.", pages);
         addPage("This took an unfortunate toll on Kennard's arrogance, as he saw himself as an extension of Wilton's success. Wilton would regularly command Kennard to fetch ore and material for his work. When out searching for new deposits, Kennard found something...", pages);
-        addPage("Positioned to be facing towards the North and South, he found what seemed to be a 'gateway' with unknown origin. \"How have I not seen this before? Surely I would have noticed this. what new could this bring?\" It immediately dawned on him what this was.", pages);
+        addPage("Positioned to be facing towards the North and South, he found what seemed to be a 'gateway' with unknown origin. 'How have I not seen this before? Surely I would have noticed this. what new could this bring?' It immediately dawned on him what this was.", pages);
         addPage("He had heard legends, but now he was faced with reality. The portal, had a feeling of life within it. He felt the urge within himself to investigate further. With his pickaxe in hand and his heart on his sleeve, Kennard Harte impetuously moved forward.....", pages);
         addPage("Digging his feet into the ground beneath him, he attempted to fight back the urge. The patterns of the portal were extremely foreign to him, yet he could hear the words it spoke:", pages);
         addPage("You seek power, Yet you hesitate. Do not cease your effort. You wonder, What is it worth? The Heart of Hell itself? Curiosity fills your mind, body, and soul. But this requires unbreakable strength. What will it take to traverse The Stygian Depths?", pages);
