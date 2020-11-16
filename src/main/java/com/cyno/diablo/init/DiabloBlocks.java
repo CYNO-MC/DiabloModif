@@ -103,6 +103,13 @@ public class DiabloBlocks {
             .harvestLevel(0)
             .harvestTool(ToolType.PICKAXE)));
 
+    public static final RegistryObject<Block> HARDENED_NETHERRACK_GOLD_ORE = BLOCKS.register("hardened_netherrack_gold_ore_block", () -> new OreBlock(Block.Properties.create(Material.IRON)
+            .hardnessAndResistance(9f, 9f)
+            .sound(SoundType.NETHER_GOLD)
+            .harvestLevel(0)
+            .harvestTool(ToolType.PICKAXE)));
+
+
     public static final RegistryObject<Block> HARDENED_SOUL_SAND = BLOCKS.register("hardened_soul_sand_block", () -> new SoulSandBlock(Block.Properties.create(Material.SAND)
             .hardnessAndResistance(1.5f, 1.5f)
             .sound(SoundType.SOUL_SAND)
