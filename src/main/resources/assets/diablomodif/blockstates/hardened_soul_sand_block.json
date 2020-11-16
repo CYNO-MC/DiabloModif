@@ -1,5 +1,5 @@
 {
   "variants": {
-    "": { "model": "diablomodif:block/hardened_soul_sand_block" }
+    "": { "model": "diablomodif:block/hardened_blocks/hardened_soul_sand_block" }
   }
 }

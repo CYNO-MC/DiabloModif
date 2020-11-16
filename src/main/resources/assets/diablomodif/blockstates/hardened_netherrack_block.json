@@ -1,5 +1,5 @@
 {
   "variants": {
-    "": { "model": "diablomodif:block/hardened_netherrack_block" }
+    "": { "model": "diablomodif:block/hardened_blocks/hardened_netherrack_block" }
   }
 }

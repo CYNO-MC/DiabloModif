@@ -1,5 +1,5 @@
 {
   "variants": {
-    "": { "model": "diablomodif:block/hardened_obsidian_block" }
+    "": { "model": "diablomodif:block/hardened_blocks/hardened_obsidian_block" }
   }
 }
