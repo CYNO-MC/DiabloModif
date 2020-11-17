@@ -3,6 +3,7 @@ package com.cyno.diablo;
 import com.cyno.diablo.entities.*;
 import com.cyno.diablo.init.*;
 import com.cyno.diablo.util.BrewingHandler;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
@@ -15,13 +16,10 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import software.bernie.geckolib.GeckoLib;
-
+import software.bernie.geckolib3.GeckoLib;
 
 @Mod("diablomodif")
 public class Diablo {
-
-
     public static final Logger LOGGER = LogManager.getLogger();
     public static final String MOD_ID = "diablomodif";
 

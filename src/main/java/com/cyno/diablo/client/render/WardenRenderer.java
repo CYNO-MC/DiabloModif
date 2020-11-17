@@ -8,9 +8,9 @@ import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.ResourceLocation;
-import software.bernie.geckolib.model.provider.GeoModelProvider;
-import software.bernie.geckolib.renderers.geo.GeoEntityRenderer;
-import software.bernie.geckolib.renderers.geo.IGeoRenderer;
+import software.bernie.geckolib3.model.provider.GeoModelProvider;
+import software.bernie.geckolib3.renderers.geo.GeoEntityRenderer;
+import software.bernie.geckolib3.renderers.geo.IGeoRenderer;
 
 public class WardenRenderer extends GeoEntityRenderer<WardenEntity> {
     public WardenRenderer(EntityRendererManager renderManager) {

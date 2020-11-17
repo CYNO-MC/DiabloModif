@@ -4,7 +4,7 @@ import com.cyno.diablo.Diablo;
 import com.cyno.diablo.entities.DiabloEntity;
 import com.cyno.diablo.entities.WardenEntity;
 import net.minecraft.util.ResourceLocation;
-import software.bernie.geckolib.model.AnimatedGeoModel;
+import software.bernie.geckolib3.model.AnimatedGeoModel;
 
 public class DiabloModel extends AnimatedGeoModel<DiabloEntity> {
     @Override
