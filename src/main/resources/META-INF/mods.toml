@@ -28,7 +28,7 @@ description=''' Diablo. The Guardian of The Heart of The Nether.'''
 
 
 
-[[dependencies.examplemod]] #optional
+[[dependencies.diablomodif]] #optional
 
     modId="forge" #mandatory
 
@@ -40,9 +40,16 @@ description=''' Diablo. The Guardian of The Heart of The Nether.'''
 
     side="BOTH"
 
-[[dependencies.examplemod]]
+[[dependencies.diablomodif]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.15.2]"
+    versionRange="[1.16.3]"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.diablomodif]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.16.3]"
     ordering="NONE"
     side="BOTH"
