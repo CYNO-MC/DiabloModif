@@ -29,6 +29,13 @@ public class DiabloEntityTypes {
     public static final RegistryObject<EntityType<DiabloFireParticleEntity>> DIABLO_FIRE_PARTICLE = ENTITY_TYPES.register("diablo_fire_particle",
             () -> EntityType.Builder.create(DiabloFireParticleEntity::new, EntityClassification.AMBIENT).size(0.5f, 0.5f)
                     .build(new ResourceLocation(Diablo.MOD_ID, "diablo_fire_particle").toString()));
+    public static final RegistryObject<EntityType<BurnlingEntity>> BURNLING = ENTITY_TYPES.register("burnling",
+            () -> EntityType.Builder.create(BurnlingEntity::new, EntityClassification.MONSTER).size(1f, 1f)
+                    .build(new ResourceLocation(Diablo.MOD_ID, "burnling").toString()));
+
+    public static final RegistryObject<EntityType<LavaBubbleProjectileEntity>> LAVA_BUBBLE = ENTITY_TYPES.register("lava_bubble",
+            () -> EntityType.Builder.create(LavaBubbleProjectileEntity::new, EntityClassification.MONSTER).size(0.6f, 0.6f)
+                    .build(new ResourceLocation(Diablo.MOD_ID, "lava_bubble").toString()));
 
     public static final RegistryObject<EntityType<ArsonPotionEntity>> ARSON_POTION = ENTITY_TYPES.register("arson_potion",
             () -> EntityType.Builder.create((EntityType.IFactory<ArsonPotionEntity>) ArsonPotionEntity::new, EntityClassification.MISC).size(0.25f, 0.25f)

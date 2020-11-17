@@ -28,6 +28,8 @@ public class ClientEventBusSubscriber {
         RenderingRegistry.registerEntityRenderingHandler(DiabloEntityTypes.WARDEN.get(), WardenRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(DiabloEntityTypes.WARDEN_SOUND_PARTICLES.get(), AmbiantWardenSoundParticleRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(DiabloEntityTypes.DIABLO_FIRE_PARTICLE.get(), DiabloFireParticleRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(DiabloEntityTypes.BURNLING.get(), BurnlingRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(DiabloEntityTypes.LAVA_BUBBLE.get(), LavaProjectileRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(DiabloEntityTypes.ARSON_POTION.get(), (manager)-> new SpriteRenderer<>(manager, Minecraft.getInstance().getItemRenderer()));
     }
 
