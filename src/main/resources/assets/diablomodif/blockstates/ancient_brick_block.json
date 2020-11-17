@@ -1,5 +1,5 @@
 {
-  "variants": {
-    "": { "model": "diablomodif:block/ancient_brick_block" }
-  }
+    "variants": {
+        "": { "model": "diablomodif:block/ancient_bricks/ancient_brick_block" }
+    }
 }

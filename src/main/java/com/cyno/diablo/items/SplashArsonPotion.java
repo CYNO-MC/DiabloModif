@@ -2,14 +2,10 @@ package com.cyno.diablo.items;
 
 import com.cyno.diablo.Diablo;
 import com.cyno.diablo.entities.ArsonPotionEntity;
-import net.minecraft.advancements.CriteriaTriggers;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.entity.projectile.PotionEntity;
-import net.minecraft.item.*;
-import net.minecraft.potion.EffectInstance;
-import net.minecraft.potion.PotionUtils;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.stats.Stats;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
@@ -40,5 +36,9 @@ public class SplashArsonPotion extends Item {
         }
 
         return ActionResult.func_233538_a_(itemstack, worldIn.isRemote());
+    }
+    @Override
+    public boolean hasEffect(ItemStack stack){
+        return true;
     }
 }

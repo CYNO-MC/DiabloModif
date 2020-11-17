@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/template_wall_side_tall",
+  "textures": {
+    "wall": "diablomodif:blocks/ancient_bricks/ancient_wall_tall"
+  }
+}

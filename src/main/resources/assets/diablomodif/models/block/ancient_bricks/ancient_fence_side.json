@@ -1,0 +1,6 @@
+{
+   "parent": "minecraft:block/fence_side",
+   "textures": {
+       "texture": "diablomodif:blocks/ancient_bricks/ancient_fence"
+   }
+}

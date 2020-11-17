@@ -1,0 +1,6 @@
+{
+   "parent": "minecraft:block/cube_all",
+   "textures": {
+       "all": "diablomodif:blocks/ancient_bricks/ancient_brick_block"
+   }
+}
