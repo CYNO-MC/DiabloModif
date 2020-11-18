@@ -3,7 +3,7 @@ package com.cyno.diablo.client.model;
 import com.cyno.diablo.Diablo;
 import com.cyno.diablo.entities.BurnlingEntity;
 import net.minecraft.util.ResourceLocation;
-import software.bernie.geckolib.model.AnimatedGeoModel;
+import software.bernie.geckolib3.model.AnimatedGeoModel;
 
 public class BurnlingModel extends AnimatedGeoModel<BurnlingEntity> {
  /*   private final AnimatedModelRenderer Body;
