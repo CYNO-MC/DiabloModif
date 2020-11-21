@@ -4,6 +4,7 @@ import com.cyno.diablo.Diablo;
 import com.cyno.diablo.blocks.BlockItemBase;
 import com.cyno.diablo.items.*;
 import com.cyno.diablo.util.enums.DiabloItemTier;
+import net.minecraft.block.FlowingFluidBlock;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.BucketItem;
 import net.minecraft.item.Item;
@@ -49,7 +50,9 @@ public class DiabloItems {
         final IForgeRegistry<Item> registry = event.getRegistry();
 
         // for each block we registered...
-        DiabloBlocks.BLOCKS.getEntries().stream().map(RegistryObject::get).forEach( (block) -> {
+        DiabloBlocks.BLOCKS.getEntries().stream()
+                .filter(block -> !(block.get() instanceof FlowingFluidBlock))
+                .map(RegistryObject::get).forEach( (block) -> {
             // make a block item that places the block
             final BlockItem blockItem = new BlockItemBase(block);
 

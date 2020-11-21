@@ -24,7 +24,7 @@ public class DiabloFluids {
 
     public static final ForgeFlowingFluid.Properties MAGMA_PROPERTIES = new ForgeFlowingFluid.Properties(
             () -> MAGMA_FLUID.get(), () -> MAGMA_FLOWING.get(), FluidAttributes.builder(MAGMA_STILL_RL, MAGMA_FLOWING_RL)
-            .density(15).rarity(Rarity.RARE).sound(SoundEvents.ENTITY_MAGMA_CUBE_SQUISH).viscosity(100).temperature(1500).overlay(MAGMA_OVERLAY_RL)).block(() -> DiabloBlocks.MAGMA_FLUID_BLOCK.get());
+            .density(1).rarity(Rarity.RARE).sound(SoundEvents.ENTITY_MAGMA_CUBE_SQUISH).viscosity(6660).temperature(1500).overlay(MAGMA_OVERLAY_RL)).block(() -> DiabloBlocks.MAGMA_FLUID_BLOCK.get());
 
 
 }
