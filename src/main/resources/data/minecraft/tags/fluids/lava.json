@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:lava",
+    "minecraft:flowing_lava",
+    "diablomodif:magma_flowing",
+    "diablomodif:magma_fluid"
+  ]
+}

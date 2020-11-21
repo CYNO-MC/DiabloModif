@@ -11,8 +11,18 @@ import net.minecraftforge.registries.ForgeRegistries;
 public class DiabloBlocks {
 
 
-
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, Diablo.MOD_ID);
+
+
+    //Fluids
+    public static final RegistryObject<FlowingFluidBlock> MAGMA_FLUID_BLOCK = BLOCKS.register("magma_fluid_block",
+            () -> new FlowingFluidBlock(() -> DiabloFluids.MAGMA_FLUID.get(), Block.Properties.create(Material.LAVA)
+                    .doesNotBlockMovement()
+                    .hardnessAndResistance(100)
+                    .noDrops()
+                    .setLightLevel(value -> 30)
+            ));
+
 
 
     // Ancient Variation Blocks

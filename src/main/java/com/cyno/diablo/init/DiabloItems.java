@@ -5,6 +5,7 @@ import com.cyno.diablo.blocks.BlockItemBase;
 import com.cyno.diablo.items.*;
 import com.cyno.diablo.util.enums.DiabloItemTier;
 import net.minecraft.item.BlockItem;
+import net.minecraft.item.BucketItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.SwordItem;
 import net.minecraft.potion.EffectInstance;
@@ -21,6 +22,12 @@ public class DiabloItems {
 
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Diablo.MOD_ID);
 
+
+    // Bucket Items
+    public static final RegistryObject<BucketItem> MAGMA_BUCKET = ITEMS.register("magma_bucket",
+            () -> new BucketItem(() -> DiabloFluids.MAGMA_FLUID.get(),
+                    new Item.Properties().group(Diablo.DiabloItemGroup.instance).maxStackSize(1)));
+
     // Items
     public static final RegistryObject<Item> GLASS_VILE = ITEMS.register("glass_vile", VialItem::new);
     public static final RegistryObject<Item> THE_HORNS_OF_DIABLO = ITEMS.register("the_horns_of_diablo", ItemBase::new);
@@ -32,11 +39,11 @@ public class DiabloItems {
 
     // Tools
     public static final RegistryObject<SwordItem> THE_CONFLAGRATE = ITEMS.register("the_conflagrate",
-            () -> new SwordItem(DiabloItemTier.THE_CONFLAGRATE, 9, +3.0f, new Item.Properties().group(Diablo.TAB)));
+            () -> new SwordItem(DiabloItemTier.THE_CONFLAGRATE, 9, +3.0f, new Item.Properties().group(Diablo.DiabloItemGroup.instance)));
 
 
     // Spawn eggs
-    public static final RegistryObject<Item> BURNLING_SPAWN_EGG = ITEMS.register("burnling_spawn_egg", () -> new ModSpawnEggItem(DiabloEntityTypes.BURNLING, 0xf55d42, 0xf59042, new Item.Properties().group(Diablo.TAB)));
+    public static final RegistryObject<Item> BURNLING_SPAWN_EGG = ITEMS.register("burnling_spawn_egg", () -> new ModSpawnEggItem(DiabloEntityTypes.BURNLING, 0xf55d42, 0xf59042, new Item.Properties().group(Diablo.DiabloItemGroup.instance)));
     @SubscribeEvent
     public static void onRegisterItems(final RegistryEvent.Register<Item> event) {
         final IForgeRegistry<Item> registry = event.getRegistry();

@@ -3,7 +3,6 @@ package com.cyno.diablo;
 import com.cyno.diablo.entities.*;
 import com.cyno.diablo.init.*;
 import com.cyno.diablo.util.BrewingHandler;
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
@@ -31,6 +30,7 @@ public class Diablo {
         eventBus.addListener(this::doClientStuff);
 
         SoundInit.SOUNDS.register(eventBus);
+        DiabloFluids.FLUIDS.register(eventBus);
         DiabloBlocks.BLOCKS.register(eventBus);
         DiabloItems.ITEMS.register(eventBus);
         DiabloEntityTypes.ENTITY_TYPES.register(eventBus);
@@ -56,12 +56,16 @@ public class Diablo {
 
     private void doClientStuff(final FMLClientSetupEvent event) { }
 
-    public static final ItemGroup TAB = new ItemGroup("diabloTab") {
+    public static class DiabloItemGroup extends ItemGroup {
+        public static final ItemGroup instance = new DiabloItemGroup(ItemGroup.GROUPS.length, "diabloTab");
+
+        private DiabloItemGroup(int index, String label) {
+            super(index, label);
+        }
 
         @Override
         public ItemStack createIcon() {
             return new ItemStack(DiabloItems.THE_HORNS_OF_DIABLO.get());
         }
-    };
-
+    }
 }

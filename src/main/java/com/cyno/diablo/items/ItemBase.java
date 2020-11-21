@@ -7,6 +7,6 @@ public class ItemBase extends Item {
 
 
     public ItemBase() {
-        super(new Item.Properties().group(Diablo.TAB));
+        super(new Item.Properties().group(Diablo.DiabloItemGroup.instance));
     }
 }

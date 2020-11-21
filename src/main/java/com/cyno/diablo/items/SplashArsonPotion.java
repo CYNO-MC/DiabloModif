@@ -13,7 +13,7 @@ import net.minecraft.world.World;
 
 public class SplashArsonPotion extends Item {
     public SplashArsonPotion() {
-        super(new Item.Properties().group(Diablo.TAB).maxStackSize(1));
+        super(new Item.Properties().group(Diablo.DiabloItemGroup.instance).maxStackSize(1));
     }
 
     // basically the same as a normal ThrowablePotionItem but
