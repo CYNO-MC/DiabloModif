@@ -23,8 +23,8 @@ public class DiabloFluids {
     public static final RegistryObject<FlowingFluid> MAGMA_FLOWING = FLUIDS.register("magma_flowing", () -> new ForgeFlowingFluid.Flowing(DiabloFluids.MAGMA_PROPERTIES));
 
     public static final ForgeFlowingFluid.Properties MAGMA_PROPERTIES = new ForgeFlowingFluid.Properties(
-            () -> MAGMA_FLUID.get(), () -> MAGMA_FLOWING.get(), FluidAttributes.builder(MAGMA_STILL_RL, MAGMA_FLOWING_RL)
-            .density(1000).rarity(Rarity.RARE).sound(SoundEvents.BLOCK_LAVA_AMBIENT).viscosity(1000).temperature(1500).overlay(MAGMA_OVERLAY_RL)).block(() -> DiabloBlocks.MAGMA_FLUID_BLOCK.get());
+            () -> MAGMA_FLUID.get(), () -> MAGMA_FLOWING.get(), FluidAttributes.builder(MAGMA_STILL_RL, MAGMA_FLOWING_RL).sound(SoundEvents.BLOCK_LAVA_AMBIENT).sound(SoundEvents.ITEM_BUCKET_FILL_LAVA, SoundEvents.ITEM_BUCKET_EMPTY_LAVA)
+            .density(1000).rarity(Rarity.RARE).viscosity(1000).temperature(1500).overlay(MAGMA_OVERLAY_RL)).block(() -> DiabloBlocks.MAGMA_FLUID_BLOCK.get());
 
 
 }
